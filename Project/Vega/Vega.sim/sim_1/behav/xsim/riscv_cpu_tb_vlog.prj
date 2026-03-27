@@ -1,0 +1,20 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../../../../../../../mnt/disk1/Vivado/2025.2/data/rsb/busdef" \
+"../../../../../../src/cpu/core/ex_stage/alu.v" \
+"../../../../../../src/cpu/core/if_stage/bht.v" \
+"../../../../../../src/cpu/core/if_stage/btb.v" \
+"../../../../../../src/cpu/core/id_stage/decoder.v" \
+"../../../../../../src/cpu/core/ex_stage/ex_stage.v" \
+"../../../../../../src/cpu/core/hazard_unit.v" \
+"../../../../../../src/cpu/core/id_stage/id_stage.v" \
+"../../../../../../src/cpu/core/if_stage/if_stage.v" \
+"../../../../../../src/cpu/core/mem_stage/mem_stage.v" \
+"../../../../../../src/cpu/core/id_stage/register_file.v" \
+"../../../../../../src/cpu/riscv_cpu.v" \
+"../../../../../../test/riscv_cpu_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
