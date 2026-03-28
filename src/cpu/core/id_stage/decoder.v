@@ -4,26 +4,32 @@
 // ============================================================================
 
 module decoder (
-    input  wire [31:0] instr,
-    input  wire        valid,
-    
-    output reg  [4:0] rs1_addr,
-    output reg  [4:0] rs2_addr,
-    output reg  [4:0] rd_addr,
-    output reg  [63:0] imm,
-    output reg  [6:0] opcode,
-    output reg  [2:0] funct3,
-    output reg  [6:0] funct7,
-    output reg         is_compressed,
-    output reg         is_branch,
-    output reg         is_jump,
-    output reg         is_load,
-    output reg         is_store,
-    output reg         is_alu_imm,
-    output reg         is_alu_rr,
-    output reg         is_lui,
-    output reg         is_auipc,
-    output reg         is_system
+    // ---- 输入 ----
+    input  wire [31:0] instr,          // 待译码的32位指令字（含压缩指令）
+    input  wire        valid,           // 指令有效标志，低电平时输出全清零
+
+    // ---- 寄存器地址 ----
+    output reg  [4:0]  rs1_addr,       // 源寄存器1地址（RS1）
+    output reg  [4:0]  rs2_addr,       // 源寄存器2地址（RS2）
+    output reg  [4:0]  rd_addr,        // 目的寄存器地址（RD）
+
+    // ---- 立即数与指令字段 ----
+    output reg  [63:0] imm,            // 符号扩展后的64位立即数
+    output reg  [6:0]  opcode,         // 指令操作码字段 [6:0]
+    output reg  [2:0]  funct3,         // 指令funct3字段 [14:12]
+    output reg  [6:0]  funct7,         // 指令funct7字段 [31:25]
+
+    // ---- 指令类型标志 ----
+    output reg         is_compressed,  // 压缩指令（RVC，16-bit）
+    output reg         is_branch,      // 条件分支指令（BRANCH）
+    output reg         is_jump,        // 无条件跳转指令（JAL/JALR）
+    output reg         is_load,        // 内存加载指令（LOAD）
+    output reg         is_store,       // 内存存储指令（STORE）
+    output reg         is_alu_imm,     // ALU立即数运算指令（OP-IMM/OP-IMM-32）
+    output reg         is_alu_rr,      // ALU寄存器-寄存器运算指令（OP/OP-32）
+    output reg         is_lui,         // 高位立即数加载指令（LUI）
+    output reg         is_auipc,       // PC相对高位立即数指令（AUIPC）
+    output reg         is_system       // 系统指令（CSR/ECALL/EBREAK等）
 );
 
 wire [6:0] op = instr[6:0];
