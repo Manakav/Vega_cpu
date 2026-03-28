@@ -16,6 +16,14 @@ localparam DONE = 2'b10;
 reg [1:0] state;
 reg [127:0] mul_result;
 
+wire [127:0] mul_ss;
+wire [127:0] mul_su;
+wire [127:0] mul_uu;
+
+assign mul_ss = $signed(operand_a) * $signed(operand_b);
+assign mul_su = $signed(operand_a) * $signed({1'b0, operand_b});
+assign mul_uu = operand_a * operand_b;
+
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         state <= IDLE;
@@ -32,15 +40,15 @@ always @(posedge clk or negedge rst_n) begin
                             state <= DONE;
                         end
                         3'b001: begin
-                            result <= ($signed(operand_a) * $signed(operand_b))[127:64];
+                            result <= mul_ss[127:64];
                             state <= DONE;
                         end
                         3'b010: begin
-                            result <= ($signed(operand_a) * {64{1'b0}, operand_b})[127:64];
+                            result <= mul_su[127:64];
                             state <= DONE;
                         end
                         3'b011: begin
-                            result <= ({64{1'b0}, operand_a} * {64{1'b0}, operand_b})[127:64];
+                            result <= mul_uu[127:64];
                             state <= DONE;
                         end
                         3'b100: begin

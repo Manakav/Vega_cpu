@@ -41,7 +41,7 @@ initial begin
     irq_timer = 0;
     irq_software = 0;
     
-    $readmemh("instr_mem.hex", instr_mem);
+    $readmemh("test/instr_mem.hex", instr_mem, 0, 7);
     
     #100;
     rst_n = 1;

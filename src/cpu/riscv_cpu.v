@@ -51,7 +51,8 @@ wire [31:0] instr_if, instr_id;
 wire valid_if, valid_id, valid_ex, valid_mem, valid_wb;
 
 wire [DATA_WIDTH-1:0] alu_result_ex, mem_result_mem;
-wire branch_taken, branch_target;
+wire branch_taken;
+wire [ADDR_WIDTH-1:0] branch_target;
 wire mispredict;
 
 wire [3:0] alu_op;
