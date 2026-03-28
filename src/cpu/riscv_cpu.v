@@ -37,24 +37,35 @@ parameter DATA_WIDTH = 64;
 parameter ADDR_WIDTH = 64;
 parameter REG_COUNT = 32;
 
+// -------------------------------
+// ID 读寄存器与 WB 写回通路
+// -------------------------------
 wire [4:0] rs1_addr_id, rs2_addr_id;
 wire [DATA_WIDTH-1:0] rs1_data_id, rs2_data_id;
 wire [4:0] rd_addr_ex, rd_addr_mem, rd_addr_wb;
 wire [DATA_WIDTH-1:0] wb_result;
 wire reg_write_en_wb;
 
+// -------------------------------
+// 流水线控制与前递控制
+// -------------------------------
 wire stall_if, stall_id, flush_if, flush_ex;
 wire [1:0] forward_a, forward_b;
 
+// -------------------------------
+// 各级核心数据
+// -------------------------------
 wire [ADDR_WIDTH-1:0] pc_if, pc_id, pc_ex;
 wire [31:0] instr_if, instr_id;
 wire valid_if, valid_id, valid_ex, valid_mem, valid_wb;
 
+// EX/MEM 结果与分支反馈
 wire [DATA_WIDTH-1:0] alu_result_ex, mem_result_mem;
 wire branch_taken;
 wire [ADDR_WIDTH-1:0] branch_target;
 wire mispredict;
 
+// ID 产生的控制信号
 wire [3:0] alu_op;
 wire alu_src1_sel, alu_src2_sel;
 wire mem_read_en, mem_write_en;
@@ -64,11 +75,14 @@ wire [1:0] wb_sel;
 
 wire is_branch, is_jump;
 
+// 前递数据源
 wire [DATA_WIDTH-1:0] forward_ex_data, forward_mem_data, forward_wb_data;
 
+// 分支预测结果（当前版本未完全在 IF->EX 闭环接入）
 wire predict_taken;
 wire [ADDR_WIDTH-1:0] predict_target;
 
+// 32 x 64-bit 通用寄存器堆
 register_file #(
     .DATA_WIDTH(DATA_WIDTH),
     .REG_COUNT(REG_COUNT),
@@ -85,6 +99,7 @@ register_file #(
     .we(reg_write_en_wb)
 );
 
+// IF: PC 生成 + 取指 + 预测
 if_stage #(
     .ADDR_WIDTH(ADDR_WIDTH),
     .DATA_WIDTH(32)
@@ -105,6 +120,7 @@ if_stage #(
     .valid_out(valid_if)
 );
 
+// ID: 指令译码 + 控制信号生成
 id_stage #(
     .DATA_WIDTH(DATA_WIDTH),
     .ADDR_WIDTH(ADDR_WIDTH),
@@ -143,6 +159,7 @@ id_stage #(
     .is_jump_o(is_jump)
 );
 
+// EX: 运算执行 + 分支决策 + 错误预测检测
 ex_stage #(
     .DATA_WIDTH(DATA_WIDTH),
     .ADDR_WIDTH(ADDR_WIDTH)
@@ -188,6 +205,7 @@ ex_stage #(
     .mispredict_o(mispredict)
 );
 
+// MEM: 访存协议与 Load 数据格式化
 mem_stage #(
     .DATA_WIDTH(DATA_WIDTH),
     .ADDR_WIDTH(ADDR_WIDTH)
@@ -218,15 +236,24 @@ mem_stage #(
     .wb_sel_o()
 );
 
+// 统一数据口请求：任一读写有效即发起请求
 assign data_req = mem_read_en | mem_write_en;
+
+// 当前实现中 WB 目标寄存器来自 MEM 输出
 assign rd_addr_wb = rd_addr_mem;
+
+// 写回使能沿用执行路径控制
 assign reg_write_en_wb = reg_write_en_ex;
+
+// 写回选择：01 取访存结果，否则取 ALU 结果
 assign wb_result = (wb_sel == 2'b01) ? mem_result_mem : alu_result_ex;
 
+// 前递候选数据
 assign forward_ex_data = alu_result_ex;
 assign forward_mem_data = mem_result_mem;
 assign forward_wb_data = wb_result;
 
+// 冒险单元统一生成 stall/flush 与前递选择
 hazard_unit u_hazard_unit (
     .clk(clk),
     .rst_n(rst_n),
@@ -252,6 +279,7 @@ hazard_unit u_hazard_unit (
     .forward_b(forward_b)
 );
 
+// 调试接口占位：默认不挂起，始终可继续
 assign debug_halt = 1'b0;
 assign debug_resume = 1'b1;
 

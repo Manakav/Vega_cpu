@@ -67,6 +67,7 @@ wire                  alu_zero;
 wire                  alu_negative;
 wire                  alu_overflow;
 
+// A/B 操作数多路选择：先看是否选 PC/IMM，再看前递来源
 assign operand_a = alu_src1_sel_i ? pc_i : 
                    (forward_a_sel == 2'b01) ? forward_ex :
                    (forward_a_sel == 2'b10) ? forward_mem :
@@ -91,10 +92,12 @@ reg branch_taken;
 reg [ADDR_WIDTH-1:0] branch_target;
 
 always @(*) begin
+    // 缺省为不跳转且顺序执行
     branch_taken = 1'b0;
     branch_target = pc_i + 4;
     
     if (is_branch_i) begin
+        // 复用 mem_size_i 传递分支比较类型编码
         case (mem_size_i)
             3'b000: branch_taken = (rs1_data_i == rs2_data_i);   // BEQ
             3'b001: branch_taken = (rs1_data_i != rs2_data_i);   // BNE
@@ -105,6 +108,7 @@ always @(*) begin
         endcase
         branch_target = pc_i + imm_i;
     end else if (is_jump_i && wb_sel_i == 2'b10) begin
+        // JAL/JALR 均视为必跳转
         branch_taken = 1'b1;
         branch_target = (alu_op_i == 4'b1100) ? (pc_i + imm_i) : (rs1_data_i + imm_i);
     end
@@ -112,6 +116,7 @@ end
 
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n || flush) begin
+        // flush 直接注入气泡，阻断错误控制流继续传播
         pc_o <= 64'b0;
         alu_result_o <= 64'b0;
         rs2_data_o <= 64'b0;
@@ -141,6 +146,7 @@ always @(posedge clk or negedge rst_n) begin
         branch_target_o <= branch_target;
         
         if (is_branch_i || is_jump_i) begin
+            // 方向或目标任一不一致都判定为误预测
             mispredict_o <= (branch_taken != predict_taken_i) || 
                            (branch_taken && (branch_target != predict_target_i));
         end else begin

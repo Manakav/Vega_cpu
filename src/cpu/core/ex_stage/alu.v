@@ -18,6 +18,7 @@ wire signed [63:0] signed_b = operand_b;
 wire signed [63:0] signed_result = result;
 
 always @(*) begin
+    // alu_op 编码由 ID 阶段统一生成
     case (alu_op)
         4'b0000: result = operand_a + operand_b;              // ADD
         4'b0001: result = operand_a - operand_b;              // SUB
@@ -35,8 +36,10 @@ always @(*) begin
     endcase
 end
 
+// 通用标志位输出
 assign zero = (result == 64'b0);
 assign negative = result[63];
+// 当前仅对减法路径输出有符号溢出标志
 assign overflow = (alu_op == 4'b0001) ? 
                   ((operand_a[63] ^ operand_b[63]) & (result[63] ^ operand_a[63])) : 1'b0;
 

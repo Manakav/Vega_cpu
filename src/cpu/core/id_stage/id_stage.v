@@ -86,6 +86,7 @@ decoder u_decoder (
 assign rs1_addr_o = rs1_addr;
 assign rs2_addr_o = rs2_addr;
 
+// 译码级前递：在进入 EX 前可对源操作数进行一次替换
 wire [63:0] rs1_data_pre = (forward_sel == 2'b01) ? forward_rs1 : 
                             (forward_sel == 2'b10) ? forward_rs2 : rs1_data_i;
 wire [63:0] rs2_data_pre = (forward_sel == 2'b01) ? forward_rs1 :
@@ -93,6 +94,7 @@ wire [63:0] rs2_data_pre = (forward_sel == 2'b01) ? forward_rs1 :
 
 always @(*) begin
     if (!rst_n || flush) begin
+        // flush 时输出气泡并清零控制信号
         pc_o = 64'b0;
         instr_o = 32'b0;
         rs1_data_o = 64'b0;
@@ -111,6 +113,7 @@ always @(*) begin
         is_branch_o = 1'b0;
         is_jump_o = 1'b0;
     end else if (!stall && valid_i) begin
+        // 正常译码推进
         pc_o = pc_i;
         instr_o = instr_i;
         rs1_data_o = rs1_data_pre;
@@ -121,6 +124,7 @@ always @(*) begin
         is_branch_o = is_branch;
         is_jump_o = is_jump;
         
+        // 按 opcode 生成执行/访存/写回控制信号
         case (opcode)
             7'b0000011: begin // LOAD
                 alu_op_o = 4'b0000;

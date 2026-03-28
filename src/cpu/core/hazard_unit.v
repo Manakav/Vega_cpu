@@ -51,6 +51,7 @@ wire rs2_mem_hazard = rs2_used_id && (rs2_addr_id == rd_addr_mem) && reg_write_e
 wire rs2_wb_hazard = rs2_used_id && (rs2_addr_id == rd_addr_wb) && reg_write_en_wb;
 
 always @(*) begin
+    // 默认无停顿、无冲刷、无前递
     flush_if = 1'b0;
     flush_id = 1'b0;
     flush_ex = 1'b0;
@@ -60,13 +61,16 @@ always @(*) begin
     forward_b = 2'b00;
     
     if (mispredict_ex) begin
+        // 控制冒险优先级最高：立即冲刷流水
         flush_if = 1'b1;
         flush_id = 1'b1;
         flush_ex = 1'b1;
     end else if (mem_read_en_ex && ((rs1_addr_id == rd_addr_ex) || (rs2_addr_id == rd_addr_ex))) begin
+        // 典型 load-use 冒险：插入一个周期停顿
         stall_if = 1'b1;
         stall_id = 1'b1;
     end else begin
+        // 数据前递优先级：EX > MEM > WB
         if (rs1_ex_hazard) begin
             forward_a = 2'b01;
         end else if (rs1_mem_hazard) begin

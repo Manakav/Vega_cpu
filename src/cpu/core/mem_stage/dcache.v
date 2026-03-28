@@ -23,6 +23,7 @@ module dcache (
 localparam WAY_NUM = 2;
 localparam SET_NUM = 64;
 
+// 地址切分：组索引、Tag、行内偏移
 wire [5:0] index = addr[8:3];
 wire [27:0] tag = addr[31:4];
 wire [2:0] offset = addr[4:3];
@@ -39,6 +40,7 @@ integer ii, jj, kk;
 
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
+        // 清空所有 way 的状态
         for (ii = 0; ii < 2; ii = ii + 1) begin
             for (jj = 0; jj < 64; jj = jj + 1) begin
                 way_tag[ii][jj] <= 28'b0;
@@ -54,6 +56,7 @@ always @(posedge clk or negedge rst_n) begin
         mem_req <= 1'b0;
         mem_we <= 1'b0;
     end else if (req) begin
+        // 查找命中路
         found = 1'b0;
         match_way = 2'b0;
         for (kk = 0; kk < 2; kk = kk + 1) begin
@@ -65,6 +68,7 @@ always @(posedge clk or negedge rst_n) begin
         
         if (found) begin
             if (we) begin
+                // 写命中按访问宽度更新行数据，置 dirty
                 case (size)
                     3'b000: way_data[match_way][index][offset*8 +: 8] <= wdata[7:0];
                     3'b001: way_data[match_way][index][offset*8 +: 16] <= wdata[15:0];
@@ -72,11 +76,13 @@ always @(posedge clk or negedge rst_n) begin
                 endcase
                 way_dirty[match_way][index] <= 1'b1;
             end
+            // 读命中返回 64-bit 视图
             data_out <= way_data[match_way][index][offset*8 +: 64];
             hit <= 1'b1;
         end else begin
             hit <= 1'b0;
             if (mem_ready) begin
+                // 回填新行并更新 LRU
                 way_tag[way_lru[index]][index] <= tag;
                 way_valid[way_lru[index]][index] <= 1'b1;
                 way_data[way_lru[index]][index] <= mem_rdata;
@@ -84,6 +90,7 @@ always @(posedge clk or negedge rst_n) begin
                 way_lru[index] <= way_lru[index] - 1;
                 hit <= 1'b1;
             end else begin
+                // miss 请求下层存储
                 mem_req <= 1'b1;
                 mem_addr <= {tag, index, 3'b0};
             end

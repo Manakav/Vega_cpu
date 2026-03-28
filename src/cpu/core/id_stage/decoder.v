@@ -31,6 +31,7 @@ wire [2:0] f3 = instr[14:12];
 wire [6:0] f7 = instr[31:25];
 
 always @(*) begin
+    // 默认输出：未命中类型时保持空操作
     rs1_addr = 5'b0;
     rs2_addr = 5'b0;
     rd_addr = 5'b0;
@@ -54,6 +55,7 @@ always @(*) begin
         funct3 = 3'b0;
         funct7 = 7'b0;
     end else if (instr[1:0] != 2'b11) begin
+        // 压缩指令通路（RVC）
         is_compressed = 1'b1;
         case (instr[1:0])
             2'b00: begin
@@ -139,6 +141,7 @@ always @(*) begin
             end
         endcase
     end else begin
+        // 标准 32-bit 指令通路
         case (op)
             7'b0000011: begin // LOAD
                 rs1_addr = instr[19:15];
