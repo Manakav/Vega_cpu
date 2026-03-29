@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 
+// DCache 单元测试：验证 miss 请求、回填后 hit 与读数据
 module tb_dcache;
+// 时钟/请求输入
 reg clk;
 reg rst_n;
 reg [63:0] addr;
@@ -38,8 +40,10 @@ dcache dut (
     .mem_ready(mem_ready)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -52,6 +56,7 @@ end
 endtask
 
 initial begin
+    // 初始化
     clk = 0;
     rst_n = 0;
     addr = 64'h2000;
@@ -66,6 +71,7 @@ initial begin
 
     #12 rst_n = 1;
 
+    // 第一次读：期望 miss，并拉起 mem_req
     @(posedge clk);
     req <= 1;
     we <= 0;
@@ -75,9 +81,11 @@ initial begin
     check(hit == 1'b0, "first read should miss");
     check(mem_req == 1'b1, "miss should raise mem_req");
 
+    // 模拟下层返回一条 cache line（低 64bit 有效）
     mem_rdata <= 256'b0;
     mem_rdata[63:0] <= 64'h1122334455667788;
     mem_ready <= 1;
+    // 第二次读同地址：期望命中
     @(posedge clk);
     mem_ready <= 0;
 

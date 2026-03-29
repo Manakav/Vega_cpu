@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 
+// IF 阶段测试：验证请求输出、有效位与误预测重定向
 module tb_if_stage;
+// 输入激励
 reg clk;
 reg rst_n;
 reg stall;
@@ -34,8 +36,10 @@ if_stage dut (
     .valid_out(valid_out)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -48,6 +52,7 @@ end
 endtask
 
 initial begin
+    // 初始化
     clk = 0;
     rst_n = 0;
     stall = 0;
@@ -61,11 +66,13 @@ initial begin
 
     #12 rst_n = 1;
 
+    // 正常推进若干拍后，instr_req 应为高且 valid_out 拉高
     repeat (3) @(posedge clk);
     #1;
     check(instr_req == 1'b1, "instr_req should be always high");
     check(valid_out == 1'b1, "valid_out should become high");
 
+    // 注入误预测，检查 PC 重定向
     mispredict = 1;
     @(posedge clk);
     mispredict = 0;

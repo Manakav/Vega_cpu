@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 
+// CSR 单元测试：覆盖 CSR 写读与定时中断触发
 module tb_csr_unit;
+// 时钟/复位与 CSR 访问口
 reg clk;
 reg rst_n;
 reg [11:0] csr_addr;
@@ -36,8 +38,10 @@ csr_unit dut (
     .exception_value(exception_value)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -50,6 +54,7 @@ end
 endtask
 
 initial begin
+    // 初始化
     clk = 0;
     rst_n = 0;
     csr_addr = 0;
@@ -83,6 +88,7 @@ initial begin
 
     repeat (5) @(posedge clk);
     #1;
+    // mtime>=mtimecmp 且 mie[7]=1 后应触发 irq_timer
     check(irq_timer == 1'b1, "irq_timer should assert when mtime>=mtimecmp and mie[7]=1");
 
     // read back mie

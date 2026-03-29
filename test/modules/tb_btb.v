@@ -1,5 +1,6 @@
 `timescale 1ns / 1ps
 
+// BTB 单元测试：验证写入更新后可命中并返回目标地址
 module tb_btb;
 reg clk;
 reg rst_n;
@@ -26,8 +27,10 @@ btb dut (
     .update_target(update_target)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -40,6 +43,7 @@ end
 endtask
 
 initial begin
+    // 初始化
     clk = 0;
     rst_n = 0;
     read_en = 1;
@@ -51,8 +55,10 @@ initial begin
 
     #12 rst_n = 1;
     #1;
+    // 复位后应 miss
     check(hit == 1'b0, "reset must miss");
 
+    // 写入一条 BTB 项
     @(posedge clk);
     update_en <= 1;
     @(posedge clk);
@@ -61,6 +67,7 @@ initial begin
 
     pc = 64'h0000_2000;
     #1;
+    // 再次读取应命中并返回更新目标
     check(hit == 1'b1, "updated entry must hit");
     check(valid == 1'b1, "updated entry valid failed");
     check(target == 64'h0000_3000, "updated target failed");

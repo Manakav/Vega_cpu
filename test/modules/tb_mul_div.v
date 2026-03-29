@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 
+// MUL/DIV 单元测试：覆盖 MUL 与除零保护行为
 module tb_mul_div;
+// 输入激励
 reg clk;
 reg rst_n;
 reg start;
@@ -22,8 +24,10 @@ mul_div dut (
     .done(done)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -36,6 +40,7 @@ end
 endtask
 
 initial begin
+    // 初始化
     clk = 0;
     rst_n = 0;
     start = 0;
@@ -46,6 +51,7 @@ initial begin
 
     #12 rst_n = 1;
 
+    // MUL: 3 * 4 = 12
     @(posedge clk);
     start <= 1;
     funct3 <= 3'b000;
@@ -61,6 +67,7 @@ initial begin
     start <= 0;
     @(posedge clk);
 
+    // DIV by zero: 期望返回全 1
     start <= 1;
     funct3 <= 3'b100;
     operand_a <= 64'd9;

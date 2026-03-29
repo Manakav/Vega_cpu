@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 
+// Register File 单元测试：验证通用寄存器写读与 x0 恒零
 module tb_register_file;
+// 输入激励
 reg clk;
 reg rst_n;
 reg [4:0] raddr1;
@@ -24,8 +26,10 @@ register_file dut (
     .we(we)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -38,6 +42,7 @@ end
 endtask
 
 initial begin
+    // 初始化
     clk = 0;
     rst_n = 0;
     raddr1 = 0;
@@ -49,6 +54,7 @@ initial begin
 
     #12 rst_n = 1;
 
+    // 写 x1 并读回
     @(posedge clk);
     we <= 1;
     waddr <= 5'd1;
@@ -60,6 +66,7 @@ initial begin
     #1;
     check(rdata1 == 64'h12345678ABCDEF00, "Write/read x1 failed");
 
+    // x0 读出必须恒为 0
     raddr2 <= 5'd0;
     #1;
     check(rdata2 == 64'b0, "x0 must be zero");

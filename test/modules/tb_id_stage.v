@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 
+// ID 阶段测试：验证译码字段与 LOAD 控制信号输出
 module tb_id_stage;
+// 输入激励
 reg clk;
 reg rst_n;
 reg stall;
@@ -68,8 +70,10 @@ id_stage dut (
     .is_jump_o(is_jump_o)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -82,6 +86,7 @@ end
 endtask
 
 initial begin
+    // 初始化默认激励
     clk = 0;
     rst_n = 0;
     stall = 0;
@@ -100,6 +105,7 @@ initial begin
     valid_i = 1;
     #1;
 
+    // 检查 lw x1,4(x2) 的关键译码输出
     check(rs1_addr_o == 5'd2, "rs1 addr decode failed");
     check(rd_addr_o == 5'd1, "rd decode failed");
     check(mem_read_en_o == 1'b1, "load mem_read_en failed");

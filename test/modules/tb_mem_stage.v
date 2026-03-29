@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 
+// MEM 阶段测试：验证字节使能、窄写数据与 load 扩展
 module tb_mem_stage;
+// 输入激励
 reg clk;
 reg rst_n;
 reg [63:0] pc_i;
@@ -54,8 +56,10 @@ mem_stage dut (
     .wb_sel_o(wb_sel_o)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -68,6 +72,7 @@ end
 endtask
 
 initial begin
+    // 初始化
     clk = 0;
     rst_n = 0;
     pc_i = 64'h1000;
@@ -86,6 +91,7 @@ initial begin
 
     #12 rst_n = 1;
 
+    // store word: 检查 mem_be 与写数据低位对齐
     valid_i = 1;
     mem_write_en_i = 1;
     mem_read_en_i = 0;
@@ -95,6 +101,7 @@ initial begin
     check(mem_be == 8'b00001111, "mem_be for word store failed");
     check(mem_wdata == 64'h00000000AABBCCDD, "mem_wdata narrow store failed");
 
+    // load byte(signed): 检查符号扩展
     mem_write_en_i = 0;
     mem_read_en_i = 1;
     mem_size_i = 3'b000; // signed byte

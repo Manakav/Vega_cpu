@@ -1,15 +1,22 @@
 `timescale 1ns / 1ps
 
+// ============================================================================
+// 顶层 CPU 基础冒烟测试
+// 目标：验证复位后时钟推进、接口连线和基础运行流程
+// ============================================================================
 module riscv_cpu_tb;
 
+// 时钟/复位
 reg                     clk;
 reg                     rst_n;
 
+// 指令接口
 wire [63:0]            instr_addr;
 reg  [31:0]            instr_data;
 wire                    instr_req;
 reg                     instr_gnt;
 
+// 数据接口
 wire [63:0]            data_addr;
 wire [63:0]            data_wdata;
 reg  [63:0]            data_rdata;
@@ -18,6 +25,7 @@ wire                    data_we;
 wire [7:0]             data_be;
 reg                     data_gnt;
 
+// 中断/调试接口
 reg                     irq_external;
 reg                     irq_timer;
 reg                     irq_software;
@@ -28,6 +36,7 @@ wire                    debug_resume;
 reg [7:0] instruction_mem [0:16383];
 reg [7:0] data_mem [0:16383];
 
+// 统计信息
 integer cycle_count;
 integer error_count;
 
@@ -53,11 +62,13 @@ riscv_cpu u_dut (
     .debug_resume(debug_resume)
 );
 
+// 100MHz 时钟（10ns 周期）
 initial begin
     clk = 0;
     forever #5 clk = ~clk;
 end
 
+// 基础激励：复位 -> 运行一段时间 -> 结束
 initial begin
     rst_n = 0;
     irq_external = 0;
@@ -79,6 +90,7 @@ initial begin
     $finish;
 end
 
+// 周期计数器
 always @(posedge clk) begin
     cycle_count <= cycle_count + 1;
 end

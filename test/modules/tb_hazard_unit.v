@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 
+// Hazard 单元测试：前递优先级、load-use 停顿、误预测冲刷
 module tb_hazard_unit;
+// 输入激励
 reg clk;
 reg rst_n;
 reg [4:0] rs1_addr_id;
@@ -50,8 +52,10 @@ hazard_unit dut (
     .forward_b(forward_b)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -68,6 +72,7 @@ initial begin
     rst_n = 1;
     errors = 0;
 
+    // 检查前递优先级（本例 rs1 取 MEM，rs2 取 WB）
     rs1_addr_id = 5'd1; rs2_addr_id = 5'd2;
     rs1_used_id = 1; rs2_used_id = 1;
     rd_addr_ex = 5'd3; rd_addr_mem = 5'd1; rd_addr_wb = 5'd2;
@@ -77,11 +82,13 @@ initial begin
     check(forward_a == 2'b10, "forward_a from MEM failed");
     check(forward_b == 2'b11, "forward_b from WB failed");
 
+    // 检查 load-use 停顿
     rd_addr_ex = 5'd1;
     mem_read_en_ex = 1;
     #1;
     check(stall_if == 1'b1 && stall_id == 1'b1, "load-use stall failed");
 
+    // 检查 mispredict 冲刷
     mem_read_en_ex = 0;
     mispredict_ex = 1;
     #1;

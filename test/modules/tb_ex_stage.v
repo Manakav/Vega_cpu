@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 
+// EX 阶段测试：验证 ALU 运算与分支误预测检测
 module tb_ex_stage;
+// 输入激励
 reg clk;
 reg rst_n;
 reg flush;
@@ -84,8 +86,10 @@ ex_stage dut (
     .mispredict_o(mispredict_o)
 );
 
+// 时钟
 always #5 clk = ~clk;
 
+// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -98,6 +102,7 @@ end
 endtask
 
 initial begin
+    // 初始化默认激励
     clk = 0;
     rst_n = 0;
     flush = 0;
@@ -128,11 +133,13 @@ initial begin
 
     #12 rst_n = 1;
 
+    // 用 ADD 路径检查 ALU 结果
     valid_i = 1;
     @(posedge clk);
     #1;
     check(alu_result_o == 64'd10, "ALU add result failed");
 
+    // 构造 BEQ 命中且预测未跳，期望 mispredict=1
     is_branch_i = 1;
     mem_size_i = 3'b000; // BEQ
     predict_taken_i = 0;
