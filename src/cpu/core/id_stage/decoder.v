@@ -27,6 +27,8 @@ module decoder (
     output reg         is_store,       // 内存存储指令（STORE）
     output reg         is_alu_imm,     // ALU立即数运算指令（OP-IMM/OP-IMM-32）
     output reg         is_alu_rr,      // ALU寄存器-寄存器运算指令（OP/OP-32）
+    output reg         is_muldiv,      // M扩展乘除法指令
+    output reg  [2:0]  muldiv_funct3,  // M扩展子操作编码
     output reg         is_lui,         // 高位立即数加载指令（LUI）
     output reg         is_auipc,       // PC相对高位立即数指令（AUIPC）
     output reg         is_system       // 系统指令（CSR/ECALL/EBREAK等）
@@ -52,6 +54,8 @@ always @(*) begin
     is_store = 1'b0;
     is_alu_imm = 1'b0;
     is_alu_rr = 1'b0;
+    is_muldiv = 1'b0;
+    muldiv_funct3 = 3'b0;
     is_lui = 1'b0;
     is_auipc = 1'b0;
     is_system = 1'b0;
@@ -66,82 +70,228 @@ always @(*) begin
         case (instr[1:0])
             2'b00: begin
                 case (instr[15:13])
-                    3'b000: begin
-                        rs2_addr = {2'b01, instr[4:2]};
-                        rd_addr = {2'b01, instr[9:7]};
-                        imm = {{59{1'b0}}, instr[12], instr[11:5]};
+                    3'b000: begin // C.ADDI4SPN
+                        opcode = 7'b0010011;
+                        funct3 = 3'b000;
+                        rs1_addr = 5'd2;
+                        rd_addr  = {2'b01, instr[4:2]};
+                        imm = {54'b0, instr[10:7], instr[12:11], instr[5], instr[6], 2'b00};
+                        is_alu_imm = 1'b1;
                     end
-                    3'b010: begin
+                    3'b010: begin // C.LW
+                        opcode = 7'b0000011;
+                        funct3 = 3'b010;
                         rs1_addr = {2'b01, instr[9:7]};
-                        rd_addr = {2'b01, instr[9:7]};
-                        imm = {{57{1'b0}}, instr[12], instr[11:10], instr[6:5], instr[4:3], instr[8:7]};
+                        rd_addr  = {2'b01, instr[4:2]};
+                        imm = {57'b0, instr[5], instr[12:10], instr[6], 2'b00};
+                        is_load = 1'b1;
                     end
-                    3'b110: begin
-                        rs2_addr = {2'b01, instr[4:2]};
+                    3'b011: begin // C.LD
+                        opcode = 7'b0000011;
+                        funct3 = 3'b011;
                         rs1_addr = {2'b01, instr[9:7]};
-                        imm = {{58{1'b0}}, instr[12], instr[11:5]};
+                        rd_addr  = {2'b01, instr[4:2]};
+                        imm = {56'b0, instr[6:5], instr[12:10], 3'b000};
+                        is_load = 1'b1;
+                    end
+                    3'b110: begin // C.SW
+                        opcode = 7'b0100011;
+                        funct3 = 3'b010;
+                        rs1_addr = {2'b01, instr[9:7]};
+                        rs2_addr = {2'b01, instr[4:2]};
+                        imm = {57'b0, instr[5], instr[12], instr[11:10], instr[6], 2'b00};
+                        is_store = 1'b1;
+                    end
+                    3'b111: begin // C.SD
+                        opcode = 7'b0100011;
+                        funct3 = 3'b011;
+                        rs1_addr = {2'b01, instr[9:7]};
+                        rs2_addr = {2'b01, instr[4:2]};
+                        imm = {56'b0, instr[6:5], instr[12:10], 3'b000};
+                        is_store = 1'b1;
                     end
                 endcase
             end
             2'b01: begin
                 case (instr[15:13])
-                    3'b000: begin
-                        rd_addr = {2'b01, instr[9:7]};
-                        rs1_addr = {2'b01, instr[9:7]};
-                        imm = {{59{1'b0}}, instr[12], instr[11:5]};
+                    3'b000: begin // C.ADDI/C.NOP
+                        opcode = 7'b0010011;
+                        funct3 = 3'b000;
+                        rd_addr  = instr[11:7];
+                        rs1_addr = instr[11:7];
+                        imm = {{58{instr[12]}}, instr[12], instr[6:2]};
+                        is_alu_imm = 1'b1;
                     end
-                    3'b001: begin
-                        rd_addr = {2'b01, instr[9:7]};
-                        rs1_addr = {2'b01, instr[9:7]};
-                        imm = {{59{1'b0}}, instr[12], instr[11:5]};
+                    3'b001: begin // C.ADDIW
+                        opcode = 7'b0011011;
+                        funct3 = 3'b000;
+                        rd_addr  = instr[11:7];
+                        rs1_addr = instr[11:7];
+                        imm = {{58{instr[12]}}, instr[12], instr[6:2]};
+                        is_alu_imm = 1'b1;
                     end
-                    3'b010: begin
-                        rs1_addr = {2'b01, instr[9:7]};
-                        rd_addr = {2'b01, instr[11:7]};
-                        imm = {{57{1'b0}}, instr[12], instr[11:10], instr[4:3], instr[8:7]};
+                    3'b010: begin // C.LI
+                        opcode = 7'b0010011;
+                        funct3 = 3'b000;
+                        rd_addr  = instr[11:7];
+                        rs1_addr = 5'b0;
+                        imm = {{58{instr[12]}}, instr[12], instr[6:2]};
+                        is_alu_imm = 1'b1;
+                    end
+                    3'b011: begin
+                        if (instr[11:7] == 5'd2) begin // C.ADDI16SP
+                            opcode = 7'b0010011;
+                            funct3 = 3'b000;
+                            rd_addr  = 5'd2;
+                            rs1_addr = 5'd2;
+                            imm = {{54{instr[12]}}, instr[12], instr[4:3], instr[5], instr[2], instr[6], 4'b0000};
+                            is_alu_imm = 1'b1;
+                        end else begin // C.LUI
+                            opcode = 7'b0110111;
+                            rd_addr = instr[11:7];
+                            imm = {{46{instr[12]}}, instr[12], instr[6:2], 12'b0};
+                            is_lui = 1'b1;
+                        end
                     end
                     3'b100: begin
-                        rd_addr = {2'b01, instr[9:7]};
-                        rs1_addr = {2'b10, instr[6:2]};
-                        rs2_addr = 5'b0;
+                        if (instr[11:10] == 2'b00) begin // C.SRLI
+                            opcode = 7'b0010011;
+                            funct3 = 3'b101;
+                            funct7 = 7'b0000000;
+                            rd_addr  = {2'b01, instr[9:7]};
+                            rs1_addr = {2'b01, instr[9:7]};
+                            imm = {58'b0, instr[12], instr[6:2]};
+                            is_alu_imm = 1'b1;
+                        end else if (instr[11:10] == 2'b01) begin // C.SRAI
+                            opcode = 7'b0010011;
+                            funct3 = 3'b101;
+                            funct7 = 7'b0100000;
+                            rd_addr  = {2'b01, instr[9:7]};
+                            rs1_addr = {2'b01, instr[9:7]};
+                            imm = {58'b0, instr[12], instr[6:2]};
+                            is_alu_imm = 1'b1;
+                        end else if (instr[11:10] == 2'b10) begin // C.ANDI
+                            opcode = 7'b0010011;
+                            funct3 = 3'b111;
+                            rd_addr  = {2'b01, instr[9:7]};
+                            rs1_addr = {2'b01, instr[9:7]};
+                            imm = {{58{instr[12]}}, instr[12], instr[6:2]};
+                            is_alu_imm = 1'b1;
+                        end else begin
+                            rd_addr  = {2'b01, instr[9:7]};
+                            rs1_addr = {2'b01, instr[9:7]};
+                            rs2_addr = {2'b01, instr[4:2]};
+                            if ({instr[12], instr[6:5]} == 3'b000) begin // C.SUB
+                                opcode = 7'b0110011; funct3 = 3'b000; funct7 = 7'b0100000; is_alu_rr = 1'b1;
+                            end else if ({instr[12], instr[6:5]} == 3'b001) begin // C.XOR
+                                opcode = 7'b0110011; funct3 = 3'b100; funct7 = 7'b0000000; is_alu_rr = 1'b1;
+                            end else if ({instr[12], instr[6:5]} == 3'b010) begin // C.OR
+                                opcode = 7'b0110011; funct3 = 3'b110; funct7 = 7'b0000000; is_alu_rr = 1'b1;
+                            end else if ({instr[12], instr[6:5]} == 3'b011) begin // C.AND
+                                opcode = 7'b0110011; funct3 = 3'b111; funct7 = 7'b0000000; is_alu_rr = 1'b1;
+                            end else if ({instr[12], instr[6:5]} == 3'b100) begin // C.SUBW
+                                opcode = 7'b0111011; funct3 = 3'b000; funct7 = 7'b0100000; is_alu_rr = 1'b1;
+                            end else if ({instr[12], instr[6:5]} == 3'b101) begin // C.ADDW
+                                opcode = 7'b0111011; funct3 = 3'b000; funct7 = 7'b0000000; is_alu_rr = 1'b1;
+                            end
+                        end
                     end
-                    3'b110: begin
-                        rs2_addr = {2'b01, instr[4:2]};
+                    3'b101: begin // C.J
+                        opcode = 7'b1101111;
+                        rd_addr = 5'b0;
+                        imm = {{52{instr[12]}}, instr[8], instr[10:9], instr[6], instr[7], instr[2], instr[11], instr[5:3], 1'b0};
+                        is_jump = 1'b1;
+                    end
+                    3'b110: begin // C.BEQZ
+                        opcode = 7'b1100011;
+                        funct3 = 3'b000;
                         rs1_addr = {2'b01, instr[9:7]};
-                        imm = {{58{1'b0}}, instr[12], instr[11:5]};
+                        rs2_addr = 5'b0;
+                        imm = {{55{instr[12]}}, instr[6:5], instr[2], instr[11:10], instr[4:3], 1'b0};
+                        is_branch = 1'b1;
+                    end
+                    3'b111: begin // C.BNEZ
+                        opcode = 7'b1100011;
+                        funct3 = 3'b001;
+                        rs1_addr = {2'b01, instr[9:7]};
+                        rs2_addr = 5'b0;
+                        imm = {{55{instr[12]}}, instr[6:5], instr[2], instr[11:10], instr[4:3], 1'b0};
+                        is_branch = 1'b1;
                     end
                 endcase
             end
             2'b10: begin
                 case (instr[15:13])
-                    3'b000: begin
-                        rs1_addr = {2'b10, instr[9:7]};
-                        rs2_addr = {2'b10, instr[4:2]};
-                        rd_addr = {2'b10, instr[9:7]};
+                    3'b000: begin // C.SLLI
+                        opcode = 7'b0010011;
+                        funct3 = 3'b001;
+                        rd_addr  = instr[11:7];
+                        rs1_addr = instr[11:7];
+                        imm = {58'b0, instr[12], instr[6:2]};
+                        is_alu_imm = 1'b1;
                     end
-                    3'b001: begin
-                        rs1_addr = {2'b10, instr[9:7]};
-                        rd_addr = {2'b10, instr[9:7]};
-                        imm = {52'b0, instr[12:5]};
+                    3'b010: begin // C.LWSP
+                        opcode = 7'b0000011;
+                        funct3 = 3'b010;
+                        rd_addr = instr[11:7];
+                        rs1_addr = 5'd2;
+                        imm = {56'b0, instr[3:2], instr[12], instr[6:4], 2'b00};
+                        is_load = 1'b1;
                     end
-                    3'b010: begin
-                        rs1_addr = {2'b10, instr[9:7]};
-                        rd_addr = {2'b10, instr[9:7]};
-                        imm = {52'b0, instr[12:5]};
-                    end
-                    3'b011: begin
-                        rd_addr = {2'b10, instr[9:7]};
-                        imm = {52'b0, instr[12:5]};
+                    3'b011: begin // C.LDSP
+                        opcode = 7'b0000011;
+                        funct3 = 3'b011;
+                        rd_addr = instr[11:7];
+                        rs1_addr = 5'd2;
+                        imm = {55'b0, instr[4:2], instr[12], instr[6:5], 3'b000};
+                        is_load = 1'b1;
                     end
                     3'b100: begin
-                        rs1_addr = {2'b10, instr[9:7]};
-                        rs2_addr = {2'b10, instr[4:2]};
-                        rd_addr = {2'b10, instr[9:7]};
+                        rd_addr = instr[11:7];
+                        rs1_addr = instr[11:7];
+                        rs2_addr = instr[6:2];
+                        if (!instr[12] && (instr[6:2] == 5'b0)) begin // C.JR
+                            opcode = 7'b1100111;
+                            rd_addr = 5'b0;
+                            is_jump = 1'b1;
+                            imm = 64'b0;
+                        end else if (!instr[12] && (instr[6:2] != 5'b0)) begin // C.MV
+                            opcode = 7'b0010011;
+                            funct3 = 3'b000;
+                            rs1_addr = instr[6:2];
+                            imm = 64'b0;
+                            is_alu_imm = 1'b1;
+                        end else if (instr[12] && (instr[11:7] == 5'b0) && (instr[6:2] == 5'b0)) begin // C.EBREAK
+                            opcode = 7'b1110011;
+                            funct3 = 3'b000;
+                            is_system = 1'b1;
+                        end else if (instr[12] && (instr[6:2] == 5'b0)) begin // C.JALR
+                            opcode = 7'b1100111;
+                            rd_addr = 5'd1;
+                            is_jump = 1'b1;
+                            imm = 64'b0;
+                        end else begin // C.ADD
+                            opcode = 7'b0110011;
+                            funct3 = 3'b000;
+                            funct7 = 7'b0000000;
+                            is_alu_rr = 1'b1;
+                        end
                     end
-                    3'b110: begin
-                        rs1_addr = {2'b10, instr[9:7]};
-                        rs2_addr = {2'b10, instr[4:2]};
-                        rd_addr = {2'b10, instr[9:7]};
+                    3'b110: begin // C.SWSP
+                        opcode = 7'b0100011;
+                        funct3 = 3'b010;
+                        rs1_addr = 5'd2;
+                        rs2_addr = instr[6:2];
+                        imm = {56'b0, instr[8:7], instr[12:9], 2'b00};
+                        is_store = 1'b1;
+                    end
+                    3'b111: begin // C.SDSP
+                        opcode = 7'b0100011;
+                        funct3 = 3'b011;
+                        rs1_addr = 5'd2;
+                        rs2_addr = instr[6:2];
+                        imm = {55'b0, instr[9:7], instr[12:10], 3'b000};
+                        is_store = 1'b1;
                     end
                 endcase
             end
@@ -213,7 +363,12 @@ always @(*) begin
                 rs1_addr = instr[19:15];
                 rs2_addr = instr[24:20];
                 rd_addr = instr[11:7];
-                is_alu_rr = 1'b1;
+                if (instr[31:25] == 7'b0000001) begin
+                    is_muldiv = 1'b1;
+                    muldiv_funct3 = instr[14:12];
+                end else begin
+                    is_alu_rr = 1'b1;
+                end
             end
             
             7'b0111011: begin // OP32 (64-bit)
