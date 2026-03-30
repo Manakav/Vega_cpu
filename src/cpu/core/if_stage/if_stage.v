@@ -92,6 +92,7 @@ assign predict_pc    = btb_hit ? btb_target : (pc_reg + seq_inc);
 // Way2 仅在 BTB 未命中（无预测跳转）时有效；若 Way1 被预测为跳转，Way2 路径无效
 wire way2_fetch_valid = ~(btb_hit & btb_valid);
 
+//实例化Branch Target Buffer（分支目标缓冲器）
 btb u_btb (
     .clk(clk),
     .rst_n(rst_n),
@@ -105,6 +106,7 @@ btb u_btb (
     .update_target(branch_target)
 );
 
+//实例化Branch History Table（分支历史表）
 bht u_bht (
     .clk(clk),
     .rst_n(rst_n),
