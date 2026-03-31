@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/liyu/cpuP/Vega_cpu/src/cpu/core/id_stage/decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decoder
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/liyu/cpuP/Vega_cpu/test/modules/tb_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_decoder
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.sim/Decoder/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl

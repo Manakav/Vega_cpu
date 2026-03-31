@@ -1,44 +1,94 @@
 `timescale 1ns / 1ps
 
-// EX 阶段测试：验证 ALU 运算与分支误预测检测
+// EX 阶段测试：验证双发射接口下 Way1 ALU 与分支误预测反馈
 module tb_ex_stage;
-// 输入激励
 reg clk;
 reg rst_n;
 reg flush;
-reg [63:0] pc_i;
-reg [63:0] rs1_data_i;
-reg [63:0] rs2_data_i;
-reg [63:0] imm_i;
-reg [4:0] rd_addr_i;
-reg valid_i;
-reg [3:0] alu_op_i;
-reg alu_src1_sel_i;
-reg alu_src2_sel_i;
-reg mem_read_en_i;
-reg mem_write_en_i;
-reg [2:0] mem_size_i;
-reg reg_write_en_i;
-reg [1:0] wb_sel_i;
-reg is_branch_i;
-reg is_jump_i;
-reg [63:0] forward_ex;
-reg [63:0] forward_mem;
-reg [63:0] forward_wb;
-reg [1:0] forward_a_sel;
-reg [1:0] forward_b_sel;
+
+// Way1
+reg [63:0] pc_w1_i;
+reg [4:0] rs1_addr_w1_i;
+reg [4:0] rs2_addr_w1_i;
+reg [63:0] rs1_data_w1_i;
+reg [63:0] rs2_data_w1_i;
+reg [4:0] rd_addr_w1_i;
+reg [63:0] imm_w1_i;
+reg [3:0] alu_op_w1_i;
+reg alu_src1_sel_w1_i;
+reg alu_src2_sel_w1_i;
+reg mem_read_en_w1_i;
+reg mem_write_en_w1_i;
+reg [2:0] mem_size_w1_i;
+reg reg_write_en_w1_i;
+reg [1:0] wb_sel_w1_i;
+reg is_branch_w1_i;
+reg is_jump_w1_i;
+reg is_muldiv_w1_i;
+reg [2:0] muldiv_funct3_w1_i;
+reg valid_w1_i;
+
+// Way2
+reg [63:0] pc_w2_i;
+reg [4:0] rs1_addr_w2_i;
+reg [4:0] rs2_addr_w2_i;
+reg [63:0] rs1_data_w2_i;
+reg [63:0] rs2_data_w2_i;
+reg [4:0] rd_addr_w2_i;
+reg [63:0] imm_w2_i;
+reg [3:0] alu_op_w2_i;
+reg alu_src1_sel_w2_i;
+reg alu_src2_sel_w2_i;
+reg mem_read_en_w2_i;
+reg mem_write_en_w2_i;
+reg [2:0] mem_size_w2_i;
+reg reg_write_en_w2_i;
+reg [1:0] wb_sel_w2_i;
+reg is_branch_w2_i;
+reg is_jump_w2_i;
+reg is_muldiv_w2_i;
+reg [2:0] muldiv_funct3_w2_i;
+reg valid_w2_i;
+
+// Forwarding inputs
+reg [63:0] fwd_exmem_result_w1;
+reg [4:0] fwd_exmem_rd_w1;
+reg fwd_exmem_we_w1;
+reg [63:0] fwd_exmem_result_w2;
+reg [4:0] fwd_exmem_rd_w2;
+reg fwd_exmem_we_w2;
+reg [63:0] fwd_memwb_result_w1;
+reg [4:0] fwd_memwb_rd_w1;
+reg fwd_memwb_we_w1;
+reg [63:0] fwd_memwb_result_w2;
+reg [4:0] fwd_memwb_rd_w2;
+reg fwd_memwb_we_w2;
+
 reg predict_taken_i;
 reg [63:0] predict_target_i;
-wire [63:0] pc_o;
-wire [63:0] alu_result_o;
-wire [63:0] rs2_data_o;
-wire [4:0] rd_addr_o;
-wire valid_o;
-wire mem_read_en_o;
-wire mem_write_en_o;
-wire [2:0] mem_size_o;
-wire reg_write_en_o;
-wire [1:0] wb_sel_o;
+
+wire [63:0] pc_w1_o;
+wire [63:0] alu_result_w1_o;
+wire [63:0] rs2_data_w1_o;
+wire [4:0] rd_addr_w1_o;
+wire mem_read_en_w1_o;
+wire mem_write_en_w1_o;
+wire [2:0] mem_size_w1_o;
+wire reg_write_en_w1_o;
+wire [1:0] wb_sel_w1_o;
+wire valid_w1_o;
+
+wire [63:0] pc_w2_o;
+wire [63:0] alu_result_w2_o;
+wire [63:0] rs2_data_w2_o;
+wire [4:0] rd_addr_w2_o;
+wire mem_read_en_w2_o;
+wire mem_write_en_w2_o;
+wire [2:0] mem_size_w2_o;
+wire reg_write_en_w2_o;
+wire [1:0] wb_sel_w2_o;
+wire valid_w2_o;
+
 wire branch_taken_o;
 wire [63:0] branch_target_o;
 wire mispredict_o;
@@ -48,48 +98,87 @@ ex_stage dut (
     .clk(clk),
     .rst_n(rst_n),
     .flush(flush),
-    .pc_i(pc_i),
-    .rs1_data_i(rs1_data_i),
-    .rs2_data_i(rs2_data_i),
-    .imm_i(imm_i),
-    .rd_addr_i(rd_addr_i),
-    .valid_i(valid_i),
-    .alu_op_i(alu_op_i),
-    .alu_src1_sel_i(alu_src1_sel_i),
-    .alu_src2_sel_i(alu_src2_sel_i),
-    .mem_read_en_i(mem_read_en_i),
-    .mem_write_en_i(mem_write_en_i),
-    .mem_size_i(mem_size_i),
-    .reg_write_en_i(reg_write_en_i),
-    .wb_sel_i(wb_sel_i),
-    .is_branch_i(is_branch_i),
-    .is_jump_i(is_jump_i),
-    .forward_ex(forward_ex),
-    .forward_mem(forward_mem),
-    .forward_wb(forward_wb),
-    .forward_a_sel(forward_a_sel),
-    .forward_b_sel(forward_b_sel),
+    .pc_w1_i(pc_w1_i),
+    .rs1_addr_w1_i(rs1_addr_w1_i),
+    .rs2_addr_w1_i(rs2_addr_w1_i),
+    .rs1_data_w1_i(rs1_data_w1_i),
+    .rs2_data_w1_i(rs2_data_w1_i),
+    .rd_addr_w1_i(rd_addr_w1_i),
+    .imm_w1_i(imm_w1_i),
+    .alu_op_w1_i(alu_op_w1_i),
+    .alu_src1_sel_w1_i(alu_src1_sel_w1_i),
+    .alu_src2_sel_w1_i(alu_src2_sel_w1_i),
+    .mem_read_en_w1_i(mem_read_en_w1_i),
+    .mem_write_en_w1_i(mem_write_en_w1_i),
+    .mem_size_w1_i(mem_size_w1_i),
+    .reg_write_en_w1_i(reg_write_en_w1_i),
+    .wb_sel_w1_i(wb_sel_w1_i),
+    .is_branch_w1_i(is_branch_w1_i),
+    .is_jump_w1_i(is_jump_w1_i),
+    .is_muldiv_w1_i(is_muldiv_w1_i),
+    .muldiv_funct3_w1_i(muldiv_funct3_w1_i),
+    .valid_w1_i(valid_w1_i),
+    .pc_w2_i(pc_w2_i),
+    .rs1_addr_w2_i(rs1_addr_w2_i),
+    .rs2_addr_w2_i(rs2_addr_w2_i),
+    .rs1_data_w2_i(rs1_data_w2_i),
+    .rs2_data_w2_i(rs2_data_w2_i),
+    .rd_addr_w2_i(rd_addr_w2_i),
+    .imm_w2_i(imm_w2_i),
+    .alu_op_w2_i(alu_op_w2_i),
+    .alu_src1_sel_w2_i(alu_src1_sel_w2_i),
+    .alu_src2_sel_w2_i(alu_src2_sel_w2_i),
+    .mem_read_en_w2_i(mem_read_en_w2_i),
+    .mem_write_en_w2_i(mem_write_en_w2_i),
+    .mem_size_w2_i(mem_size_w2_i),
+    .reg_write_en_w2_i(reg_write_en_w2_i),
+    .wb_sel_w2_i(wb_sel_w2_i),
+    .is_branch_w2_i(is_branch_w2_i),
+    .is_jump_w2_i(is_jump_w2_i),
+    .is_muldiv_w2_i(is_muldiv_w2_i),
+    .muldiv_funct3_w2_i(muldiv_funct3_w2_i),
+    .valid_w2_i(valid_w2_i),
+    .fwd_exmem_result_w1(fwd_exmem_result_w1),
+    .fwd_exmem_rd_w1(fwd_exmem_rd_w1),
+    .fwd_exmem_we_w1(fwd_exmem_we_w1),
+    .fwd_exmem_result_w2(fwd_exmem_result_w2),
+    .fwd_exmem_rd_w2(fwd_exmem_rd_w2),
+    .fwd_exmem_we_w2(fwd_exmem_we_w2),
+    .fwd_memwb_result_w1(fwd_memwb_result_w1),
+    .fwd_memwb_rd_w1(fwd_memwb_rd_w1),
+    .fwd_memwb_we_w1(fwd_memwb_we_w1),
+    .fwd_memwb_result_w2(fwd_memwb_result_w2),
+    .fwd_memwb_rd_w2(fwd_memwb_rd_w2),
+    .fwd_memwb_we_w2(fwd_memwb_we_w2),
     .predict_taken_i(predict_taken_i),
     .predict_target_i(predict_target_i),
-    .pc_o(pc_o),
-    .alu_result_o(alu_result_o),
-    .rs2_data_o(rs2_data_o),
-    .rd_addr_o(rd_addr_o),
-    .valid_o(valid_o),
-    .mem_read_en_o(mem_read_en_o),
-    .mem_write_en_o(mem_write_en_o),
-    .mem_size_o(mem_size_o),
-    .reg_write_en_o(reg_write_en_o),
-    .wb_sel_o(wb_sel_o),
+    .pc_w1_o(pc_w1_o),
+    .alu_result_w1_o(alu_result_w1_o),
+    .rs2_data_w1_o(rs2_data_w1_o),
+    .rd_addr_w1_o(rd_addr_w1_o),
+    .mem_read_en_w1_o(mem_read_en_w1_o),
+    .mem_write_en_w1_o(mem_write_en_w1_o),
+    .mem_size_w1_o(mem_size_w1_o),
+    .reg_write_en_w1_o(reg_write_en_w1_o),
+    .wb_sel_w1_o(wb_sel_w1_o),
+    .valid_w1_o(valid_w1_o),
+    .pc_w2_o(pc_w2_o),
+    .alu_result_w2_o(alu_result_w2_o),
+    .rs2_data_w2_o(rs2_data_w2_o),
+    .rd_addr_w2_o(rd_addr_w2_o),
+    .mem_read_en_w2_o(mem_read_en_w2_o),
+    .mem_write_en_w2_o(mem_write_en_w2_o),
+    .mem_size_w2_o(mem_size_w2_o),
+    .reg_write_en_w2_o(reg_write_en_w2_o),
+    .wb_sel_w2_o(wb_sel_w2_o),
+    .valid_w2_o(valid_w2_o),
     .branch_taken_o(branch_taken_o),
     .branch_target_o(branch_target_o),
     .mispredict_o(mispredict_o)
 );
 
-// 时钟
 always #5 clk = ~clk;
 
-// 通用检查任务
 task check;
     input cond;
     input [127:0] msg;
@@ -102,48 +191,84 @@ end
 endtask
 
 initial begin
-    // 初始化默认激励
     clk = 0;
     rst_n = 0;
     flush = 0;
-    pc_i = 64'h1000;
-    rs1_data_i = 64'd5;
-    rs2_data_i = 64'd5;
-    imm_i = 64'd8;
-    rd_addr_i = 5'd1;
-    valid_i = 0;
-    alu_op_i = 4'b0000;
-    alu_src1_sel_i = 0;
-    alu_src2_sel_i = 0;
-    mem_read_en_i = 0;
-    mem_write_en_i = 0;
-    mem_size_i = 3'b000;
-    reg_write_en_i = 1;
-    wb_sel_i = 2'b00;
-    is_branch_i = 0;
-    is_jump_i = 0;
-    forward_ex = 0;
-    forward_mem = 0;
-    forward_wb = 0;
-    forward_a_sel = 0;
-    forward_b_sel = 0;
+
+    pc_w1_i = 64'h1000;
+    rs1_addr_w1_i = 5'd1;
+    rs2_addr_w1_i = 5'd2;
+    rs1_data_w1_i = 64'd5;
+    rs2_data_w1_i = 64'd5;
+    rd_addr_w1_i = 5'd3;
+    imm_w1_i = 64'd8;
+    alu_op_w1_i = 4'b0000;
+    alu_src1_sel_w1_i = 0;
+    alu_src2_sel_w1_i = 0;
+    mem_read_en_w1_i = 0;
+    mem_write_en_w1_i = 0;
+    mem_size_w1_i = 3'b000;
+    reg_write_en_w1_i = 1;
+    wb_sel_w1_i = 2'b00;
+    is_branch_w1_i = 0;
+    is_jump_w1_i = 0;
+    is_muldiv_w1_i = 0;
+    muldiv_funct3_w1_i = 3'b000;
+    valid_w1_i = 0;
+
+    pc_w2_i = 64'h1004;
+    rs1_addr_w2_i = 5'd0;
+    rs2_addr_w2_i = 5'd0;
+    rs1_data_w2_i = 64'd0;
+    rs2_data_w2_i = 64'd0;
+    rd_addr_w2_i = 5'd0;
+    imm_w2_i = 64'd0;
+    alu_op_w2_i = 4'b0000;
+    alu_src1_sel_w2_i = 0;
+    alu_src2_sel_w2_i = 0;
+    mem_read_en_w2_i = 0;
+    mem_write_en_w2_i = 0;
+    mem_size_w2_i = 3'b000;
+    reg_write_en_w2_i = 0;
+    wb_sel_w2_i = 2'b00;
+    is_branch_w2_i = 0;
+    is_jump_w2_i = 0;
+    is_muldiv_w2_i = 0;
+    muldiv_funct3_w2_i = 3'b000;
+    valid_w2_i = 0;
+
+    fwd_exmem_result_w1 = 64'd0;
+    fwd_exmem_rd_w1 = 5'd0;
+    fwd_exmem_we_w1 = 0;
+    fwd_exmem_result_w2 = 64'd0;
+    fwd_exmem_rd_w2 = 5'd0;
+    fwd_exmem_we_w2 = 0;
+    fwd_memwb_result_w1 = 64'd0;
+    fwd_memwb_rd_w1 = 5'd0;
+    fwd_memwb_we_w1 = 0;
+    fwd_memwb_result_w2 = 64'd0;
+    fwd_memwb_rd_w2 = 5'd0;
+    fwd_memwb_we_w2 = 0;
+
     predict_taken_i = 0;
-    predict_target_i = 64'h0;
+    predict_target_i = 64'd0;
+
     errors = 0;
 
     #12 rst_n = 1;
 
-    // 用 ADD 路径检查 ALU 结果
-    valid_i = 1;
+    // Way1 ADD: 5 + 5 = 10
+    valid_w1_i = 1;
     @(posedge clk);
     #1;
-    check(alu_result_o == 64'd10, "ALU add result failed");
+    check(alu_result_w1_o == 64'd10, "w1 alu add failed");
+    check(valid_w1_o == 1'b1, "w1 valid failed");
 
-    // 构造 BEQ 命中且预测未跳，期望 mispredict=1
-    is_branch_i = 1;
-    mem_size_i = 3'b000; // BEQ
+    // Way1 BEQ 命中，预测未跳，期望 mispredict
+    is_branch_w1_i = 1;
+    mem_size_w1_i = 3'b000; // BEQ
     predict_taken_i = 0;
-    predict_target_i = 64'h0;
+    predict_target_i = 64'd0;
     @(posedge clk);
     #1;
     check(branch_taken_o == 1'b1, "branch_taken failed");

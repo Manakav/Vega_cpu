@@ -49,6 +49,8 @@ reg [31:0] cycle_count;
 reg [31:0] instr_count;
 reg [31:0] error_count;
 
+localparam integer RESET_PC_WORD_IDX = 1024; // 0x1000 >> 2
+
 // ========== DUT 实例化 ==========
 riscv_cpu u_dut (
     .clk                (clk),
@@ -121,6 +123,9 @@ initial begin
     
     // 运行 200 个周期
     #2000;
+
+    // 功能真实性检查
+    check_final_state();
     
     // 完成
     $display("\n");
@@ -145,6 +150,17 @@ always @(posedge clk) begin
     cycle_count <= cycle_count + 1;
 end
 
+// ========== 指令退休计数（按写回计）==========
+always @(posedge clk) begin
+    if (!rst_n) begin
+        instr_count <= 32'd0;
+    end else begin
+        instr_count <= instr_count +
+            (u_dut.wb_we1 ? 32'd1 : 32'd0) +
+            (u_dut.wb_we2 ? 32'd1 : 32'd0);
+    end
+end
+
 // ========== 测试程序加载 ==========
 task load_test_program;
         integer idx;
@@ -153,21 +169,46 @@ task load_test_program;
             imem[idx] = 32'h00000013;  // NOP: ADDI x0, x0, 0
         end
         
-        // 加载测试程序到内存
-        imem[0]  = 32'h00100093;     // ADDI x1, x0, 1       # x1 = 1
-        imem[1]  = 32'h00200113;     // ADDI x2, x0, 2       # x2 = 2
-        imem[2]  = 32'h00208133;     // ADD  x2, x1, x2      # x2 = 3
-        imem[3]  = 32'h00000013;     // NOP
-        imem[4]  = 32'h00000013;     // NOP
-        imem[5]  = 32'h00000013;     // NOP
+        // 程序写入复位 PC 对应窗口，确保从 0x1000 开始即可执行
+        imem[RESET_PC_WORD_IDX + 0] = 32'h00100093; // ADDI x1, x0, 1   -> x1 = 1
+        imem[RESET_PC_WORD_IDX + 1] = 32'h00200113; // ADDI x2, x0, 2   -> x2 = 2
+        imem[RESET_PC_WORD_IDX + 2] = 32'h00208133; // ADD  x2, x1, x2  -> x2 = 3
+        imem[RESET_PC_WORD_IDX + 3] = 32'h00900313; // ADDI x6, x0, 9   -> x6 = 9
+        imem[RESET_PC_WORD_IDX + 4] = 32'h00000013; // NOP
+        imem[RESET_PC_WORD_IDX + 5] = 32'h00000013; // NOP
         
         // 消息输出（验证初始化）
-        $display("[TESTBENCH] 指令存储器已初始化:");
-        $display("  imem[0] = 0x%08x (ADDI x1, x0, 1)", imem[0]);
-        $display("  imem[1] = 0x%08x (ADDI x2, x0, 2)", imem[1]);
-        $display("  imem[2] = 0x%08x (ADD x2, x1, x2)", imem[2]);
-        $display("  其他指令 = 0x00000013 (NOP)");
+        $display("[TESTBENCH] 指令存储器已初始化 (base idx=%0d):", RESET_PC_WORD_IDX);
+        $display("  imem[base+0] = 0x%08x (ADDI x1, x0, 1)", imem[RESET_PC_WORD_IDX + 0]);
+        $display("  imem[base+1] = 0x%08x (ADDI x2, x0, 2)", imem[RESET_PC_WORD_IDX + 1]);
+        $display("  imem[base+2] = 0x%08x (ADD  x2, x1, x2)", imem[RESET_PC_WORD_IDX + 2]);
+        $display("  imem[base+3] = 0x%08x (ADDI x6, x0, 9)", imem[RESET_PC_WORD_IDX + 3]);
+        $display("  其他指令      = 0x00000013 (NOP)");
         $display("");
+    end
+endtask
+
+task check_final_state;
+    begin
+        if (instr_count == 0) begin
+            $display("[ERROR] 未观察到任何写回退休事件");
+            error_count = error_count + 1;
+        end
+
+        if (u_dut.u_register_file.rf[1] !== 64'd1) begin
+            $display("[ERROR] x1 期望=1, 实际=%0d", u_dut.u_register_file.rf[1]);
+            error_count = error_count + 1;
+        end
+
+        if (u_dut.u_register_file.rf[2] !== 64'd3) begin
+            $display("[ERROR] x2 期望=3, 实际=%0d", u_dut.u_register_file.rf[2]);
+            error_count = error_count + 1;
+        end
+
+        if (u_dut.u_register_file.rf[6] !== 64'd9) begin
+            $display("[ERROR] x6 期望=9, 实际=%0d", u_dut.u_register_file.rf[6]);
+            error_count = error_count + 1;
+        end
     end
 endtask
 

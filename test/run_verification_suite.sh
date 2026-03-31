@@ -6,7 +6,7 @@
 
 set -e
 
-WORKSPACE="/home/liyu/cpuP/Vega_cpu"
+WORKSPACE="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD_DIR="$WORKSPACE/build_sim"
 
 echo ""
@@ -37,14 +37,15 @@ iverilog -g2001 -Wall \
     "$WORKSPACE/src/cpu/core/csr/csr_unit.v" \
     "$WORKSPACE/src/cpu/core/hazard_unit.v" \
     "$WORKSPACE/test/riscv_cpu_tb_dual.v" \
-    -o "$BUILD_DIR/vega_rtl" 2>&1 | grep -i "error" || echo "✓ 通过 (0 错误)"
+    -o "$BUILD_DIR/vega_rtl"
+echo "✓ 通过 (0 编译错误)"
 
 echo ""
 
 # ========== 步骤 2：RTL 仿真 ==========
 echo "[2/4] 🔬 RTL 功能仿真..."
 cd "$BUILD_DIR"
-vvp vega_rtl -n 2>&1 | grep -A 20 "仿真完成"
+vvp vega_rtl -n
 
 echo ""
 

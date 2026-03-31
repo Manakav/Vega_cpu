@@ -1,0 +1,7 @@
+0.7
+2020.2
+Nov 14 2025
+12:36:23
+/home/liyu/Vega_cpu/Project/Vega/Vega.sim/ALU/behav/xsim/glbl.v,1756381829,verilog,,,,glbl,,,,,,,,
+/home/liyu/Vega_cpu/src/cpu/core/ex_stage/alu.v,1774852384,verilog,,/home/liyu/Vega_cpu/test/modules/tb_alu.v,,alu,,,../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/Vega_cpu/test/modules/tb_alu.v,1774854211,verilog,,,,tb_alu,,,../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,

@@ -1,0 +1,8 @@
+Time resolution is 1 ps
+[TESTBENCH] 指令存储器已初始化:
+  imem[0] = 0x00100093 (ADDI x1, x0, 1)
+  imem[1] = 0x00200113 (ADDI x2, x0, 2)
+  imem[2] = 0x00208133 (ADD x2, x1, x2)
+  其他指令 = 0x00000013 (NOP)
+
+INFO: xsimkernel Simulation Memory Usage: 282164 KB (Peak: 339436 KB), Simulation CPU Usage: 740 ms

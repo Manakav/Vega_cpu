@@ -1,0 +1,18 @@
+0.7
+2020.2
+Nov 14 2025
+12:36:23
+/home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.sim/riscv_cpu_tb_dual/behav/xsim/glbl.v,1756381829,verilog,,,,glbl,,,,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/ex_stage/alu.v,1774667821,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/if_stage/bht.v,,alu,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/ex_stage/ex_stage.v,1774772474,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/hazard_unit.v,,ex_stage,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/hazard_unit.v,1774772474,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/id_stage/id_stage.v,,hazard_unit,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/id_stage/decoder.v,1774775305,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/ex_stage/ex_stage.v,,decoder,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/id_stage/id_stage.v,1774771308,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/if_stage/if_stage.v,,id_stage,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/id_stage/register_file.v,1774772474,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/riscv_cpu.v,,register_file,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/if_stage/bht.v,1774681625,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/if_stage/btb.v,,bht,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/if_stage/btb.v,1774681651,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/id_stage/decoder.v,,btb,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/if_stage/if_stage.v,1774772474,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/ii_stage/ii_stage.v,,if_stage,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/ii_stage/ii_stage.v,1774771557,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/mem_stage/mem_stage.v,,ii_stage,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/core/mem_stage/mem_stage.v,1774771678,verilog,,/home/liyu/cpuP/Vega_cpu/src/cpu/core/id_stage/register_file.v,,mem_stage,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/src/cpu/riscv_cpu.v,1774771884,verilog,,/home/liyu/cpuP/Vega_cpu/test/riscv_cpu_tb_dual.v,,riscv_cpu,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,
+/home/liyu/cpuP/Vega_cpu/test/riscv_cpu_tb_dual.v,1774774227,verilog,,,,riscv_cpu_tb,,,../../../../../../../../vivado/2025.2/data/rsb/busdef,,,,,

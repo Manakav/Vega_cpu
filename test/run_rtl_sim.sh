@@ -6,7 +6,7 @@
 
 set -e
 
-WORKSPACE="/home/liyu/cpuP/Vega_cpu"
+WORKSPACE="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD_DIR="$WORKSPACE/build_sim"
 SIM_EXE="$BUILD_DIR/vega_sim"
 
@@ -39,10 +39,6 @@ iverilog -g2001 -Wall \
     "$WORKSPACE/test/riscv_cpu_tb_dual.v" \
     -o "$SIM_EXE"
 
-if [ $? -ne 0 ]; then
-    echo "✗ 编译失败"
-    exit 1
-fi
 echo "✓ 编译完成"
 vvp "$SIM_EXE" -n
 

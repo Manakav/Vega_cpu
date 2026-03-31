@@ -8,15 +8,19 @@ reg rst_n;
 reg stall;
 reg flush;
 wire [63:0] instr_addr;
-reg [31:0] instr_data;
+reg [31:0] instr_data_w1;
+reg [31:0] instr_data_w2;
 wire instr_req;
 reg instr_gnt;
 reg branch_taken;
 reg [63:0] branch_target;
 reg mispredict;
-wire [63:0] pc_out;
-wire [31:0] instr_out;
-wire valid_out;
+wire [63:0] pc_out_w1;
+wire [31:0] instr_out_w1;
+wire valid_out_w1;
+wire [63:0] pc_out_w2;
+wire [31:0] instr_out_w2;
+wire valid_out_w2;
 integer errors;
 
 if_stage dut (
@@ -25,15 +29,19 @@ if_stage dut (
     .stall(stall),
     .flush(flush),
     .instr_addr(instr_addr),
-    .instr_data(instr_data),
+    .instr_data_w1(instr_data_w1),
+    .instr_data_w2(instr_data_w2),
     .instr_req(instr_req),
     .instr_gnt(instr_gnt),
     .branch_taken(branch_taken),
     .branch_target(branch_target),
     .mispredict(mispredict),
-    .pc_out(pc_out),
-    .instr_out(instr_out),
-    .valid_out(valid_out)
+    .pc_out_w1(pc_out_w1),
+    .instr_out_w1(instr_out_w1),
+    .valid_out_w1(valid_out_w1),
+    .pc_out_w2(pc_out_w2),
+    .instr_out_w2(instr_out_w2),
+    .valid_out_w2(valid_out_w2)
 );
 
 // 时钟
@@ -57,7 +65,8 @@ initial begin
     rst_n = 0;
     stall = 0;
     flush = 0;
-    instr_data = 32'h00000013;
+    instr_data_w1 = 32'h00000013;
+    instr_data_w2 = 32'h00000013;
     instr_gnt = 1;
     branch_taken = 0;
     branch_target = 64'h2000;
@@ -70,7 +79,7 @@ initial begin
     repeat (3) @(posedge clk);
     #1;
     check(instr_req == 1'b1, "instr_req should be always high");
-    check(valid_out == 1'b1, "valid_out should become high");
+    check(valid_out_w1 == 1'b1, "valid_out_w1 should become high");
 
     // 注入误预测，检查 PC 重定向
     mispredict = 1;

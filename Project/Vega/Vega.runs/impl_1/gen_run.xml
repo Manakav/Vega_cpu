@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xcsu25p-cmva361-2-e" LaunchTime="1774679854">
+  <File Type="NOC_SOLUTION_FILE" Name="riscv_cpu.ncr"/>
+  <File Type="NOC_TRAFFIC_SPEC_FILE" Name="riscv_cpu.nts"/>
+  <File Type="PL_UNMASK_RCDO_FILE" Name="riscv_cpu_pld_unmask.rcdo"/>
+  <File Type="PL_UNMASK_MARKER_RCDO_FILE" Name="riscv_cpu_pld_unmask_markers.rcdo"/>
+  <File Type="PL_MASK_RCDO_FILE" Name="riscv_cpu_pld_mask.rcdo"/>
+  <File Type="PL_MARKER_RCDO_FILE" Name="riscv_cpu_pld_markers.rcdo"/>
+  <File Type="PL-CLEAR-RCDO-FILE" Name="riscv_cpu_pld_clear.rcdo"/>
+  <File Type="PL_UNMASK_RNPI_FILE" Name="riscv_cpu_pld_unmask.rnpi"/>
+  <File Type="PL_SHUTDOWN_RNPI_FILE" Name="riscv_cpu_pld_shutdown.rnpi"/>
+  <File Type="PL_MASK_RNPI_FILE" Name="riscv_cpu_pld_mask.rnpi"/>
+  <File Type="PL_MARKER_RNPI_FILE" Name="riscv_cpu_pld_markers.rnpi"/>
+  <File Type="BOOT_MARKER_RNPI_FILE" Name="riscv_cpu_boot_markers.rnpi"/>
+  <File Type="PL_RNPI_FILE" Name="riscv_cpu_pld.rnpi"/>
+  <File Type="BOOT_RNPI_FILE" Name="riscv_cpu_boot.rnpi"/>
+  <File Type="MARKER-RNPI-FILE" Name="riscv_cpu_markers.rnpi"/>
+  <File Type="PL-RCDO-FILE" Name="riscv_cpu_pld.rcdo"/>
+  <File Type="MARKER-RCDO-FILE" Name="riscv_cpu_markers.rcdo"/>
+  <File Type="RCDO-FILE" Name="riscv_cpu.rcdo"/>
+  <File Type="PL-LTX-FILE" Name="riscv_cpu_pld.ltx"/>
+  <File Type="BOOT-LTX-FILE" Name="riscv_cpu_boot.ltx"/>
+  <File Type="LTX-FILE" Name="riscv_cpu.ltx"/>
+  <File Type="PL-BIF-FILE" Name="riscv_cpu_pld.bif"/>
+  <File Type="BOOT-BIF-FILE" Name="riscv_cpu_boot.bif"/>
+  <File Type="BIF-FILE" Name="riscv_cpu.bif"/>
+  <File Type="MMI-FILE" Name="riscv_cpu.mmi"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
+  <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS" Name="riscv_cpu_postroute_physopted.rqs"/>
+  <File Type="ROUTE-RQS" Name="riscv_cpu_routed.rqs"/>
+  <File Type="RBD_FILE" Name="riscv_cpu.rbd"/>
+  <File Type="NPI_FILE" Name="riscv_cpu.npi"/>
+  <File Type="RNPI_FILE" Name="riscv_cpu.rnpi"/>
+  <File Type="CFI_FILE" Name="riscv_cpu.cfi"/>
+  <File Type="RCFI_FILE" Name="riscv_cpu.rcfi"/>
+  <File Type="PL-PDI-FILE" Name="riscv_cpu_pld.pdi"/>
+  <File Type="BOOT-PDI-FILE" Name="riscv_cpu_boot.pdi"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="riscv_cpu_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="riscv_cpu_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-RPX" Name="riscv_cpu_drc_routed.rpx"/>
+  <File Type="ROUTE-PWR-RPX" Name="riscv_cpu_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="riscv_cpu_route_status.rpt"/>
+  <File Type="ROUTE-TIMING-RPX" Name="riscv_cpu_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="riscv_cpu_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-PWR-SUM" Name="riscv_cpu_power_summary_routed.pb"/>
+  <File Type="ROUTE-STATUS-PB" Name="riscv_cpu_route_status.pb"/>
+  <File Type="ROUTE-PWR" Name="riscv_cpu_power_routed.rpt"/>
+  <File Type="PLACE-CTRL" Name="riscv_cpu_control_sets_placed.rpt"/>
+  <File Type="OPT-DRC" Name="riscv_cpu_drc_opted.rpt"/>
+  <File Type="ROUTE-DRC" Name="riscv_cpu_drc_routed.rpt"/>
+  <File Type="PLACE-UTIL" Name="riscv_cpu_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="riscv_cpu_utilization_placed.pb"/>
+  <File Type="PLACE-IO" Name="riscv_cpu_io_placed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="riscv_cpu_drc_routed.pb"/>
+  <File Type="OPT-HWDEF" Name="riscv_cpu.hwdef"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="riscv_cpu_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-SIMILARITY" Name="riscv_cpu_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="riscv_cpu_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW" Name="riscv_cpu_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="riscv_cpu_bus_skew_routed.rpx"/>
+  <File Type="REPORTS-TCL" Name="riscv_cpu_reports.tcl"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="riscv_cpu_bus_skew_routed.pb"/>
+  <File Type="PA-TCL" Name="riscv_cpu.tcl"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="riscv_cpu_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="riscv_cpu_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="riscv_cpu_timing_summary_postroute_physopted.pb"/>
+  <File Type="RDI-RDI" Name="riscv_cpu.vdi"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="riscv_cpu_bus_skew_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="riscv_cpu_bus_skew_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="riscv_cpu_bus_skew_postroute_physopted.pb"/>
+  <File Type="BG-BIT" Name="riscv_cpu.bit"/>
+  <File Type="PDI-FILE" Name="riscv_cpu.pdi"/>
+  <File Type="BG-DRC" Name="riscv_cpu.drc"/>
+  <File Type="BG-BGN" Name="riscv_cpu.bgn"/>
+  <File Type="BG-BIN" Name="riscv_cpu.bin"/>
+  <File Type="BITSTR-MSK" Name="riscv_cpu.msk"/>
+  <File Type="BITSTR-RBT" Name="riscv_cpu.rbt"/>
+  <File Type="BITSTR-NKY" Name="riscv_cpu.nky"/>
+  <File Type="BITSTR-BMM" Name="riscv_cpu_bd.bmm"/>
+  <File Type="BITSTR-MMI" Name="riscv_cpu.mmi"/>
+  <File Type="BITSTR-SYSDEF" Name="riscv_cpu.sysdef"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="riscv_cpu.ltx"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="riscv_cpu_incremental_reuse_pre_placed.rpt"/>
+  <File Type="ROUTE-DCP" Name="riscv_cpu_routed.dcp"/>
+  <File Type="ROUTE-ERROR-DCP" Name="riscv_cpu_routed_error.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="riscv_cpu_routed_bb.dcp"/>
+  <File Type="ROUTE-TIMING-PB" Name="riscv_cpu_timing_summary_routed.pb"/>
+  <File Type="OPT-DCP" Name="riscv_cpu_opt.dcp"/>
+  <File Type="PLACE-DCP" Name="riscv_cpu_placed.dcp"/>
+  <File Type="PWROPT-DCP" Name="riscv_cpu_pwropt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="riscv_cpu_postplace_pwropt.dcp"/>
+  <File Type="PHYSOPT-DCP" Name="riscv_cpu_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="riscv_cpu_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="riscv_cpu_postroute_physopt_bb.dcp"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PPRDIR/../../src/cpu/core/csr/csr_unit.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/mem_stage/dcache.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/if_stage/icache.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/ex_stage/mul_div.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/ex_stage/alu.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/if_stage/bht.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/if_stage/btb.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/id_stage/decoder.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/ex_stage/ex_stage.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/hazard_unit.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/id_stage/id_stage.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/if_stage/if_stage.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/mem_stage/mem_stage.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/id_stage/register_file.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/riscv_cpu.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="riscv_cpu"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+    <Step Id="write_device_image"/>
+  </Strategy>
+</GenRun>

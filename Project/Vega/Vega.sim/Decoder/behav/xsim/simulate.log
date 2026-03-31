@@ -1,0 +1,4 @@
+Time resolution is 1 ps
+[PASS] tb_decoder
+$finish called at time : 28 ns : File "/home/liyu/cpuP/Vega_cpu/test/modules/tb_decoder.v" Line 314
+INFO: xsimkernel Simulation Memory Usage: 281588 KB (Peak: 339120 KB), Simulation CPU Usage: 770 ms

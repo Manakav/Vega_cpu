@@ -245,3 +245,11 @@ $display("IPC = %0.2f", ipc);
 3. **性能分析** - 对比单发射 vs 双发射 IPC
 4. **功耗优化** - 考虑时钟门控等技术
 
+---
+
+## 📘 真实性验证补充
+
+已新增专门文档用于“程序真实执行 + 架构状态断言”验证：
+
+- `docs/FUNCTIONAL_AUTHENTICITY_VERIFICATION.md`
+

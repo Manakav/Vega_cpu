@@ -106,7 +106,7 @@ next_pc = mispredict   ? branch_target  :
 
 ---
 
-### 3.3 II 阶段（ii_stage）— 新模块
+### 3.3 II 阶段（ii_stage）
 
 实现文件：`src/cpu/core/ii_stage/ii_stage.v`
 

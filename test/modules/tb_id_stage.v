@@ -1,39 +1,64 @@
 `timescale 1ns / 1ps
 
-// ID 阶段测试：验证译码字段与 LOAD 控制信号输出
+// ID 阶段测试：验证双路译码与 IDII 锁存输出
 module tb_id_stage;
 // 输入激励
 reg clk;
 reg rst_n;
 reg stall;
 reg flush;
-reg [63:0] pc_i;
-reg [31:0] instr_i;
-reg valid_i;
-wire [4:0] rs1_addr_o;
-wire [4:0] rs2_addr_o;
-reg [63:0] rs1_data_i;
-reg [63:0] rs2_data_i;
-reg [63:0] forward_rs1;
-reg [63:0] forward_rs2;
-reg [1:0] forward_sel;
-wire [63:0] pc_o;
-wire [31:0] instr_o;
-wire [63:0] rs1_data_o;
-wire [63:0] rs2_data_o;
-wire [63:0] imm_o;
-wire [4:0] rd_addr_o;
-wire valid_o;
-wire [3:0] alu_op_o;
-wire alu_src1_sel_o;
-wire alu_src2_sel_o;
-wire mem_read_en_o;
-wire mem_write_en_o;
-wire [2:0] mem_size_o;
-wire reg_write_en_o;
-wire [1:0] wb_sel_o;
-wire is_branch_o;
-wire is_jump_o;
+reg [63:0] pc_w1_i;
+reg [31:0] instr_w1_i;
+reg valid_w1_i;
+reg [63:0] pc_w2_i;
+reg [31:0] instr_w2_i;
+reg valid_w2_i;
+
+wire [63:0] pc_w1_o;
+wire [4:0] rs1_addr_w1_o;
+wire [4:0] rs2_addr_w1_o;
+wire [4:0] rd_addr_w1_o;
+wire [63:0] imm_w1_o;
+wire [3:0] alu_op_w1_o;
+wire alu_src1_sel_w1_o;
+wire alu_src2_sel_w1_o;
+wire mem_read_en_w1_o;
+wire mem_write_en_w1_o;
+wire [2:0] mem_size_w1_o;
+wire reg_write_en_w1_o;
+wire [1:0] wb_sel_w1_o;
+wire is_branch_w1_o;
+wire is_jump_w1_o;
+wire is_system_w1_o;
+wire is_mem_op_w1_o;
+wire is_muldiv_w1_o;
+wire [2:0] muldiv_funct3_w1_o;
+wire uses_rs1_w1_o;
+wire uses_rs2_w1_o;
+wire valid_w1_o;
+
+wire [63:0] pc_w2_o;
+wire [4:0] rs1_addr_w2_o;
+wire [4:0] rs2_addr_w2_o;
+wire [4:0] rd_addr_w2_o;
+wire [63:0] imm_w2_o;
+wire [3:0] alu_op_w2_o;
+wire alu_src1_sel_w2_o;
+wire alu_src2_sel_w2_o;
+wire mem_read_en_w2_o;
+wire mem_write_en_w2_o;
+wire [2:0] mem_size_w2_o;
+wire reg_write_en_w2_o;
+wire [1:0] wb_sel_w2_o;
+wire is_branch_w2_o;
+wire is_jump_w2_o;
+wire is_system_w2_o;
+wire is_mem_op_w2_o;
+wire is_muldiv_w2_o;
+wire [2:0] muldiv_funct3_w2_o;
+wire uses_rs1_w2_o;
+wire uses_rs2_w2_o;
+wire valid_w2_o;
 integer errors;
 
 id_stage dut (
@@ -41,33 +66,56 @@ id_stage dut (
     .rst_n(rst_n),
     .stall(stall),
     .flush(flush),
-    .pc_i(pc_i),
-    .instr_i(instr_i),
-    .valid_i(valid_i),
-    .rs1_addr_o(rs1_addr_o),
-    .rs2_addr_o(rs2_addr_o),
-    .rs1_data_i(rs1_data_i),
-    .rs2_data_i(rs2_data_i),
-    .forward_rs1(forward_rs1),
-    .forward_rs2(forward_rs2),
-    .forward_sel(forward_sel),
-    .pc_o(pc_o),
-    .instr_o(instr_o),
-    .rs1_data_o(rs1_data_o),
-    .rs2_data_o(rs2_data_o),
-    .imm_o(imm_o),
-    .rd_addr_o(rd_addr_o),
-    .valid_o(valid_o),
-    .alu_op_o(alu_op_o),
-    .alu_src1_sel_o(alu_src1_sel_o),
-    .alu_src2_sel_o(alu_src2_sel_o),
-    .mem_read_en_o(mem_read_en_o),
-    .mem_write_en_o(mem_write_en_o),
-    .mem_size_o(mem_size_o),
-    .reg_write_en_o(reg_write_en_o),
-    .wb_sel_o(wb_sel_o),
-    .is_branch_o(is_branch_o),
-    .is_jump_o(is_jump_o)
+    .pc_w1_i(pc_w1_i),
+    .instr_w1_i(instr_w1_i),
+    .valid_w1_i(valid_w1_i),
+    .pc_w2_i(pc_w2_i),
+    .instr_w2_i(instr_w2_i),
+    .valid_w2_i(valid_w2_i),
+    .pc_w1_o(pc_w1_o),
+    .rs1_addr_w1_o(rs1_addr_w1_o),
+    .rs2_addr_w1_o(rs2_addr_w1_o),
+    .rd_addr_w1_o(rd_addr_w1_o),
+    .imm_w1_o(imm_w1_o),
+    .alu_op_w1_o(alu_op_w1_o),
+    .alu_src1_sel_w1_o(alu_src1_sel_w1_o),
+    .alu_src2_sel_w1_o(alu_src2_sel_w1_o),
+    .mem_read_en_w1_o(mem_read_en_w1_o),
+    .mem_write_en_w1_o(mem_write_en_w1_o),
+    .mem_size_w1_o(mem_size_w1_o),
+    .reg_write_en_w1_o(reg_write_en_w1_o),
+    .wb_sel_w1_o(wb_sel_w1_o),
+    .is_branch_w1_o(is_branch_w1_o),
+    .is_jump_w1_o(is_jump_w1_o),
+    .is_system_w1_o(is_system_w1_o),
+    .is_mem_op_w1_o(is_mem_op_w1_o),
+    .is_muldiv_w1_o(is_muldiv_w1_o),
+    .muldiv_funct3_w1_o(muldiv_funct3_w1_o),
+    .uses_rs1_w1_o(uses_rs1_w1_o),
+    .uses_rs2_w1_o(uses_rs2_w1_o),
+    .valid_w1_o(valid_w1_o),
+    .pc_w2_o(pc_w2_o),
+    .rs1_addr_w2_o(rs1_addr_w2_o),
+    .rs2_addr_w2_o(rs2_addr_w2_o),
+    .rd_addr_w2_o(rd_addr_w2_o),
+    .imm_w2_o(imm_w2_o),
+    .alu_op_w2_o(alu_op_w2_o),
+    .alu_src1_sel_w2_o(alu_src1_sel_w2_o),
+    .alu_src2_sel_w2_o(alu_src2_sel_w2_o),
+    .mem_read_en_w2_o(mem_read_en_w2_o),
+    .mem_write_en_w2_o(mem_write_en_w2_o),
+    .mem_size_w2_o(mem_size_w2_o),
+    .reg_write_en_w2_o(reg_write_en_w2_o),
+    .wb_sel_w2_o(wb_sel_w2_o),
+    .is_branch_w2_o(is_branch_w2_o),
+    .is_jump_w2_o(is_jump_w2_o),
+    .is_system_w2_o(is_system_w2_o),
+    .is_mem_op_w2_o(is_mem_op_w2_o),
+    .is_muldiv_w2_o(is_muldiv_w2_o),
+    .muldiv_funct3_w2_o(muldiv_funct3_w2_o),
+    .uses_rs1_w2_o(uses_rs1_w2_o),
+    .uses_rs2_w2_o(uses_rs2_w2_o),
+    .valid_w2_o(valid_w2_o)
 );
 
 // 时钟
@@ -91,26 +139,36 @@ initial begin
     rst_n = 0;
     stall = 0;
     flush = 0;
-    pc_i = 64'h1000;
-    instr_i = 32'h00412083; // lw x1, 4(x2)
-    valid_i = 0;
-    rs1_data_i = 64'h10;
-    rs2_data_i = 64'h20;
-    forward_rs1 = 0;
-    forward_rs2 = 0;
-    forward_sel = 0;
+    pc_w1_i = 64'h1000;
+    instr_w1_i = 32'h00412083; // lw x1, 4(x2)
+    valid_w1_i = 0;
+    pc_w2_i = 64'h1004;
+    instr_w2_i = 32'h002081B3; // add x3, x1, x2
+    valid_w2_i = 0;
     errors = 0;
 
     #12 rst_n = 1;
-    valid_i = 1;
+    valid_w1_i = 1;
+    valid_w2_i = 1;
+
+    // 输出经过 IDII 锁存，需要一个时钟沿
+    @(posedge clk);
     #1;
 
-    // 检查 lw x1,4(x2) 的关键译码输出
-    check(rs1_addr_o == 5'd2, "rs1 addr decode failed");
-    check(rd_addr_o == 5'd1, "rd decode failed");
-    check(mem_read_en_o == 1'b1, "load mem_read_en failed");
-    check(reg_write_en_o == 1'b1, "load reg_write_en failed");
-    check(valid_o == 1'b1, "valid_o failed");
+    // 检查 Way1: lw x1,4(x2)
+    check(rs1_addr_w1_o == 5'd2, "w1 rs1 addr decode failed");
+    check(rd_addr_w1_o == 5'd1, "w1 rd decode failed");
+    check(mem_read_en_w1_o == 1'b1, "w1 load mem_read_en failed");
+    check(reg_write_en_w1_o == 1'b1, "w1 load reg_write_en failed");
+    check(valid_w1_o == 1'b1, "w1 valid failed");
+
+    // 检查 Way2: add x3,x1,x2
+    check(rs1_addr_w2_o == 5'd1, "w2 rs1 addr decode failed");
+    check(rs2_addr_w2_o == 5'd2, "w2 rs2 addr decode failed");
+    check(rd_addr_w2_o == 5'd3, "w2 rd decode failed");
+    check(mem_read_en_w2_o == 1'b0, "w2 mem_read_en should be 0");
+    check(reg_write_en_w2_o == 1'b1, "w2 reg_write_en failed");
+    check(valid_w2_o == 1'b1, "w2 valid failed");
 
     if (errors == 0) $display("[PASS] tb_id_stage");
     else $display("[FAIL] tb_id_stage errors=%0d", errors);

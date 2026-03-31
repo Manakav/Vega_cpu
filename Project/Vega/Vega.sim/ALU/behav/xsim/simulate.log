@@ -1,0 +1,4 @@
+Time resolution is 1 ps
+[PASS] tb_alu
+$finish called at time : 16 ns : File "/home/liyu/Vega_cpu/test/modules/tb_alu.v" Line 116
+INFO: xsimkernel Simulation Memory Usage: 281364 KB (Peak: 338896 KB), Simulation CPU Usage: 860 ms
