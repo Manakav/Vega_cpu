@@ -156,7 +156,7 @@ sudo apt install autoconf automake autotools-dev curl python3 libmpc-dev \
 git clone --recursive https://github.com/riscv/riscv-gnu-toolchain.git
 cd riscv-gnu-toolchain
 
-# 配置并编译（RV64GC 完整版，耗时约 1-2 小时）
+# 配置并编译（RV64IMC，耗时约 1-2 小时）
 ./configure --prefix=$HOME/opt/riscv
 make -j$(nproc)
 
