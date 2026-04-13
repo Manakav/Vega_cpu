@@ -72,12 +72,14 @@ IF ──IFID──> ID ──IDII──> II ──IIEX──> EX ──EX/MEM�
 
 **分支预测（保留原机制）：**
 ```
-next_pc = mispredict   ? branch_target  :
-          predict_taken ? predict_pc    : pc_reg + 8
+next_pc = mispredict    ? branch_target :
+          predict_taken ? predict_pc    : pc_reg + seq_inc
 ```
 - BTB（4路组相联，16组）：命中时提供目标地址
 - BHT（256项2-bit饱和计数器，GHR 异或索引）：提供方向预测
+- IF 阶段按 16/32-bit 混合长度计算 `seq_inc`
 - 误预测时 EX 阶段反馈，冲刷 IFID/IDII/IIEX
+- 当前顶层实现中，EX 的 `predict_taken_i/predict_target_i` 仍为简化接线（常量 0），尚未与 IF 预测结果闭环联通
 
 **外部接口变更：**
 - `instr_data` 拆分为 `instr_data_w1[31:0]` 和 `instr_data_w2[31:0]`（分别对应 PC 和 PC+4）
@@ -238,6 +240,10 @@ II 阶段输出 `stall_dual = 1`（当阻断双发射）：
 - 当 BTB 命中（Way1 被预测为跳转），Way2 自动无效（IFID 输出 valid_w2 = 0）
 - 控制冒险阻断双发射（ctrl_hazard in II）：含分支/跳转的 Way1 独占该周期
 
+实现状态补充：
+- IF 侧 BTB/BHT 预测已参与取指路径选择
+- EX 侧误预测判断输入尚未接入 IF 预测结果（当前为简化接线），后续需完成预测结果跨级传递以形成完整闭环
+
 ---
 
 ## 7. 顶层接口变化
@@ -287,9 +293,10 @@ input  wire        data_gnt
 
 | 测试资源 | 说明 |
 |---------|------|
-| `test/riscv_cpu_tb.v` | 顶层测试平台（需更新为双宽指令接口） |
-| `test/tb_riscv_cpu.v` | 顶层功能验证 |
-| `test/modules/tb_*.v` | 各子模块独立 testbench（ii_stage 需新增） |
+| `test/riscv_cpu_tb_dual.v` | 当前主用顶层验证 testbench（双宽指令接口） |
+| `test/riscv_cpu_tb.v` | 旧版冒烟 testbench（单指令接口，待迁移） |
+| `test/tb_riscv_cpu.v` | 旧版功能 testbench（单指令接口，待迁移） |
+| `test/modules/tb_*.v` | 各子模块独立 testbench（当前尚无 `tb_ii_stage.v`） |
 
 **建议验证重点：**
 1. 双发射阻断逻辑（RAW/WAW/结构/控制/系统冒险各类型）
@@ -312,5 +319,5 @@ input  wire        data_gnt
 
 ---
 
-文档状态：已根据6级流水线双发射 RTL 实现重写  
-最后更新：2026-03-29
+文档状态：已与当前主干 RTL 对齐（含实现现状说明）  
+最后更新：2026-04-13
