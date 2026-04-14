@@ -22,6 +22,10 @@ module id_stage #(
     input  wire [ADDR_WIDTH-1:0] pc_w2_i,
     input  wire [31:0]           instr_w2_i,
     input  wire                  valid_w2_i,
+    
+    // 预测信息输入
+    input  wire                  predict_taken_i,
+    input  wire [ADDR_WIDTH-1:0] predict_target_i,
 
     // ---- Way1 译码输出（IDII 寄存器）----
     output reg  [ADDR_WIDTH-1:0] pc_w1_o,
@@ -69,7 +73,11 @@ module id_stage #(
     output reg  [2:0]            muldiv_funct3_w2_o,
     output reg                   uses_rs1_w2_o,
     output reg                   uses_rs2_w2_o,
-    output reg                   valid_w2_o
+    output reg                   valid_w2_o,
+    
+    // 预测信息输出
+    output reg                   predict_taken_o,
+    output reg  [ADDR_WIDTH-1:0] predict_target_o
 );
 
 // ---------- Way1 译码器 ----------
@@ -285,6 +293,8 @@ always @(posedge clk or negedge rst_n) begin
         muldiv_funct3_w1_o <= 3'b0; muldiv_funct3_w2_o <= 3'b0;
         uses_rs1_w1_o <= 1'b0; uses_rs2_w1_o <= 1'b0;
         uses_rs1_w2_o <= 1'b0; uses_rs2_w2_o <= 1'b0;
+        predict_taken_o     <= 1'b0;
+        predict_target_o    <= 64'b0;
     end else if (!stall) begin
         // Way1 锁存
         valid_w1_o         <= valid_w1_i;
@@ -332,6 +342,8 @@ always @(posedge clk or negedge rst_n) begin
         muldiv_funct3_w2_o <= muldiv_funct3_w2;
         uses_rs1_w2_o      <= uses_rs1_w2_c;
         uses_rs2_w2_o      <= uses_rs2_w2_c;
+        predict_taken_o     <= predict_taken_i;
+        predict_target_o    <= predict_target_i;
     end
     // stall 时保持 IDII 寄存器内容不变
 end

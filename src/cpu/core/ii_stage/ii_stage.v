@@ -58,6 +58,10 @@ module ii_stage #(
     input  wire                  uses_rs1_w2_i,
     input  wire                  uses_rs2_w2_i,
     input  wire                  valid_w2_i,
+    
+    // 预测信息输入
+    input  wire                  predict_taken_i,
+    input  wire [ADDR_WIDTH-1:0] predict_target_i,
 
     // ---- 寄存器堆读端口（4读口）----
     output wire [4:0]            rf_raddr1,
@@ -114,7 +118,10 @@ module ii_stage #(
     output reg                   is_jump_w2_o,
     output reg                   is_muldiv_w2_o,
     output reg  [2:0]            muldiv_funct3_w2_o,
-    output reg                   valid_w2_o
+    output reg                   valid_w2_o,
+    // 预测信息输出
+    output reg                   predict_taken_o,
+    output reg  [ADDR_WIDTH-1:0] predict_target_o
 );
 
 // ---- 寄存器堆地址直通 ----
@@ -207,6 +214,8 @@ always @(posedge clk or negedge rst_n) begin
         is_branch_w2_o <= 1'b0; is_jump_w2_o <= 1'b0;
         is_muldiv_w1_o <= 1'b0; muldiv_funct3_w1_o <= 3'b0;
         is_muldiv_w2_o <= 1'b0; muldiv_funct3_w2_o <= 3'b0;
+        predict_taken_o     <= 1'b0;
+        predict_target_o    <= 64'b0;
     end else begin
         // Slot1（主路）
         valid_w1_o        <= s1_valid;
@@ -250,6 +259,8 @@ always @(posedge clk or negedge rst_n) begin
         is_jump_w2_o      <= is_jump_w2_i   & issue_slot2;
         is_muldiv_w2_o    <= is_muldiv_w2_i & issue_slot2;
         muldiv_funct3_w2_o<= muldiv_funct3_w2_i;
+        predict_taken_o     <= predict_taken_i;
+        predict_target_o    <= predict_target_i;
     end
 end
 

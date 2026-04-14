@@ -45,7 +45,10 @@ module hazard_unit (
     output reg                   stall_id,
     output reg                   flush_if,
     output reg                   flush_id,
-    output reg                   flush_ex
+    output reg                   flush_ex,
+    
+    // 添加DCache停顿输入
+    input  wire                  dcache_stall
 );
 
 // Load-Use 冒险检测：若 EX 级正在执行 Load，且 IDII 的源依赖其目的，必须停顿一周期
@@ -62,24 +65,27 @@ wire lu_w2_w2b = mem_read_en_ex_w2 && rs2_used_id_w2 && (rs2_addr_id_w2 == rd_ad
 wire load_use_hazard = lu_w1_w1 || lu_w1_w2 || lu_w2_w1 || lu_w2_w2 ||
                        lu_w1_w1b || lu_w1_w2b || lu_w2_w1b || lu_w2_w2b;
 
+
+
+// 修改停顿信号生成
 always @(*) begin
     flush_if = 1'b0;
     flush_id = 1'b0;
     flush_ex = 1'b0;
     stall_if = 1'b0;
     stall_id = 1'b0;
-
     if (mispredict_ex) begin
-        // 控制冒险最高优先级：冲刷三级
         flush_if = 1'b1;
         flush_id = 1'b1;
         flush_ex = 1'b1;
+    end else if (dcache_stall) begin
+        // DCache缺失：停顿IF和ID
+        stall_if = 1'b1;
+        stall_id = 1'b1;
     end else if (load_use_hazard) begin
-        // Load-Use：停顿 IF 和 ID，EX 得到气泡
         stall_if = 1'b1;
         stall_id = 1'b1;
     end else if (stall_dual) begin
-        // 双发射阻断：停顿 IF 和 ID，保持 IDII 数据等待下周期重试
         stall_if = 1'b1;
         stall_id = 1'b1;
     end

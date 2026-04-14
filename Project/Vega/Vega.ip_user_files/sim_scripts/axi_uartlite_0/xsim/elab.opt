@@ -1,0 +1,1 @@
+--incr --debug typical --relax --mt 2  -L xil_defaultlib -L axi_lite_ipif_v3_0_4 -L axi_uartlite_v2_0_39 -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot axi_uartlite_0 xil_defaultlib.axi_uartlite_0 xil_defaultlib.glbl -log elaborate.log

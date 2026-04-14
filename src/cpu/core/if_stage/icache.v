@@ -11,6 +11,8 @@ module icache (
     input  wire        req,
     output reg  [31:0] data_out,
     output reg         hit,
+    output reg  [63:0] instr_window_out,  // 新增：指令窗口输出
+    output reg         window_valid,      // 新增：窗口有效性
     
     output reg  [63:0] mem_addr,
     input  wire [255:0] mem_data,
@@ -69,6 +71,18 @@ always @(posedge clk or negedge rst_n) begin
             if (found) begin
                 // 返回 256-bit 行中的一个 32-bit 指令字
                 data_out <= way_data[match_way][index][offset*32 +: 32];
+                //构造64位指令窗口
+                 case (offset)
+                    3'd0: instr_window_out <= {way_data[match_way][index][63:32], way_data[match_way][index][31:0]};
+                    3'd1: instr_window_out <= {way_data[match_way][index][95:64], way_data[match_way][index][63:32]};
+                    3'd2: instr_window_out <= {way_data[match_way][index][127:96], way_data[match_way][index][95:64]};
+                    3'd3: instr_window_out <= {way_data[match_way][index][159:128], way_data[match_way][index][127:96]};
+                    3'd4: instr_window_out <= {way_data[match_way][index][191:160], way_data[match_way][index][159:128]};
+                    3'd5: instr_window_out <= {way_data[match_way][index][223:192], way_data[match_way][index][191:160]};
+                    3'd6: instr_window_out <= {way_data[match_way][index][255:224], way_data[match_way][index][223:192]};
+                    3'd7: instr_window_out <= {32'h00000013, way_data[match_way][index][255:224]}; // 用NOP填充
+                    endcase
+                window_valid <= 1'b1;
                 hit <= 1'b1;
             end else begin
                 // miss: 发起下层访存请求

@@ -1,24 +1,24 @@
 #-----------------------------------------------------------
 # Vivado v2025.2 (64-bit)
-# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Sat Mar 28 14:34:02 2026
-# Process ID         : 223739
-# Current directory  : /home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.runs/synth_1
-# Command line       : vivado -log riscv_cpu.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source riscv_cpu.tcl
-# Log file           : /home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.runs/synth_1/riscv_cpu.vds
-# Journal file       : /home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.runs/synth_1/vivado.jou
-# Running On         : ThinkPad
-# Platform           : Ubuntu
-# Operating System   : Ubuntu 24.04.4 LTS
-# Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
-# CPU Frequency      : 3686.399 MHz
-# CPU Physical cores : 16
-# CPU Logical cores  : 16
-# Host memory        : 16498 MB
+# Start of session at: Tue Apr 14 17:18:34 2026
+# Process ID         : 11332
+# Current directory  : C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1
+# Command line       : vivado.exe -log vega_soc_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source vega_soc_top.tcl
+# Log file           : C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/vega_soc_top.vds
+# Journal file       : C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1\vivado.jou
+# Running On         : Station
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26220
+# Processor Detail   : AMD Ryzen Threadripper PRO 3945WX 12-Cores     
+# CPU Frequency      : 3993 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 68565 MB
 # Swap memory        : 4294 MB
-# Total Virtual      : 20793 MB
-# Available Virtual  : 16318 MB
+# Total Virtual      : 72860 MB
+# Available Virtual  : 17276 MB
 #-----------------------------------------------------------
-source riscv_cpu.tcl -notrace
+source vega_soc_top.tcl -notrace

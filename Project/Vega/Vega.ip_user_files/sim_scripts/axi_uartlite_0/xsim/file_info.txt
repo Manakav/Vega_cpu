@@ -1,0 +1,2 @@
+axi_uartlite_0.vhd,vhdl,xil_defaultlib,../../../../Vega.gen/sources_1/ip/axi_uartlite_0/sim/axi_uartlite_0.vhd,incdir="D:/Xilinx/2025.2/Vivado/data/rsb/busdef"
+glbl.v,Verilog,xil_defaultlib,glbl.v

@@ -29,6 +29,7 @@ module riscv_cpu (
     input  wire                  irq_external,
     input  wire                  irq_timer,
     input  wire                  irq_software,
+    
 
     // 调试接口
     input  wire                  debug_req,
@@ -48,6 +49,67 @@ wire flush_if, flush_id, flush_ex;
 wire stall_dual;
 wire branch_taken, mispredict;
 wire [ADDR_WIDTH-1:0] branch_target;
+// 预测信息传递 wire
+wire predict_taken_ifid;
+wire [ADDR_WIDTH-1:0] predict_target_ifid;
+
+// 分支训练信号
+wire branch_update_en;
+wire branch_update_taken;
+wire [ADDR_WIDTH-1:0] branch_update_target;
+assign branch_update_en = branch_taken && !mispredict;
+assign branch_update_taken = branch_taken;
+assign branch_update_target = branch_target;
+
+
+// ============================================================
+// ICache
+// ============================================================
+// ICache接口信号
+wire [63:0] icache_addr;
+wire        icache_req;
+wire [31:0] icache_data_out;
+wire        icache_hit;
+wire [63:0] icache_mem_addr;
+wire [255:0] icache_mem_data;
+wire        icache_mem_req;
+wire        icache_mem_ready;
+
+// 例化ICache模块
+icache u_icache (
+    .clk(clk),
+    .rst_n(rst_n),
+    .addr(icache_addr),
+    .req(icache_req),
+    .data_out(icache_data_out),
+    .hit(icache_hit),
+    .mem_addr(icache_mem_addr),
+    .mem_data(icache_mem_data),
+    .mem_req(icache_mem_req),
+    .mem_ready(icache_mem_ready)
+);
+
+//DCashe//
+// DCache接口信号
+wire [63:0] dcache_addr;
+wire [63:0] dcache_wdata;
+wire [7:0]  dcache_be;
+wire        dcache_req;
+wire        dcache_we;
+wire [2:0]  dcache_size;
+wire [63:0] dcache_data_out;
+wire        dcache_hit;
+wire        dcache_refill_done;
+wire        dcache_writeback_req;
+wire [63:0] dcache_writeback_addr;
+wire [255:0] dcache_writeback_data;
+wire        dcache_cache_stall;
+wire [63:0] dcache_mem_addr;
+wire [255:0] dcache_mem_wdata;
+wire [255:0] dcache_mem_rdata;
+wire        dcache_mem_req;
+wire        dcache_mem_we;
+wire        dcache_mem_ready;
 
 // ============================================================
 // Stage 1 → Stage 2：IFID 寄存器（内置于 if_stage 输出寄存器）
@@ -62,16 +124,32 @@ if_stage #(
 ) u_if_stage (
     .clk(clk), .rst_n(rst_n),
     .stall(stall_if), .flush(flush_if),
+    // ICache接口连接
+    .icache_addr(icache_addr),
+    .icache_req(icache_req),
+    .icache_data_out(icache_data_out),
+    .icache_hit(icache_hit),
+    .icache_mem_addr(icache_mem_addr),
+    .icache_mem_data(icache_mem_data),
+    .icache_mem_req(icache_mem_req),
+    .icache_mem_ready(icache_mem_ready),
+    
     .instr_addr(instr_addr),
     .instr_data_w1(instr_data_w1),
     .instr_data_w2(instr_data_w2),
     .instr_req(instr_req), .instr_gnt(instr_gnt),
+      
     .branch_taken(branch_taken),
     .branch_target(branch_target),
     .mispredict(mispredict),
     .pc_out_w1(ifid_pc_w1),    .instr_out_w1(ifid_instr_w1), .valid_out_w1(ifid_valid_w1),
-    .pc_out_w2(ifid_pc_w2),    .instr_out_w2(ifid_instr_w2), .valid_out_w2(ifid_valid_w2)
+    .pc_out_w2(ifid_pc_w2),    .instr_out_w2(ifid_instr_w2), .valid_out_w2(ifid_valid_w2),
+    .predict_taken(predict_taken_ifid), .predict_target(predict_target_ifid),
+    .branch_update_en(branch_update_en),
+    .branch_update_taken(branch_update_taken),
+    .branch_update_target(branch_update_target)
 );
+
 
 // ============================================================
 // Stage 2：ID（双译码）—— 含 IDII 寄存器
@@ -92,6 +170,8 @@ wire        idii_ismul_w1, idii_ismul_w2;
 wire [2:0]  idii_mulf3_w1, idii_mulf3_w2;
 wire        idii_urs1_w1, idii_urs2_w1, idii_valid_w1;
 wire        idii_urs1_w2, idii_urs2_w2, idii_valid_w2;
+wire        predict_taken_idii, predict_target_idii;
+
 
 id_stage #(
     .DATA_WIDTH(DATA_WIDTH),
@@ -120,7 +200,8 @@ id_stage #(
     .is_muldiv_w1_o(idii_ismul_w1), .muldiv_funct3_w1_o(idii_mulf3_w1),
     .is_muldiv_w2_o(idii_ismul_w2), .muldiv_funct3_w2_o(idii_mulf3_w2),
     .uses_rs1_w1_o(idii_urs1_w1),  .uses_rs2_w1_o(idii_urs2_w1), .valid_w1_o(idii_valid_w1),
-    .uses_rs1_w2_o(idii_urs1_w2),  .uses_rs2_w2_o(idii_urs2_w2), .valid_w2_o(idii_valid_w2)
+    .uses_rs1_w2_o(idii_urs1_w2),  .uses_rs2_w2_o(idii_urs2_w2), .valid_w2_o(idii_valid_w2),
+    .predict_taken_i(predict_taken_ifid), .predict_target_i(predict_target_ifid)
 );
 
 // ============================================================
@@ -167,6 +248,7 @@ wire        iiex_isbr_w1,  iiex_isjmp_w1, iiex_valid_w1;
 wire        iiex_isbr_w2,  iiex_isjmp_w2, iiex_valid_w2;
 wire        iiex_ismul_w1, iiex_ismul_w2;
 wire [2:0]  iiex_mulf3_w1, iiex_mulf3_w2;
+wire predict_taken_iiex, predict_target_iiex;
 
 ii_stage #(
     .DATA_WIDTH(DATA_WIDTH),
@@ -184,6 +266,8 @@ ii_stage #(
     .is_system_w1_i(idii_issys_w1), .is_mem_op_w1_i(idii_ismem_w1),
     .is_muldiv_w1_i(idii_ismul_w1), .muldiv_funct3_w1_i(idii_mulf3_w1),
     .uses_rs1_w1_i(idii_urs1_w1), .uses_rs2_w1_i(idii_urs2_w1), .valid_w1_i(idii_valid_w1),
+    .predict_taken_i(predict_taken_idii),
+    .predict_target_i(predict_target_idii),
     // IDII Way2
     .pc_w2_i(idii_pc_w2),
     .rs1_addr_w2_i(idii_rs1_w2), .rs2_addr_w2_i(idii_rs2_w2), .rd_addr_w2_i(idii_rd_w2),
@@ -221,7 +305,9 @@ ii_stage #(
     .mem_read_en_w2_o(iiex_mr_w2), .mem_write_en_w2_o(iiex_mw_w2), .mem_size_w2_o(iiex_msz_w2),
     .reg_write_en_w2_o(iiex_rwe_w2), .wb_sel_w2_o(iiex_wbsel_w2),
     .is_branch_w2_o(iiex_isbr_w2), .is_jump_w2_o(iiex_isjmp_w2),
-    .is_muldiv_w2_o(iiex_ismul_w2), .muldiv_funct3_w2_o(iiex_mulf3_w2), .valid_w2_o(iiex_valid_w2)
+    .is_muldiv_w2_o(iiex_ismul_w2), .muldiv_funct3_w2_o(iiex_mulf3_w2), .valid_w2_o(iiex_valid_w2),
+    .predict_taken_o(predict_taken_iiex),
+    .predict_target_o(predict_target_iiex)
 );
 
 // ============================================================
@@ -275,8 +361,8 @@ ex_stage #(
     // 前递：MEM/WB
     .fwd_memwb_result_w1(memwb_result_w1), .fwd_memwb_rd_w1(memwb_rd_w1), .fwd_memwb_we_w1(memwb_rwe_w1),
     .fwd_memwb_result_w2(memwb_result_w2), .fwd_memwb_rd_w2(memwb_rd_w2), .fwd_memwb_we_w2(memwb_rwe_w2),
-    // 分支预测（当前简化：不接预测值）
-    .predict_taken_i(1'b0), .predict_target_i(64'b0),
+    // 分支预测
+    .predict_taken_i(predict_taken_iiex), .predict_target_i(predict_target_iiex),
     // EX/MEM 寄存器 Way1
     .pc_w1_o(exmem_pc_w1), .alu_result_w1_o(exmem_alu_w1), .rs2_data_w1_o(exmem_rs2_w1),
     .rd_addr_w1_o(exmem_rd_w1),
@@ -290,6 +376,25 @@ ex_stage #(
     // 分支
     .branch_taken_o(branch_taken), .branch_target_o(branch_target), .mispredict_o(mispredict)
 );
+// 外部存储器接口适配
+wire mem_access_req;
+wire [63:0] mem_access_addr;
+wire [255:0] mem_access_wdata;
+wire mem_access_we;
+// 多路选择器：DCache请求优先
+assign mem_access_req = dcache_mem_req | dcache_writeback_req;
+assign mem_access_addr = dcache_writeback_req ? dcache_writeback_addr : dcache_mem_addr;
+assign mem_access_wdata = dcache_writeback_req ? dcache_writeback_data : dcache_mem_wdata;
+assign mem_access_we = dcache_writeback_req ? 1'b1 : dcache_mem_we;
+// 连接外部存储器
+assign data_addr = mem_access_addr;
+assign data_wdata = mem_access_wdata[63:0];  // 可能需要调整位宽
+assign data_we = mem_access_we;
+assign data_be = dcache_be;
+assign data_req = mem_access_req;
+// 外部存储器响应
+assign dcache_mem_rdata = data_rdata;
+assign dcache_mem_ready = data_gnt;
 
 // ============================================================
 // Stage 5：MEM（访存）—— 含 MEM/WB 寄存器
@@ -304,6 +409,26 @@ mem_stage #(
     .ADDR_WIDTH(ADDR_WIDTH)
 ) u_mem_stage (
     .clk(clk), .rst_n(rst_n),
+     // DCache接口
+    .dcache_addr(dcache_addr),
+    .dcache_wdata(dcache_wdata),
+    .dcache_be(dcache_be),
+    .dcache_req(dcache_req),
+    .dcache_we(dcache_we),
+    .dcache_size(dcache_size),
+    .dcache_data_out(dcache_data_out),
+    .dcache_hit(dcache_hit),
+    .dcache_refill_done(dcache_refill_done),
+    .dcache_writeback_req(dcache_writeback_req),
+    .dcache_writeback_addr(dcache_writeback_addr),
+    .dcache_writeback_data(dcache_writeback_data),
+    .dcache_cache_stall(dcache_cache_stall),
+    .dcache_mem_addr(dcache_mem_addr),
+    .dcache_mem_wdata(dcache_mem_wdata),
+    .dcache_mem_rdata(dcache_mem_rdata),
+    .dcache_mem_req(dcache_mem_req),
+    .dcache_mem_we(dcache_mem_we),
+    .dcache_mem_ready(dcache_mem_ready),
     // EX/MEM Way1
     .pc_w1_i(exmem_pc_w1), .alu_result_w1_i(exmem_alu_w1), .rs2_data_w1_i(exmem_rs2_w1),
     .rd_addr_w1_i(exmem_rd_w1), .valid_w1_i(exmem_val_w1),
@@ -366,7 +491,9 @@ hazard_unit u_hazard_unit (
     .stall_dual(stall_dual),
     // 流水线控制
     .stall_if(stall_if), .stall_id(stall_id),
-    .flush_if(flush_if), .flush_id(flush_id), .flush_ex(flush_ex)
+    .flush_if(flush_if), .flush_id(flush_id), .flush_ex(flush_ex),
+    // Dcache
+    .dcache_stall(dcache_cache_stall)
 );
 
 // ============================================================

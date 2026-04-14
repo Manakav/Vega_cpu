@@ -7,10 +7,14 @@
 # Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # 
 
+echo "This script was generated under a different operating system."
+echo "Please update the PATH and LD_LIBRARY_PATH variables below, before executing this script"
+exit
+
 if [ -z "$PATH" ]; then
-  PATH=/mnt/disk1/Vivado/2025.2/Vitis/bin:/mnt/disk1/Vivado/2025.2/Vivado/ids_lite/ISE/bin/lin64:/mnt/disk1/Vivado/2025.2/Vivado/bin
+  PATH=D:/Xilinx/2025.2/Vitis/bin;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/Xilinx/2025.2/Vivado/bin
 else
-  PATH=/mnt/disk1/Vivado/2025.2/Vitis/bin:/mnt/disk1/Vivado/2025.2/Vivado/ids_lite/ISE/bin/lin64:/mnt/disk1/Vivado/2025.2/Vivado/bin:$PATH
+  PATH=D:/Xilinx/2025.2/Vitis/bin;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/Xilinx/2025.2/Vivado/bin:$PATH
 fi
 export PATH
 
@@ -21,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.runs/synth_1'
+HD_PWD='C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -37,4 +41,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log riscv_cpu.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source riscv_cpu.tcl
+EAStep vivado -log vega_soc_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source vega_soc_top.tcl
