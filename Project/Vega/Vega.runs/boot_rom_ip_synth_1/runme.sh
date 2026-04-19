@@ -12,9 +12,9 @@ echo "Please update the PATH and LD_LIBRARY_PATH variables below, before executi
 exit
 
 if [ -z "$PATH" ]; then
-  PATH=D:/Xilinx/2025.2/Vitis/bin;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/Xilinx/2025.2/Vivado/bin
+  PATH=D:/FPGA/xilinx/2025.2/Vitis/bin;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/FPGA/xilinx/2025.2/Vivado/bin
 else
-  PATH=D:/Xilinx/2025.2/Vitis/bin;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/Xilinx/2025.2/Vivado/bin:$PATH
+  PATH=D:/FPGA/xilinx/2025.2/Vitis/bin;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/FPGA/xilinx/2025.2/Vivado/bin:$PATH
 fi
 export PATH
 
@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1'
+HD_PWD='C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

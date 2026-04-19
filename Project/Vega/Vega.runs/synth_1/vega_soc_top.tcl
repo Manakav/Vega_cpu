@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/vega_soc_top.tcl"
+  variable script "C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/vega_soc_top.tcl"
   variable category "vivado_synth"
 }
 
@@ -56,12 +56,7 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param checkpoint.writeSynthRtdsInDcp 1
 set_param general.usePosixSpawnForFork 1
-set_param synth.incrementalSynthesisCache C:/Users/Windi/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-39864-Station/incrSyn
-set_msg_config -id {Common 17-41} -limit 10000000
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tlcsg324-2L
 
@@ -69,44 +64,44 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/wt [current_project]
-set_property parent.project_path C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.cache/wt [current_project]
+set_property parent.project_path C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/ip [current_project]
+set_property ip_output_repo c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-add_files C:/Users/Windi/Desktop/Vega_cpu/test/workbench/soft/start_inst.coe
+add_files C:/Users/Windink/Desktop/Vega_cpu/test/workbench/soft/start_inst.coe
 read_verilog -library xil_defaultlib {
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/ex_stage/alu.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/if_stage/bht.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/if_stage/btb.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/dcache.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/id_stage/decoder.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/ex_stage/ex_stage.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/hazard_unit.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/if_stage/icache.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/id_stage/id_stage.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/if_stage/if_stage.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/ii_stage/ii_stage.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/mem_stage.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/id_stage/register_file.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/soc/reset/reset_sync.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/cpu/riscv_cpu.v
-  C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/new/uart_adapter.v
-  C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/ex_stage/alu.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/if_stage/bht.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/if_stage/btb.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/mem_stage/dcache.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/id_stage/decoder.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/ex_stage/ex_stage.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/hazard_unit.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/if_stage/icache.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/id_stage/id_stage.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/if_stage/if_stage.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/ii_stage/ii_stage.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/mem_stage/mem_stage.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/core/id_stage/register_file.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/soc/reset/reset_sync.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/cpu/riscv_cpu.v
+  C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/new/uart_adapter.v
+  C:/Users/Windink/Desktop/Vega_cpu/src/soc/vega_soc_top.v
 }
-read_ip -quiet C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci
-set_property used_in_implementation false [get_files -all c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/data_ram_b/data_ram_b_ooc.xdc]
+read_ip -quiet C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci
+set_property used_in_implementation false [get_files -all c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/data_ram_b/data_ram_b_ooc.xdc]
 
-read_ip -quiet C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci
-set_property used_in_implementation false [get_files -all c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/boot_rom_ip/boot_rom_ip_ooc.xdc]
+read_ip -quiet C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci
+set_property used_in_implementation false [get_files -all c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/boot_rom_ip/boot_rom_ip_ooc.xdc]
 
-read_ip -quiet C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci
-set_property used_in_implementation false [get_files -all c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_ooc.xdc]
+read_ip -quiet C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci
+set_property used_in_implementation false [get_files -all c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -117,14 +112,14 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/Windi/Desktop/Vega_cpu/constraints/vega_soc_top.template.xdc
-set_property used_in_implementation false [get_files C:/Users/Windi/Desktop/Vega_cpu/constraints/vega_soc_top.template.xdc]
+read_xdc C:/Users/Windink/Desktop/Vega_cpu/constraints/vega_soc_top.template.xdc
+set_property used_in_implementation false [get_files C:/Users/Windink/Desktop/Vega_cpu/constraints/vega_soc_top.template.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/utils_1/imports/synth_1/vega_soc_top.dcp
+read_checkpoint -auto_incremental -incremental C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.srcs/utils_1/imports/synth_1/vega_soc_top.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

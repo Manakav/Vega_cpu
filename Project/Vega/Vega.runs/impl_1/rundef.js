@@ -5,17 +5,13 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 //
 
-echo "This script was generated under a different operating system."
-echo "Please update the PATH variable below, before executing this script"
-exit
-
 var WshShell = new ActiveXObject( "WScript.Shell" );
 var ProcEnv = WshShell.Environment( "Process" );
 var PathVal = ProcEnv("PATH");
 if ( PathVal.length == 0 ) {
-  PathVal = "/mnt/disk1/Vivado/2025.2/Vitis/bin:/mnt/disk1/Vivado/2025.2/Vivado/ids_lite/ISE/bin/lin64;/mnt/disk1/Vivado/2025.2/Vivado/bin;";
+  PathVal = "D:/FPGA/xilinx/2025.2/Vitis/bin;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64;D:/FPGA/xilinx/2025.2/Vivado/bin;";
 } else {
-  PathVal = "/mnt/disk1/Vivado/2025.2/Vitis/bin:/mnt/disk1/Vivado/2025.2/Vivado/ids_lite/ISE/bin/lin64;/mnt/disk1/Vivado/2025.2/Vivado/bin;" + PathVal;
+  PathVal = "D:/FPGA/xilinx/2025.2/Vitis/bin;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64;D:/FPGA/xilinx/2025.2/Vivado/bin;" + PathVal;
 }
 
 ProcEnv("PATH") = PathVal;
@@ -30,7 +26,7 @@ eval( EAInclude(ISEJScriptLib) );
 // pre-commands:
 ISETouchFile( "init_design", "begin" );
 ISEStep( "vivado",
-         "-log riscv_cpu.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source riscv_cpu.tcl -notrace" );
+         "-log vega_soc_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source vega_soc_top.tcl -notrace" );
 
 
 

@@ -1,24 +1,24 @@
 #-----------------------------------------------------------
 # Vivado v2025.2 (64-bit)
-# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Sat Mar 28 14:37:37 2026
-# Process ID         : 247253
-# Current directory  : /home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.runs/impl_1
-# Command line       : vivado -log riscv_cpu.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source riscv_cpu.tcl -notrace
-# Log file           : /home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.runs/impl_1/riscv_cpu.vdi
-# Journal file       : /home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.runs/impl_1/vivado.jou
+# Start of session at: Tue Apr 14 21:17:31 2026
+# Process ID         : 4424
+# Current directory  : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/impl_1
+# Command line       : vivado.exe -log vega_soc_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source vega_soc_top.tcl -notrace
+# Log file           : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/impl_1/vega_soc_top.vdi
+# Journal file       : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/impl_1\vivado.jou
 # Running On         : ThinkPad
-# Platform           : Ubuntu
-# Operating System   : Ubuntu 24.04.4 LTS
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26300
 # Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
-# CPU Frequency      : 3686.399 MHz
+# CPU Frequency      : 3686 MHz
 # CPU Physical cores : 16
 # CPU Logical cores  : 16
-# Host memory        : 16498 MB
-# Swap memory        : 4294 MB
-# Total Virtual      : 20793 MB
-# Available Virtual  : 16783 MB
+# Host memory        : 33812 MB
+# Swap memory        : 16106 MB
+# Total Virtual      : 49918 MB
+# Available Virtual  : 25132 MB
 #-----------------------------------------------------------
-source riscv_cpu.tcl -notrace
+source vega_soc_top.tcl -notrace

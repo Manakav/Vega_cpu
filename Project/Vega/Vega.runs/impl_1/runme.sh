@@ -7,10 +7,14 @@
 # Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # 
 
+echo "This script was generated under a different operating system."
+echo "Please update the PATH and LD_LIBRARY_PATH variables below, before executing this script"
+exit
+
 if [ -z "$PATH" ]; then
-  PATH=/mnt/disk1/Vivado/2025.2/Vitis/bin:/mnt/disk1/Vivado/2025.2/Vivado/ids_lite/ISE/bin/lin64:/mnt/disk1/Vivado/2025.2/Vivado/bin
+  PATH=D:/FPGA/xilinx/2025.2/Vitis/bin;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/FPGA/xilinx/2025.2/Vivado/bin
 else
-  PATH=/mnt/disk1/Vivado/2025.2/Vitis/bin:/mnt/disk1/Vivado/2025.2/Vivado/ids_lite/ISE/bin/lin64:/mnt/disk1/Vivado/2025.2/Vivado/bin:$PATH
+  PATH=D:/FPGA/xilinx/2025.2/Vitis/bin;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/FPGA/xilinx/2025.2/Vivado/bin:$PATH
 fi
 export PATH
 
@@ -21,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/liyu/cpuP/Vega_cpu/Project/Vega/Vega.runs/impl_1'
+HD_PWD='C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -39,6 +43,6 @@ EAStep()
 
 # pre-commands:
 /bin/touch .init_design.begin.rst
-EAStep vivado -log riscv_cpu.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source riscv_cpu.tcl -notrace
+EAStep vivado -log vega_soc_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source vega_soc_top.tcl -notrace
 
 

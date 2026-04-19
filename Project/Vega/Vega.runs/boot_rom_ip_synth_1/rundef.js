@@ -9,9 +9,9 @@ var WshShell = new ActiveXObject( "WScript.Shell" );
 var ProcEnv = WshShell.Environment( "Process" );
 var PathVal = ProcEnv("PATH");
 if ( PathVal.length == 0 ) {
-  PathVal = "D:/Xilinx/2025.2/Vitis/bin;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64;D:/Xilinx/2025.2/Vivado/bin;";
+  PathVal = "D:/FPGA/xilinx/2025.2/Vitis/bin;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64;D:/FPGA/xilinx/2025.2/Vivado/bin;";
 } else {
-  PathVal = "D:/Xilinx/2025.2/Vitis/bin;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/Xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64;D:/Xilinx/2025.2/Vivado/bin;" + PathVal;
+  PathVal = "D:/FPGA/xilinx/2025.2/Vitis/bin;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/FPGA/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64;D:/FPGA/xilinx/2025.2/Vivado/bin;" + PathVal;
 }
 
 ProcEnv("PATH") = PathVal;

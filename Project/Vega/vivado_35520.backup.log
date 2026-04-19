@@ -1,0 +1,770 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Mon Apr 13 16:44:20 2026
+# Process ID         : 35520
+# Current directory  : C:/Users/Windi/Desktop/Vega_cpu/Project/Vega
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent27460 C:\Users\Windi\Desktop\Vega_cpu\Project\Vega\Vega.xpr
+# Log file           : C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/vivado.log
+# Journal file       : C:/Users/Windi/Desktop/Vega_cpu/Project/Vega\vivado.jou
+# Running On         : Station
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26220
+# Processor Detail   : AMD Ryzen Threadripper PRO 3945WX 12-Cores     
+# CPU Frequency      : 3993 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 68565 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 72860 MB
+# Available Virtual  : 41349 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.xpr
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:kc705:part0:1.6 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\kc705\1.6\board.xml as part xc7k325tffg900-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:kc705:part0:1.7 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\kc705\1.7\board.xml as part xc7k325tffg900-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:kcu105:part0:1.6 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\kcu105\1.6\board.xml as part xcku040-ffva1156-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:kcu105:part0:1.7 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\kcu105\1.7\board.xml as part xcku040-ffva1156-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vc707:part0:1.4 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vc707\1.4\board.xml as part xc7vx485tffg1761-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vc707:part0:1.5 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vc707\1.5\board.xml as part xc7vx485tffg1761-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vc709:part0:1.8 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vc709\1.8\board.xml as part xc7vx690tffg1761-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu108:part0:1.6 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu108\1.6\board.xml as part xcvu095-ffva2104-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu108:part0:1.7 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu108\1.7\board.xml as part xcvu095-ffva2104-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu110:part0:1.4 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu110\1.4\board.xml as part xcvu190-flgc2104-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu129:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu129\production\1.0\board.xml as part xcvu29p-fsga2577-2l-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek280\production\1.0\board.xml as part xcve2802-vsvh1760-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek280\production\1.1\board.xml as part xcve2802-vsvh1760-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280:part0:1.2 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek280\production\1.2\board.xml as part xcve2802-vsvh1760-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek385:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek385\1.0\board.xml as part xc2ve3858-ssva2112-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek385:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek385\1.1\board.xml as part xc2ve3858-ssva2112-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek385_1:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek385_2\1.0\board.xml as part xc2ve3858-ssva2112-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vermeo_t1_rfsoc:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vermeo_t1_rfsoc\1.0\board.xml as part xczu21dr-ffvd1156-2l-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vhk158\production\1.0\board.xml as part xcvh1582-vsva3697-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vhk158\production\1.1\board.xml as part xcvh1582-vsva3697-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158:part0:1.2 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vhk158\production\1.2\board.xml as part xcvh1582-vsva3697-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk180:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vpk180\production\1.0\board.xml as part xcvp1802-lsvc4072-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk180:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vpk180\production\1.1\board.xml as part xcvp1802-lsvc4072-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk180:part0:1.2 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vpk180\production\1.2\board.xml as part xcvp1802-lsvc4072-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vrk160:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vrk160\1.0\board.xml as part xcvr1602-vsva2488-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vrk160:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vrk160\1.1\board.xml as part xcvr1602-vsva2488-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu111:part0:1.2 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu111\1.2\board.xml as part xczu28dr-ffvg1517-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu111:part0:1.3 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu111\1.3\board.xml as part xczu28dr-ffvg1517-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu111:part0:1.4 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu111\1.4\board.xml as part xczu28dr-ffvg1517-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu1275:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu1275\1.0\board.xml as part xczu29dr-ffvf1760-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu1285:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu1285\1.0\board.xml as part xczu39dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu208\production\2.0\board.xml as part xczu48dr-fsvg1517-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu208ld\production\2.0\board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu216\production\2.0\board.xml as part xczu49dr-ffvf1760-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu216ld\production\2.0\board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu670\2.0\board.xml as part xczu67dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu670ld\1.0\board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:kc705:part0:1.6 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\kc705\1.6\board.xml as part xc7k325tffg900-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:kc705:part0:1.7 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\kc705\1.7\board.xml as part xc7k325tffg900-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:kcu105:part0:1.6 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\kcu105\1.6\board.xml as part xcku040-ffva1156-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:kcu105:part0:1.7 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\kcu105\1.7\board.xml as part xcku040-ffva1156-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vc707:part0:1.4 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vc707\1.4\board.xml as part xc7vx485tffg1761-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vc707:part0:1.5 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vc707\1.5\board.xml as part xc7vx485tffg1761-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vc709:part0:1.8 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vc709\1.8\board.xml as part xc7vx690tffg1761-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu108:part0:1.6 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu108\1.6\board.xml as part xcvu095-ffva2104-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu108:part0:1.7 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu108\1.7\board.xml as part xcvu095-ffva2104-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu110:part0:1.4 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu110\1.4\board.xml as part xcvu190-flgc2104-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu129:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu129\production\1.0\board.xml as part xcvu29p-fsga2577-2l-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek280\production\1.0\board.xml as part xcve2802-vsvh1760-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek280\production\1.1\board.xml as part xcve2802-vsvh1760-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280:part0:1.2 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek280\production\1.2\board.xml as part xcve2802-vsvh1760-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek385:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek385\1.0\board.xml as part xc2ve3858-ssva2112-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek385:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek385\1.1\board.xml as part xc2ve3858-ssva2112-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek385_1:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek385_2\1.0\board.xml as part xc2ve3858-ssva2112-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vermeo_t1_rfsoc:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vermeo_t1_rfsoc\1.0\board.xml as part xczu21dr-ffvd1156-2l-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vhk158\production\1.0\board.xml as part xcvh1582-vsva3697-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vhk158\production\1.1\board.xml as part xcvh1582-vsva3697-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vhk158:part0:1.2 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vhk158\production\1.2\board.xml as part xcvh1582-vsva3697-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk180:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vpk180\production\1.0\board.xml as part xcvp1802-lsvc4072-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk180:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vpk180\production\1.1\board.xml as part xcvp1802-lsvc4072-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk180:part0:1.2 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vpk180\production\1.2\board.xml as part xcvp1802-lsvc4072-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vrk160:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vrk160\1.0\board.xml as part xcvr1602-vsva2488-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vrk160:part0:1.1 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vrk160\1.1\board.xml as part xcvr1602-vsva2488-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu111:part0:1.2 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu111\1.2\board.xml as part xczu28dr-ffvg1517-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu111:part0:1.3 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu111\1.3\board.xml as part xczu28dr-ffvg1517-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu111:part0:1.4 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu111\1.4\board.xml as part xczu28dr-ffvg1517-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu1275:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu1275\1.0\board.xml as part xczu29dr-ffvf1760-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu1285:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu1285\1.0\board.xml as part xczu39dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu208\production\2.0\board.xml as part xczu48dr-fsvg1517-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu208ld\production\2.0\board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu216\production\2.0\board.xml as part xczu49dr-ffvf1760-2-e specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu216ld\production\2.0\board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670:part0:2.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu670\2.0\board.xml as part xczu67dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at D:/Xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu670ld\1.0\board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Project 1-5713] Board part '' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build 
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Xilinx/2025.2/Vivado/data/ip'.
+open_project: Time (s): cpu = 00:00:20 ; elapsed = 00:00:10 . Memory (MB): peak = 1767.562 ; gain = 231.711
+update_compile_order -fileset sources_1
+synth_design -top vega_soc_top -part xc7a100tlcsg324-2L -lint 
+Command: synth_design -top vega_soc_top -part xc7a100tlcsg324-2L -lint
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100tl'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100tl'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 34832
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2262.062 ; gain = 475.242
+---------------------------------------------------------------------------------
+Clean up Linter database...
+WARNING: [Synth 8-6901] identifier 'way2_fetch_valid' is used before its declaration [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/if_stage.v:82]
+INFO: [Synth 8-6157] synthesizing module 'vega_soc_top' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v:1]
+INFO: [Synth 8-6157] synthesizing module 'reset_sync' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/reset/reset_sync.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'reset_sync' (1#1) [C:/Users/Windi/Desktop/Vega_cpu/src/soc/reset/reset_sync.v:1]
+ERROR: [Synth 8-7136] In the module 'boot_rom' declared at 'C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/boot_rom.v:2', parameter 'INIT_HEX' used as named parameter override, does not exist [C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v:50]
+ERROR: [Synth 8-6156] failed synthesizing module 'vega_soc_top' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v:1]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2379.520 ; gain = 592.699
+---------------------------------------------------------------------------------
+synthesize failed
+INFO: [Common 17-83] Releasing license: Synthesis
+8 Infos, 1 Warnings, 0 Critical Warnings and 2 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2379.520 ; gain = 592.699
+ERROR: [Common 17-39] 'synth_design' failed due to earlier errors.
+synth_design -top vega_soc_top -part xc7a100tlcsg324-2L -lint 
+Command: synth_design -top vega_soc_top -part xc7a100tlcsg324-2L -lint
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100tl'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100tl'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2379.520 ; gain = 0.000
+---------------------------------------------------------------------------------
+Clean up Linter database...
+WARNING: [Synth 8-6901] identifier 'way2_fetch_valid' is used before its declaration [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/if_stage.v:82]
+INFO: [Synth 8-6157] synthesizing module 'vega_soc_top' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v:1]
+INFO: [Synth 8-6157] synthesizing module 'reset_sync' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/reset/reset_sync.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'reset_sync' (1#1) [C:/Users/Windi/Desktop/Vega_cpu/src/soc/reset/reset_sync.v:1]
+ERROR: [Synth 8-7136] In the module 'boot_rom' declared at 'C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/boot_rom.v:2', parameter 'INIT_HEX' used as named parameter override, does not exist [C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v:50]
+ERROR: [Synth 8-6156] failed synthesizing module 'vega_soc_top' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v:1]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2411.809 ; gain = 32.289
+---------------------------------------------------------------------------------
+synthesize failed
+INFO: [Common 17-83] Releasing license: Synthesis
+6 Infos, 1 Warnings, 0 Critical Warnings and 2 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2411.809 ; gain = 32.289
+ERROR: [Common 17-39] 'synth_design' failed due to earlier errors.
+synth_design -top vega_soc_top -part xc7a100tlcsg324-2L -lint 
+Command: synth_design -top vega_soc_top -part xc7a100tlcsg324-2L -lint
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100tl'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100tl'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 2411.809 ; gain = 0.000
+---------------------------------------------------------------------------------
+Clean up Linter database...
+WARNING: [Synth 8-6901] identifier 'way2_fetch_valid' is used before its declaration [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/if_stage.v:82]
+INFO: [Synth 8-6157] synthesizing module 'vega_soc_top' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v:1]
+INFO: [Synth 8-6157] synthesizing module 'reset_sync' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/reset/reset_sync.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'reset_sync' (1#1) [C:/Users/Windi/Desktop/Vega_cpu/src/soc/reset/reset_sync.v:1]
+INFO: [Synth 8-6157] synthesizing module 'boot_rom' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/boot_rom.v:2]
+	Parameter DEPTH_WORDS bound to: 4096 - type: integer 
+WARNING: [Synth 8-11581] system function call 'fopen' not supported [C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/boot_rom.v:21]
+WARNING: [Synth 8-11581] system function call 'fopen' not supported [C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/boot_rom.v:26]
+INFO: [Synth 8-6155] done synthesizing module 'boot_rom' (2#1) [C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/boot_rom.v:2]
+INFO: [Synth 8-6157] synthesizing module 'data_ram' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/data_ram.v:1]
+	Parameter SIZE_BYTES bound to: 65536 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'data_ram' (3#1) [C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/data_ram.v:1]
+INFO: [Synth 8-6157] synthesizing module 'uart_lite' [C:/Users/Windi/Desktop/Vega_cpu/src/soc/peripherals/uart_lite.v:1]
+	Parameter BASE_ADDR bound to: 64'b0000000000000000000000000000000001100000000100000000000000000000 
+INFO: [Synth 8-6155] done synthesizing module 'uart_lite' (4#1) [C:/Users/Windi/Desktop/Vega_cpu/src/soc/peripherals/uart_lite.v:1]
+INFO: [Synth 8-6157] synthesizing module 'riscv_cpu' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/riscv_cpu.v:8]
+INFO: [Synth 8-6157] synthesizing module 'if_stage' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/if_stage.v:7]
+	Parameter ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'btb' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/btb.v:6]
+WARNING: [Synth 8-6014] Unused sequential element found_reg was removed.  [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/btb.v:55]
+WARNING: [Synth 8-6014] Unused sequential element match_way_reg was removed.  [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/btb.v:56]
+INFO: [Synth 8-6155] done synthesizing module 'btb' (5#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/btb.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bht' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/bht.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bht' (6#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/bht.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'if_stage' (7#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/if_stage.v:7]
+INFO: [Synth 8-6157] synthesizing module 'id_stage' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/id_stage.v:7]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter REG_ADDR_WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'decoder' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/decoder.v:6]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/decoder.v:72]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/decoder.v:224]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/decoder.v:70]
+INFO: [Synth 8-6155] done synthesizing module 'decoder' (8#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/decoder.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'id_stage' (9#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/id_stage.v:7]
+INFO: [Synth 8-6157] synthesizing module 'register_file' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/register_file.v:7]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter REG_COUNT bound to: 32 - type: integer 
+	Parameter ADDR_WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'register_file' (10#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/register_file.v:7]
+INFO: [Synth 8-6157] synthesizing module 'ii_stage' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ii_stage/ii_stage.v:6]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter ADDR_WIDTH bound to: 64 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'ii_stage' (11#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ii_stage/ii_stage.v:6]
+INFO: [Synth 8-6157] synthesizing module 'ex_stage' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v:6]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter ADDR_WIDTH bound to: 64 - type: integer 
+INFO: [Synth 8-226] default block is never used [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v:142]
+INFO: [Synth 8-6157] synthesizing module 'alu' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/alu.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (12#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/alu.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'ex_stage' (13#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v:6]
+INFO: [Synth 8-6157] synthesizing module 'mem_stage' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/mem_stage.v:7]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter ADDR_WIDTH bound to: 64 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'mem_stage' (14#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/mem_stage.v:7]
+INFO: [Synth 8-6157] synthesizing module 'hazard_unit' [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/hazard_unit.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'hazard_unit' (15#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/hazard_unit.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_cpu' (16#1) [C:/Users/Windi/Desktop/Vega_cpu/src/cpu/riscv_cpu.v:8]
+INFO: [Synth 8-6155] done synthesizing module 'vega_soc_top' (17#1) [C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v:1]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:54 ; elapsed = 00:00:56 . Memory (MB): peak = 6701.996 ; gain = 4290.188
+---------------------------------------------------------------------------------
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon Apr 13 17:20:51 2026
+| Host         : Station running 64-bit major release  (build 9200)
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+RTL Linter Report
+
+Table of Contents
+-----------------
+1. Summary
+
+1. Summary
+----------
+
++-----------+------------------+--------------+----------+
+| Rule ID   | Severity         | # Violations | # Waived |
++-----------+------------------+--------------+----------+
+| ASSIGN-1  | WARNING          | 1            | 0        |
+| ASSIGN-6  | WARNING          | 23           | 0        |
+| ASSIGN-10 | WARNING          | 25           | 0        |
+| INFER-2   | CRITICAL WARNING | 3            | 0        |
+| RESET-2   | WARNING          | 2            | 0        |
++-----------+------------------+--------------+----------+
+
+
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'signed_result' was assigned but not read. 
+RTL Name 'signed_result', Hierarchy 'alu', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/alu.v', Line 24.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'pc' are not read. First unread bit index is 0. 
+RTL Name 'pc', Hierarchy 'bht', File 'bht.v', Line 10.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'read_en' are not read. First unread bit index is 0. 
+RTL Name 'read_en', Hierarchy 'bht', File 'bht.v', Line 9.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'update_pc' are not read. First unread bit index is 0. 
+RTL Name 'update_pc', Hierarchy 'bht', File 'bht.v', Line 17.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'pc' are not read. First unread bit index is 0. 
+RTL Name 'pc', Hierarchy 'btb', File 'btb.v', Line 10.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'update_pc' are not read. First unread bit index is 0. 
+RTL Name 'update_pc', Hierarchy 'btb', File 'btb.v', Line 17.
+CRITICAL WARNING: [Synth 37-75] [INFER-2]Case statement items not fully specified and does not have a default item. 
+Hierarchy 'decoder', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/decoder.v', Line 72.
+CRITICAL WARNING: [Synth 37-75] [INFER-2]Case statement items not fully specified and does not have a default item. 
+Hierarchy 'decoder', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/decoder.v', Line 70.
+CRITICAL WARNING: [Synth 37-75] [INFER-2]Case statement items not fully specified and does not have a default item. 
+Hierarchy 'decoder', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/decoder.v', Line 224.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'alu_neg_w1' was assigned but not read. 
+RTL Name 'alu_neg_w1', Hierarchy 'ex_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v', Line 197.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'alu_neg_w2' was assigned but not read. 
+RTL Name 'alu_neg_w2', Hierarchy 'ex_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v', Line 198.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'alu_ovf_w1' was assigned but not read. 
+RTL Name 'alu_ovf_w1', Hierarchy 'ex_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v', Line 197.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'alu_ovf_w2' was assigned but not read. 
+RTL Name 'alu_ovf_w2', Hierarchy 'ex_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v', Line 198.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'alu_zero_w1' was assigned but not read. 
+RTL Name 'alu_zero_w1', Hierarchy 'ex_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v', Line 197.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'alu_zero_w2' was assigned but not read. 
+RTL Name 'alu_zero_w2', Hierarchy 'ex_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v', Line 198.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'is_branch_w2_i' are not read. First unread bit index is 0. 
+RTL Name 'is_branch_w2_i', Hierarchy 'ex_stage', File 'ex_stage.v', Line 52.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'is_jump_w2_i' are not read. First unread bit index is 0. 
+RTL Name 'is_jump_w2_i', Hierarchy 'ex_stage', File 'ex_stage.v', Line 53.
+WARNING: [Synth 37-103] [RESET-2]Register valid_w1_o_reg in always/process block does not have asynchronous reset when one or more other signals do.
+RTL Name 'valid_w1_o_reg', Hierarchy 'ex_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/ex_stage/ex_stage.v', Line 249.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'branch_taken_ex' are not read. First unread bit index is 0. 
+RTL Name 'branch_taken_ex', Hierarchy 'hazard_unit', File 'hazard_unit.v', Line 37.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'clk' are not read. First unread bit index is 0. 
+RTL Name 'clk', Hierarchy 'hazard_unit', File 'hazard_unit.v', Line 7.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'rd_addr_mem_w1' are not read. First unread bit index is 0. 
+RTL Name 'rd_addr_mem_w1', Hierarchy 'hazard_unit', File 'hazard_unit.v', Line 31.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'rd_addr_mem_w2' are not read. First unread bit index is 0. 
+RTL Name 'rd_addr_mem_w2', Hierarchy 'hazard_unit', File 'hazard_unit.v', Line 33.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'reg_write_en_ex_w1' are not read. First unread bit index is 0. 
+RTL Name 'reg_write_en_ex_w1', Hierarchy 'hazard_unit', File 'hazard_unit.v', Line 24.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'reg_write_en_ex_w2' are not read. First unread bit index is 0. 
+RTL Name 'reg_write_en_ex_w2', Hierarchy 'hazard_unit', File 'hazard_unit.v', Line 27.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'reg_write_en_mem_w1' are not read. First unread bit index is 0. 
+RTL Name 'reg_write_en_mem_w1', Hierarchy 'hazard_unit', File 'hazard_unit.v', Line 32.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'reg_write_en_mem_w2' are not read. First unread bit index is 0. 
+RTL Name 'reg_write_en_mem_w2', Hierarchy 'hazard_unit', File 'hazard_unit.v', Line 34.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'rst_n' are not read. First unread bit index is 0. 
+RTL Name 'rst_n', Hierarchy 'hazard_unit', File 'hazard_unit.v', Line 8.
+WARNING: [Synth 37-123] [ASSIGN-6]Some bits in 'funct7_w1' are not read. First unread bit index is 0. 
+RTL Name 'funct7_w1', Hierarchy 'id_stage', File 'id_stage.v', Line 80.
+WARNING: [Synth 37-123] [ASSIGN-6]Some bits in 'funct7_w2' are not read. First unread bit index is 0. 
+RTL Name 'funct7_w2', Hierarchy 'id_stage', File 'id_stage.v', Line 105.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'is_alu_imm_w1' was assigned but not read. 
+RTL Name 'is_alu_imm_w1', Hierarchy 'id_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/id_stage.v', Line 82.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'is_alu_imm_w2' was assigned but not read. 
+RTL Name 'is_alu_imm_w2', Hierarchy 'id_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/id_stage.v', Line 107.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'is_compressed_w1' was assigned but not read. 
+RTL Name 'is_compressed_w1', Hierarchy 'id_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/id_stage.v', Line 85.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'is_compressed_w2' was assigned but not read. 
+RTL Name 'is_compressed_w2', Hierarchy 'id_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/id_stage.v', Line 110.
+WARNING: [Synth 37-103] [RESET-2]Register valid_w1_o_reg in always/process block does not have asynchronous reset when one or more other signals do.
+RTL Name 'valid_w1_o_reg', Hierarchy 'id_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/id_stage/id_stage.v', Line 265.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'bht_counter' was assigned but not read. 
+RTL Name 'bht_counter', Hierarchy 'if_stage', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/core/mem_stage/if_stage/if_stage.v', Line 46.
+WARNING: [Synth 37-123] [ASSIGN-6]Some bits in 'inst2_hw' are not read. First unread bit index is 2. 
+RTL Name 'inst2_hw', Hierarchy 'if_stage', File 'if_stage.v', Line 66.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'uses_rs1_w1_i' are not read. First unread bit index is 0. 
+RTL Name 'uses_rs1_w1_i', Hierarchy 'ii_stage', File 'ii_stage.v', Line 34.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'uses_rs2_w1_i' are not read. First unread bit index is 0. 
+RTL Name 'uses_rs2_w1_i', Hierarchy 'ii_stage', File 'ii_stage.v', Line 35.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'pc_w1_i' are not read. First unread bit index is 0. 
+RTL Name 'pc_w1_i', Hierarchy 'mem_stage', File 'mem_stage.v', Line 15.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'exmem_mr_w2' was assigned but not read. 
+RTL Name 'exmem_mr_w2', Hierarchy 'riscv_cpu', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/riscv_cpu.v', Line 234.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'exmem_msz_w2' was assigned but not read. 
+RTL Name 'exmem_msz_w2', Hierarchy 'riscv_cpu', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/riscv_cpu.v', Line 235.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'exmem_mw_w2' was assigned but not read. 
+RTL Name 'exmem_mw_w2', Hierarchy 'riscv_cpu', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/riscv_cpu.v', Line 234.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'exmem_pc_w2' was assigned but not read. 
+RTL Name 'exmem_pc_w2', Hierarchy 'riscv_cpu', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/riscv_cpu.v', Line 230.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'exmem_rs2_w2' was assigned but not read. 
+RTL Name 'exmem_rs2_w2', Hierarchy 'riscv_cpu', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/riscv_cpu.v', Line 232.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal 'memwb_wbs_w2' was assigned but not read. 
+RTL Name 'memwb_wbs_w2', Hierarchy 'riscv_cpu', File 'C:/Users/Windi/Desktop/Vega_cpu/src/cpu/riscv_cpu.v', Line 300.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'debug_req' are not read. First unread bit index is 0. 
+RTL Name 'debug_req', Hierarchy 'riscv_cpu', File 'riscv_cpu.v', Line 34.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'irq_external' are not read. First unread bit index is 0. 
+RTL Name 'irq_external', Hierarchy 'riscv_cpu', File 'riscv_cpu.v', Line 29.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'irq_software' are not read. First unread bit index is 0. 
+RTL Name 'irq_software', Hierarchy 'riscv_cpu', File 'riscv_cpu.v', Line 31.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'irq_timer' are not read. First unread bit index is 0. 
+RTL Name 'irq_timer', Hierarchy 'riscv_cpu', File 'riscv_cpu.v', Line 30.
+WARNING: [Synth 37-93] [ASSIGN-6]Signal '_unused_rx' was assigned but not read. 
+RTL Name '_unused_rx', Hierarchy 'uart_lite', File 'C:/Users/Windi/Desktop/Vega_cpu/src/soc/peripherals/uart_lite.v', Line 68.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'addr' are not read. First unread bit index is 0. 
+RTL Name 'addr', Hierarchy 'uart_lite', File 'uart_lite.v', Line 8.
+WARNING: [Synth 37-125] [ASSIGN-10]Some bits in IO 'wdata' are not read. First unread bit index is 32. 
+RTL Name 'wdata', Hierarchy 'uart_lite', File 'uart_lite.v', Line 9.
+WARNING: [Synth 37-78] [ASSIGN-1]Input operands(of sizes 32 64) of add/sub cluster ending with expression '(data_addr[31:0] - RAM_BASE[31:0])' could yield maximum size of 64, but only width of 32 is being used.
+Hierarchy 'vega_soc_top', File 'C:/Users/Windi/Desktop/Vega_cpu/src/soc/vega_soc_top.v', Line 40.
+WARNING: [Synth 37-123] [ASSIGN-6]Some bits in 'instr_addr' are not read. First unread bit index is 0. 
+RTL Name 'instr_addr', Hierarchy 'vega_soc_top', File 'vega_soc_top.v', Line 17.
+INFO: [Synth 37-85] Total of 54 linter message(s) generated.
+INFO: [Synth 37-45] Linter Run Finished!
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:54 ; elapsed = 00:00:56 . Memory (MB): peak = 6701.996 ; gain = 4290.188
+INFO: [Common 17-83] Releasing license: Synthesis
+43 Infos, 56 Warnings, 3 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:55 ; elapsed = 00:00:56 . Memory (MB): peak = 6701.996 ; gain = 4290.188
+set_property needs_refresh false [get_runs synth_1]
+set_property needs_refresh false [get_runs impl_1]
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run synth_1. Auto-incremental flow will not be run, the standard flow will be run instead.
+[Mon Apr 13 17:21:16 2026] Launched synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/runme.log
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+ERROR: [Common 17-180] Spawn failed: 操作成功完成。
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+INFO: [IP_Flow 19-3484] Absolute path of file 'c:/Users/Windi/Desktop/Vega_cpu/test/workbench/soft/start_inst.coe' provided. It will be converted relative to IP Instance files '../../../../../../test/workbench/soft/start_inst.coe'
+INFO: [IP_Flow 19-3484] Absolute path of file 'c:/Users/Windi/Desktop/Vega_cpu/test/workbench/soft/start_inst.coe' provided. It will be converted relative to IP Instance files '../../../../../../test/workbench/soft/start_inst.coe'
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name boot_rom_ip
+set_property -dict [list \
+  CONFIG.Coe_File {C:/Users/Windi/Desktop/Vega_cpu/test/workbench/soft/start_inst.coe} \
+  CONFIG.Enable_A {Always_Enabled} \
+  CONFIG.Enable_B {Always_Enabled} \
+  CONFIG.Fill_Remaining_Memory_Locations {false} \
+  CONFIG.Load_Init_File {true} \
+  CONFIG.Memory_Type {Dual_Port_ROM} \
+  CONFIG.Register_PortA_Output_of_Memory_Primitives {false} \
+  CONFIG.Register_PortB_Output_of_Memory_Primitives {false} \
+  CONFIG.Write_Depth_A {4096} \
+  CONFIG.Write_Width_A {32} \
+] [get_ips boot_rom_ip]
+INFO: [IP_Flow 19-3484] Absolute path of file 'c:/Users/Windi/Desktop/Vega_cpu/test/workbench/soft/start_inst.coe' provided. It will be converted relative to IP Instance files '../../../../../../test/workbench/soft/start_inst.coe'
+INFO: [IP_Flow 19-3484] Absolute path of file 'c:/Users/Windi/Desktop/Vega_cpu/test/workbench/soft/start_inst.coe' provided. It will be converted relative to IP Instance files '../../../../../../test/workbench/soft/start_inst.coe'
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+generate_target {instantiation_template} [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'boot_rom_ip'...
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+ERROR: [Common 17-180] Spawn failed: 操作成功完成。
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+ERROR: [Common 17-180] Spawn failed: 操作成功完成。
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+ERROR: [Common 17-180] Spawn failed: 操作成功完成。
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+update_compile_order -fileset sources_1
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\boot_rom.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\cpu\core\mem_stage\id_stage\decoder.v:]
+ERROR: [Common 17-180] Spawn failed: 操作成功完成。
+
+generate_target all [get_files  c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci]
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'boot_rom_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'boot_rom_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'boot_rom_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'boot_rom_ip'...
+catch { config_ip_cache -export [get_ips -all boot_rom_ip] }
+export_ip_user_files -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci]
+launch_runs boot_rom_ip_synth_1 -jobs 12
+[Mon Apr 13 18:12:27 2026] Launched boot_rom_ip_synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1/runme.log
+export_simulation -lib_map_path [list {modelsim=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci] -directory C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name blk_mem_gen_0
+set_property -dict [list \
+  CONFIG.Byte_Size {8} \
+  CONFIG.Register_PortA_Output_of_Memory_Primitives {false} \
+  CONFIG.Use_Byte_Write_Enable {true} \
+  CONFIG.Write_Depth_A {8192} \
+] [get_ips blk_mem_gen_0]
+generate_target {instantiation_template} [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'blk_mem_gen_0'...
+update_compile_order -fileset sources_1
+generate_target all [get_files  c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_0'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'blk_mem_gen_0'...
+INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'blk_mem_gen_0'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'blk_mem_gen_0'...
+catch { config_ip_cache -export [get_ips -all blk_mem_gen_0] }
+export_ip_user_files -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+launch_runs blk_mem_gen_0_synth_1 -jobs 12
+[Mon Apr 13 21:49:32 2026] Launched blk_mem_gen_0_synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/blk_mem_gen_0_synth_1/runme.log
+export_simulation -lib_map_path [list {modelsim=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci] -directory C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+reset_run blk_mem_gen_0_synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/blk_mem_gen_0_synth_1
+
+export_ip_user_files -of_objects  [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci] -no_script -reset -force -quiet
+remove_files  -fileset blk_mem_gen_0 c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
+INFO: [Project 1-386] Moving file 'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci' from fileset 'blk_mem_gen_0' to fileset 'sources_1'.
+file delete -force c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/blk_mem_gen_0
+file delete -force c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/blk_mem_gen_0
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name data_ram
+set_property -dict [list \
+  CONFIG.Algorithm {Minimum_Area} \
+  CONFIG.Byte_Size {8} \
+  CONFIG.Fill_Remaining_Memory_Locations {false} \
+  CONFIG.Register_PortA_Output_of_Memory_Primitives {false} \
+  CONFIG.Use_Byte_Write_Enable {true} \
+  CONFIG.Use_RSTA_Pin {false} \
+  CONFIG.Write_Depth_A {8192} \
+  CONFIG.Write_Width_A {64} \
+] [get_ips data_ram]
+generate_target {instantiation_template} [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'data_ram'...
+update_compile_order -fileset sources_1
+generate_target all [get_files  c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci]
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'data_ram'...
+catch { config_ip_cache -export [get_ips -all data_ram] }
+export_ip_user_files -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci]
+launch_runs data_ram_synth_1 -jobs 12
+[Mon Apr 13 21:51:54 2026] Launched data_ram_synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/data_ram_synth_1/runme.log
+export_simulation -lib_map_path [list {modelsim=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci] -directory C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+set_property -dict [list \
+  CONFIG.Write_Depth_A {16384} \
+  CONFIG.Write_Width_A {32} \
+] [get_ips data_ram]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+generate_target all [get_files  c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'data_ram'...
+catch { config_ip_cache -export [get_ips -all data_ram] }
+export_ip_user_files -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci] -no_script -sync -force -quiet
+reset_run data_ram_synth_1
+launch_runs data_ram_synth_1 -jobs 12
+[Mon Apr 13 21:59:47 2026] Launched data_ram_synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/data_ram_synth_1/runme.log
+export_simulation -lib_map_path [list {modelsim=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci] -directory C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+ERROR: [Common 17-180] Spawn failed: 操作成功完成。
+
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+can't use non-numeric string as operand of "*"
+can't use non-numeric string as operand of "*"
+can't use non-numeric string as operand of "*"
+can't use non-numeric string as operand of "*"
+can't use non-numeric string as operand of "*"
+can't use non-numeric string as operand of "*"
+set_property -dict [list \
+  CONFIG.Write_Depth_A {8192} \
+  CONFIG.Write_Width_A {64} \
+] [get_ips data_ram]
+generate_target all [get_files  c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'data_ram'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'data_ram'...
+catch { config_ip_cache -export [get_ips -all data_ram] }
+INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP data_ram, cache-ID = 8f089319295141b7; cache size = 2.337 MB.
+catch { [ delete_ip_run [get_ips -all data_ram] ] }
+INFO: [Project 1-386] Moving file 'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci' from fileset 'data_ram' to fileset 'sources_1'.
+export_ip_user_files -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci]
+INFO: [Vivado 12-3453] The given sub-design is up-to-date, no action was taken.  If a run is still desired, use the '-force' option for the file:'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci'
+export_simulation -lib_map_path [list {modelsim=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci] -directory C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+ERROR: [Common 17-180] Spawn failed: 操作成功完成。
+
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+export_ip_user_files -of_objects  [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci] -no_script -reset -force -quiet
+remove_files  c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram/data_ram.xci
+file delete -force c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram
+file delete -force c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/data_ram
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name data_ram_b
+set_property -dict [list \
+  CONFIG.Byte_Size {8} \
+  CONFIG.Register_PortA_Output_of_Memory_Primitives {false} \
+  CONFIG.Use_Byte_Write_Enable {true} \
+  CONFIG.Write_Depth_A {8192} \
+  CONFIG.Write_Width_A {32} \
+] [get_ips data_ram_b]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+generate_target {instantiation_template} [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'data_ram_b'...
+update_compile_order -fileset sources_1
+generate_target all [get_files  c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci]
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'data_ram_b'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'data_ram_b'...
+INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'data_ram_b'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'data_ram_b'...
+catch { config_ip_cache -export [get_ips -all data_ram_b] }
+export_ip_user_files -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci]
+launch_runs data_ram_b_synth_1 -jobs 12
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+[Mon Apr 13 22:04:20 2026] Launched data_ram_b_synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/data_ram_b_synth_1/runme.log
+export_simulation -lib_map_path [list {modelsim=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci] -directory C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+update_compile_order -fileset sources_1
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run synth_1. Auto-incremental flow will not be run, the standard flow will be run instead.
+[Mon Apr 13 22:09:56 2026] Launched synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/runme.log
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+ERROR: [Common 17-180] Spawn failed: 操作成功完成。
+
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run synth_1. Auto-incremental flow will not be run, the standard flow will be run instead.
+[Mon Apr 13 22:12:00 2026] Launched synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/runme.log
+export_ip_user_files -of_objects  [get_files C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/data_ram.v] -no_script -reset -force -quiet
+remove_files  C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/data_ram.v
+export_ip_user_files -of_objects  [get_files C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/boot_rom.v] -no_script -reset -force -quiet
+remove_files  C:/Users/Windi/Desktop/Vega_cpu/src/soc/memory/boot_rom.v
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+set_property CONFIG.Write_Width_A {64} [get_ips data_ram_b]
+generate_target all [get_files  c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'data_ram_b'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'data_ram_b'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'data_ram_b'...
+INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'data_ram_b'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'data_ram_b'...
+catch { config_ip_cache -export [get_ips -all data_ram_b] }
+INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP data_ram_b, cache-ID = 8f089319295141b7; cache size = 2.910 MB.
+catch { [ delete_ip_run [get_ips -all data_ram_b] ] }
+INFO: [Project 1-386] Moving file 'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci' from fileset 'data_ram_b' to fileset 'sources_1'.
+export_ip_user_files -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci]
+INFO: [Vivado 12-3453] The given sub-design is up-to-date, no action was taken.  If a run is still desired, use the '-force' option for the file:'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci'
+export_simulation -lib_map_path [list {modelsim=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci] -directory C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci' is already up-to-date
+WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run synth_1. Auto-incremental flow will not be run, the standard flow will be run instead.
+[Mon Apr 13 22:18:32 2026] Launched synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/runme.log
+create_ip -name axi_uartlite -vendor xilinx.com -library ip -version 2.0 -module_name axi_uartlite_0
+generate_target {instantiation_template} [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'axi_uartlite_0'...
+generate_target all [get_files  c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci]
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'axi_uartlite_0'...
+WARNING: [IP_Flow 19-4994] Overwriting existing constraint file 'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_ooc.xdc'
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'axi_uartlite_0'...
+INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'axi_uartlite_0'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'axi_uartlite_0'...
+catch { config_ip_cache -export [get_ips -all axi_uartlite_0] }
+export_ip_user_files -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci]
+launch_runs axi_uartlite_0_synth_1 -jobs 12
+[Mon Apr 13 22:27:04 2026] Launched axi_uartlite_0_synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/axi_uartlite_0_synth_1/runme.log
+export_simulation -lib_map_path [list {modelsim=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci] -directory C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\peripherals\uart_lite.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\peripherals\uart_lite.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+file mkdir C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/new
+close [ open C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/new/uart_adapter.v w ]
+add_files C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/new/uart_adapter.v
+update_compile_order -fileset sources_1
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\peripherals\uart_lite.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\Project\Vega\Vega.srcs\sources_1\new\uart_adapter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\memory\data_ram.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\vega_soc_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\peripherals\uart_lite.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\peripherals\uart_lite.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\Windi\Desktop\Vega_cpu\src\soc\peripherals\uart_lite.v:]
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files C:/Users/Windi/Desktop/Vega_cpu/src/soc/peripherals/uart_lite.v] -no_script -reset -force -quiet
+remove_files  C:/Users/Windi/Desktop/Vega_cpu/src/soc/peripherals/uart_lite.v
+reset_run synth_1
+INFO: [Project 1-1160] Copying file C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/vega_soc_top.dcp to C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/utils_1/imports/synth_1 and adding it to utils fileset
+launch_runs synth_1 -jobs 24
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci' is already up-to-date
+[Mon Apr 13 22:33:40 2026] Launched synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci' is already up-to-date
+[Mon Apr 13 22:40:47 2026] Launched synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci' is already up-to-date
+[Tue Apr 14 11:52:25 2026] Launched synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'c:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci' is already up-to-date
+[Tue Apr 14 11:53:29 2026] Launched synth_1...
+Run output will be captured here: C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/runme.log
+exit
+INFO: [Common 17-206] Exiting Vivado at Tue Apr 14 12:00:26 2026...

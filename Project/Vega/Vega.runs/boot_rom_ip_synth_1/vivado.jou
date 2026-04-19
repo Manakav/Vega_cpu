@@ -3,22 +3,22 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Mon Apr 13 18:12:30 2026
-# Process ID         : 23664
-# Current directory  : C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1
+# Start of session at: Tue Apr 14 21:15:24 2026
+# Process ID         : 29300
+# Current directory  : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1
 # Command line       : vivado.exe -log boot_rom_ip.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source boot_rom_ip.tcl
-# Log file           : C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1/boot_rom_ip.vds
-# Journal file       : C:/Users/Windi/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1\vivado.jou
-# Running On         : Station
+# Log file           : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1/boot_rom_ip.vds
+# Journal file       : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1\vivado.jou
+# Running On         : ThinkPad
 # Platform           : Windows Server 2016 or Windows 10
-# Operating System   : 26220
-# Processor Detail   : AMD Ryzen Threadripper PRO 3945WX 12-Cores     
-# CPU Frequency      : 3993 MHz
-# CPU Physical cores : 12
-# CPU Logical cores  : 24
-# Host memory        : 68565 MB
-# Swap memory        : 4294 MB
-# Total Virtual      : 72860 MB
-# Available Virtual  : 28601 MB
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
+# CPU Frequency      : 3686 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 16
+# Host memory        : 33812 MB
+# Swap memory        : 16106 MB
+# Total Virtual      : 49918 MB
+# Available Virtual  : 25039 MB
 #-----------------------------------------------------------
 source boot_rom_ip.tcl -notrace
