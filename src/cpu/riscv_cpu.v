@@ -65,6 +65,7 @@ assign branch_update_target = branch_target;
 // ============================================================
 // ICache
 // ============================================================
+`ifdef USE_IP_ICACHE
 // ICache接口信号
 wire [63:0] icache_addr;
 wire        icache_req;
@@ -74,6 +75,9 @@ wire [63:0] icache_mem_addr;
 wire [255:0] icache_mem_data;
 wire        icache_mem_req;
 wire        icache_mem_ready;
+wire [63:0] icache_instr_window_out;
+wire        icache_window_valid;
+wire        icache_hit_reg;
 
 // 例化ICache模块
 icache u_icache (
@@ -88,6 +92,7 @@ icache u_icache (
     .mem_req(icache_mem_req),
     .mem_ready(icache_mem_ready)
 );
+`endif
 
 //DCashe//
 // DCache接口信号
@@ -124,16 +129,17 @@ if_stage #(
 ) u_if_stage (
     .clk(clk), .rst_n(rst_n),
     .stall(stall_if), .flush(flush_if),
-    // ICache接口连接
+`ifdef USE_IP_ICACHE
     .icache_addr(icache_addr),
     .icache_req(icache_req),
-    .icache_data_out(icache_data_out),
+    .icache_instr_window_out(icache_instr_window_out),
+    .icache_window_valid(icache_window_valid),
     .icache_hit(icache_hit),
     .icache_mem_addr(icache_mem_addr),
     .icache_mem_data(icache_mem_data),
     .icache_mem_req(icache_mem_req),
     .icache_mem_ready(icache_mem_ready),
-    
+`endif
     .instr_addr(instr_addr),
     .instr_data_w1(instr_data_w1),
     .instr_data_w2(instr_data_w2),
@@ -145,6 +151,7 @@ if_stage #(
     .pc_out_w1(ifid_pc_w1),    .instr_out_w1(ifid_instr_w1), .valid_out_w1(ifid_valid_w1),
     .pc_out_w2(ifid_pc_w2),    .instr_out_w2(ifid_instr_w2), .valid_out_w2(ifid_valid_w2),
     .predict_taken(predict_taken_ifid), .predict_target(predict_target_ifid),
+    .predict_fetch_pc(),
     .branch_update_en(branch_update_en),
     .branch_update_taken(branch_update_taken),
     .branch_update_target(branch_update_target)

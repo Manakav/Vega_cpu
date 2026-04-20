@@ -13,17 +13,19 @@ module if_stage #(
     input  wire                  stall,
     input  wire                  flush,
     
-    // 添加ICache接口信号
-    input  wire [63:0] icache_addr,
-    input  wire        icache_req,
-    output wire [31:0] icache_data_out,
-    output wire [63:0] icache_instr_window_out,
-    output wire        icache_window_valid,
-    input  wire        icache_hit,
-    input  wire [63:0] icache_mem_addr,
-    output wire [255:0] icache_mem_data,
-    output wire        icache_mem_req,
-    input  wire        icache_mem_ready,
+`ifdef USE_IP_ICACHE
+    // ICache接口信号（ICache启用时使用）
+    output wire [63:0]           icache_addr,
+    output wire                  icache_req,
+    input  wire [31:0]           icache_data_out,
+    input  wire [63:0]           icache_instr_window_out,
+    input  wire                  icache_window_valid,
+    input  wire                  icache_hit,
+    input  wire [63:0]           icache_mem_addr,
+    input  wire [255:0]          icache_mem_data,
+    input  wire                  icache_mem_req,
+    output wire                  icache_mem_ready,
+`endif
 
     // 指令存储器接口（外部提供两条连续指令）
     output wire [ADDR_WIDTH-1:0] instr_addr,      // Way1 取指地址（= PC）
@@ -60,7 +62,6 @@ module if_stage #(
 
 wire [ADDR_WIDTH-1:0] next_pc;
 wire [ADDR_WIDTH-1:0] predict_pc;
-wire                  predict_taken;
 wire [ADDR_WIDTH-1:0] btb_target;
 wire                  btb_hit;
 wire                  btb_valid;
@@ -72,7 +73,11 @@ reg [7:0]             ghr;
 
 wire [ADDR_WIDTH-1:0] fetch_base_addr = {pc_reg[ADDR_WIDTH-1:2], 2'b00};
 
+`ifdef USE_IP_ICACHE
+wire [63:0] instr_window = icache_instr_window_out;
+`else
 wire [63:0] instr_window = {instr_data_w2, instr_data_w1};
+`endif
 
 wire [1:0]  pc_hw_idx = {1'b0, pc_reg[1]};
 wire [15:0] inst1_hw = (pc_hw_idx == 2'd0) ? instr_window[15:0] : instr_window[31:16];
@@ -101,10 +106,6 @@ wire [31:0] inst2_raw =
 
 wire way2_len_valid = ~inst2_cross_unavailable;
 wire [ADDR_WIDTH-1:0] seq_inc = (inst1_is_32 ? 64'd4 : 64'd2) +((way2_fetch_valid && way2_len_valid) ? (inst2_is_32 ? 64'd4 : 64'd2) : 64'd0);
-                                 
-// 修改指令窗口来源
-wire [63:0] instr_window = icache_instr_window_out;
-wire window_valid = icache_window_valid;
 
 // 控制流选择：纠错重定向 > 预测跳转 > 顺序推进（按 16/32-bit 指令长度）
 assign next_pc     = mispredict    ? branch_target :
@@ -114,9 +115,7 @@ assign next_pc     = mispredict    ? branch_target :
 assign predict_taken = btb_hit ? btb_valid : bht_taken;
 assign predict_pc    = btb_hit ? btb_target : (pc_reg + seq_inc);
 
-
 // 输出预测信息供流水线传递
-assign predict_taken     = predict_taken;
 assign predict_target   = predict_pc;
 assign predict_fetch_pc = pc_reg;
 
@@ -151,11 +150,12 @@ bht u_bht (
     .update_taken(branch_update_en ? branch_update_taken : branch_taken)
 );
 
-// 连接ICache地址和请求信号
+`ifdef USE_IP_ICACHE
+// ICache地址和请求信号
 assign icache_addr = fetch_base_addr;
-assign icache_req = !stall && !flush;  // 非停顿时持续请求
+assign icache_req  = !stall && !flush;
 
-// 处理ICache refill请求到外部存储器
+// ICache refill控制
 reg refill_in_progress;
 reg [ADDR_WIDTH-1:0] refill_addr;
 always @(posedge clk or negedge rst_n) begin
@@ -164,21 +164,22 @@ always @(posedge clk or negedge rst_n) begin
         refill_addr <= 64'b0;
     end else begin
         if (icache_mem_req && !refill_in_progress) begin
-            // 开始refill过程
             refill_in_progress <= 1'b1;
             refill_addr <= icache_mem_addr;
         end else if (instr_gnt && refill_in_progress) begin
-            // refill完成
             refill_in_progress <= 1'b0;
         end
     end
 end
 
-
-// 控制外部存储器访问
-assign instr_addr = refill_in_progress ? refill_addr : fetch_base_addr;
-assign instr_req = refill_in_progress;
+assign instr_addr    = refill_in_progress ? refill_addr : fetch_base_addr;
+assign instr_req     = refill_in_progress;
 assign icache_mem_ready = instr_gnt && refill_in_progress;
+`else
+// 直接内存模式：地址和请求总是活跃
+assign instr_addr = fetch_base_addr;
+assign instr_req  = 1'b1;
+`endif
 
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -191,7 +192,6 @@ always @(posedge clk or negedge rst_n) begin
         instr_out_w2  <= 32'b0;
         valid_out_w2  <= 1'b0;
     end else if (flush || mispredict) begin
-        // 冲刷：清空流水，PC 直跳到正确目标
         if (mispredict)
             pc_reg <= branch_target;
         valid_out_w1 <= 1'b0;
@@ -199,15 +199,12 @@ always @(posedge clk or negedge rst_n) begin
     end else if (!stall) begin
         pc_reg <= next_pc;
 
-        // GHR 随预测方向更新
         ghr <= {ghr[6:0], predict_taken};
 
         if (instr_gnt) begin
-            // Way1：当前 PC 指令（支持 16/32-bit）
             pc_out_w1    <= pc_reg;
             instr_out_w1 <= inst1_raw;
             valid_out_w1 <= 1'b1;
-            // Way2：紧邻 Way1 的下一条顺序指令（支持 16/32-bit）
             pc_out_w2    <= pc_after_inst1;
             instr_out_w2 <= inst2_raw;
             valid_out_w2 <= way2_fetch_valid & way2_len_valid;
@@ -217,9 +214,5 @@ always @(posedge clk or negedge rst_n) begin
         end
     end
 end
-
-// 取指地址对齐到 4 字节，外部返回 base/base+4 两个 32-bit 词形成 64-bit 窗口
-assign instr_addr = fetch_base_addr;
-assign instr_req  = 1'b1;
 
 endmodule

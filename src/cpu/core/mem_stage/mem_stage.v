@@ -77,7 +77,6 @@ module mem_stage #(
 
 wire [2:0] size = mem_size_w1_i;
 
-// Way1 内存地址、写使能、字节使能、写数据
 assign mem_addr  = alu_result_w1_i;
 assign mem_we    = mem_write_en_w1_i;
 
@@ -93,18 +92,6 @@ assign mem_wdata =
     (size == 3'b010) ? {32'b0, rs2_data_w1_i[31:0]} :
     rs2_data_w1_i;
 
-// Load 数据格式化（符号/零扩展）
-wire [DATA_WIDTH-1:0] load_data =
-    (size == 3'b000) ? {{56{mem_rdata[7]}},  mem_rdata[7:0]}  :
-    (size == 3'b001) ? {{48{mem_rdata[15]}}, mem_rdata[15:0]} :
-    (size == 3'b010) ? {{32{mem_rdata[31]}}, mem_rdata[31:0]} :
-    (size == 3'b011) ? mem_rdata :
-    (size == 3'b100) ? {56'b0, mem_rdata[7:0]}  :
-    (size == 3'b101) ? {48'b0, mem_rdata[15:0]} :
-    (size == 3'b110) ? {32'b0, mem_rdata[31:0]} : mem_rdata;
-
-// ---- MEM/WB 流水线寄存器 ----
-// 修改MEM/WB流水线寄存器
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         valid_w1_o       <= 1'b0;

@@ -1,0 +1,264 @@
+{
+  "timestamp": "2026-04-19T20:26:01.519239",
+  "results": [
+    {
+      "name": "tb_alu",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_alu"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_register_file",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_register_file"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_hazard_unit",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_hazard_unit"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_decoder",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_decoder"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_btb",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_btb"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_bht",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_bht"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_mul_div",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_mul_div"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_csr_unit",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_csr_unit"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_icache",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_icache"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_dcache",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_dcache"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_ex_stage",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "UNKNOWN",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [],
+      "info_messages": []
+    },
+    {
+      "name": "tb_id_stage",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_id_stage"
+      ],
+      "info_messages": []
+    },
+    {
+      "name": "tb_if_stage",
+      "compile_status": "ERROR",
+      "compile_warnings": 0,
+      "compile_errors": 3,
+      "test_status": "UNKNOWN",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [],
+      "info_messages": []
+    },
+    {
+      "name": "tb_mem_stage",
+      "compile_status": "ERROR",
+      "compile_warnings": 0,
+      "compile_errors": 2,
+      "test_status": "UNKNOWN",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [],
+      "info_messages": []
+    },
+    {
+      "name": "tb_ii_stage",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "FAIL",
+      "error_count": 1,
+      "fail_messages": [
+        "\ufeff[FAIL] : slot1 rd = Way2 rd after retry",
+        "[FAIL] tb_ii_stage errors=1"
+      ],
+      "pass_messages": [],
+      "info_messages": []
+    },
+    {
+      "name": "tb_forwarding",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "UNKNOWN",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [],
+      "info_messages": []
+    },
+    {
+      "name": "tb_m_extension",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "FAIL",
+      "error_count": 3,
+      "fail_messages": [
+        "\ufeff[FAIL] IV -16/4=-4 (0xFFFFFFFFFFFFFFFC)",
+        "[FAIL] EM -16%3=-1 (0xFFFFFFFFFFFFFFFF)",
+        "[FAIL] T13: MULHSU -2^63*2 upper=1",
+        "[FAIL] tb_m_extension errors=3"
+      ],
+      "pass_messages": [],
+      "info_messages": []
+    },
+    {
+      "name": "tb_csr_exception",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "UNKNOWN",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [],
+      "info_messages": []
+    },
+    {
+      "name": "tb_branch_predict",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "FAIL",
+      "error_count": 3,
+      "fail_messages": [
+        "[FAIL] T10a: BTB idx=0x00 entry alive",
+        "[FAIL] T10b: BTB idx=0x10 entry alive",
+        "[FAIL] T10c: BTB idx=0x20 entry alive",
+        "[FAIL] tb_branch_predict errors=3"
+      ],
+      "pass_messages": [],
+      "info_messages": [
+        "\ufeff[INFO] Branch prediction accuracy: 50.0% (1/2)"
+      ]
+    },
+    {
+      "name": "tb_dual_issue_integration",
+      "compile_status": "MISSING",
+      "compile_warnings": 0,
+      "compile_errors": 0,
+      "test_status": "PASS",
+      "error_count": 0,
+      "fail_messages": [],
+      "pass_messages": [
+        "\ufeff[PASS] tb_dual_issue_integration"
+      ],
+      "info_messages": []
+    }
+  ]
+}
