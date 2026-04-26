@@ -1,0 +1,32 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Apr 14 21:14:38 2026
+# Process ID         : 11764
+# Current directory  : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent4900 C:\Users\Windink\Desktop\Vega_cpu\Project\Vega\Vega.xpr
+# Log file           : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/vivado.log
+# Journal file       : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega\vivado.jou
+# Running On         : ThinkPad
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
+# CPU Frequency      : 3686 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 16
+# Host memory        : 33812 MB
+# Swap memory        : 16106 MB
+# Total Virtual      : 49918 MB
+# Available Virtual  : 27090 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.xpr
+update_compile_order -fileset sources_1
+reset_run boot_rom_ip_synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+launch_runs impl_1 -jobs 16
+wait_on_run impl_1

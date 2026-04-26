@@ -65,7 +65,6 @@ assign branch_update_target = branch_target;
 // ============================================================
 // ICache
 // ============================================================
-`ifdef USE_IP_ICACHE
 // ICache接口信号
 wire [63:0] icache_addr;
 wire        icache_req;
@@ -92,7 +91,6 @@ icache u_icache (
     .mem_req(icache_mem_req),
     .mem_ready(icache_mem_ready)
 );
-`endif
 
 //DCashe//
 // DCache接口信号
@@ -177,7 +175,8 @@ wire        idii_ismul_w1, idii_ismul_w2;
 wire [2:0]  idii_mulf3_w1, idii_mulf3_w2;
 wire        idii_urs1_w1, idii_urs2_w1, idii_valid_w1;
 wire        idii_urs1_w2, idii_urs2_w2, idii_valid_w2;
-wire        predict_taken_idii, predict_target_idii;
+wire        predict_taken_idii;
+wire [ADDR_WIDTH-1:0] predict_target_idii;
 
 
 id_stage #(
@@ -208,7 +207,8 @@ id_stage #(
     .is_muldiv_w2_o(idii_ismul_w2), .muldiv_funct3_w2_o(idii_mulf3_w2),
     .uses_rs1_w1_o(idii_urs1_w1),  .uses_rs2_w1_o(idii_urs2_w1), .valid_w1_o(idii_valid_w1),
     .uses_rs1_w2_o(idii_urs1_w2),  .uses_rs2_w2_o(idii_urs2_w2), .valid_w2_o(idii_valid_w2),
-    .predict_taken_i(predict_taken_ifid), .predict_target_i(predict_target_ifid)
+    .predict_taken_i(predict_taken_ifid), .predict_target_i(predict_target_ifid),
+    .predict_taken_o(predict_taken_idii), .predict_target_o(predict_target_idii)
 );
 
 // ============================================================
@@ -429,13 +429,13 @@ mem_stage #(
     .dcache_writeback_req(dcache_writeback_req),
     .dcache_writeback_addr(dcache_writeback_addr),
     .dcache_writeback_data(dcache_writeback_data),
-    .dcache_cache_stall(dcache_cache_stall),
     .dcache_mem_addr(dcache_mem_addr),
     .dcache_mem_wdata(dcache_mem_wdata),
     .dcache_mem_rdata(dcache_mem_rdata),
     .dcache_mem_req(dcache_mem_req),
     .dcache_mem_we(dcache_mem_we),
     .dcache_mem_ready(dcache_mem_ready),
+    .dcache_cache_stall(dcache_cache_stall),
     // EX/MEM Way1
     .pc_w1_i(exmem_pc_w1), .alu_result_w1_i(exmem_alu_w1), .rs2_data_w1_i(exmem_rs2_w1),
     .rd_addr_w1_i(exmem_rd_w1), .valid_w1_i(exmem_val_w1),
@@ -444,10 +444,6 @@ mem_stage #(
     // EX/MEM Way2 (透传)
     .alu_result_w2_i(exmem_alu_w2), .rd_addr_w2_i(exmem_rd_w2), .valid_w2_i(exmem_val_w2),
     .reg_write_en_w2_i(exmem_rwe_w2), .wb_sel_w2_i(exmem_wbs_w2),
-    // 数据存储器接口
-    .mem_addr(data_addr), .mem_wdata(data_wdata),
-    .mem_we(data_we), .mem_be(data_be),
-    .mem_rdata(data_rdata), .mem_gnt(data_gnt),
     // MEM/WB Way1
     .alu_result_w1_o(memwb_alu_w1), .mem_result_w1_o(memwb_mem_w1),
     .rd_addr_w1_o(memwb_rd_w1_raw), .valid_w1_o(memwb_val_w1),
@@ -473,10 +469,6 @@ assign wb_waddr2 = memwb_rd_w2_raw;
 assign wb_wdata2 = memwb_result_w2;
 assign wb_we2    = memwb_rwe_w2 && memwb_val_w2;
 
-// data_req：有访存时拉高
-assign data_req = exmem_mr_w1 | exmem_mw_w1;
-
-// ============================================================
 // 冒险处理单元
 // ============================================================
 hazard_unit u_hazard_unit (
@@ -508,5 +500,4 @@ hazard_unit u_hazard_unit (
 // ============================================================
 assign debug_halt   = 1'b0;
 assign debug_resume = 1'b1;
-
 endmodule

@@ -3,169 +3,131 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Tue Apr 14 21:17:31 2026
-# Process ID         : 4424
-# Current directory  : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/impl_1
+# Start of session at: Sat Apr 25 13:28:30 2026
+# Process ID         : 24572
+# Current directory  : Z:/Vega_cpu/Project/Vega/Vega.runs/impl_1
 # Command line       : vivado.exe -log vega_soc_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source vega_soc_top.tcl -notrace
-# Log file           : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/impl_1/vega_soc_top.vdi
-# Journal file       : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/impl_1\vivado.jou
-# Running On         : ThinkPad
+# Log file           : Z:/Vega_cpu/Project/Vega/Vega.runs/impl_1/vega_soc_top.vdi
+# Journal file       : Z:/Vega_cpu/Project/Vega/Vega.runs/impl_1\vivado.jou
+# Running On         : Station
 # Platform           : Windows Server 2016 or Windows 10
-# Operating System   : 26300
-# Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
-# CPU Frequency      : 3686 MHz
-# CPU Physical cores : 16
-# CPU Logical cores  : 16
-# Host memory        : 33812 MB
-# Swap memory        : 16106 MB
-# Total Virtual      : 49918 MB
-# Available Virtual  : 25132 MB
+# Operating System   : 26220
+# Processor Detail   : AMD Ryzen Threadripper PRO 3945WX 12-Cores     
+# CPU Frequency      : 3993 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 68563 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 72858 MB
+# Available Virtual  : 52699 MB
 #-----------------------------------------------------------
 source vega_soc_top.tcl -notrace
-create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 662.762 ; gain = 221.367
-Command: link_design -top vega_soc_top -part xc7a100tlcsg324-2L
+create_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 659.555 ; gain = 217.531
+Command: link_design -top vega_soc_top -part xc7a200tfbg676-3
 Design is defaulting to srcset: sources_1
 Design is defaulting to constrset: constrs_1
-INFO: [Device 21-403] Loading part xc7a100tlcsg324-2L
-INFO: [Project 1-5699] Read binary netlist with skipMacroContent - 1
-INFO: [Project 1-454] Reading design checkpoint 'c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/boot_rom_ip/boot_rom_ip.dcp' for cell 'u_boot_rom_ip'
-INFO: [Project 1-454] Reading design checkpoint 'c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/data_ram_b/data_ram_b.dcp' for cell 'u_data_ram'
-INFO: [Project 1-454] Reading design checkpoint 'c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0.dcp' for cell 'u_uart_adapter/u_axi_uart'
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.016 . Memory (MB): peak = 917.246 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 253 Unisim elements for replacement
+INFO: [Device 21-403] Loading part xc7a200tfbg676-3
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.457 . Memory (MB): peak = 996.281 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 8839 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-WARNING: [Netlist 29-101] Netlist 'vega_soc_top' is not ideal for floorplanning, since the cellview 'dcache' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
 INFO: [Project 1-479] Netlist was created with Vivado 2025.2
 INFO: [Project 1-570] Preparing netlist for logic optimization
-Parsing XDC File [c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_board.xdc] for cell 'u_uart_adapter/u_axi_uart/U0'
-Finished Parsing XDC File [c:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_board.xdc] for cell 'u_uart_adapter/u_axi_uart/U0'
-Parsing XDC File [C:/Users/Windink/Desktop/Vega_cpu/constraints/vega_soc_top.template.xdc]
-Finished Parsing XDC File [C:/Users/Windink/Desktop/Vega_cpu/constraints/vega_soc_top.template.xdc]
+Parsing XDC File [z:/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_board.xdc] for cell 'u_uart_adapter/u_axi_uart/U0'
+Finished Parsing XDC File [z:/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_board.xdc] for cell 'u_uart_adapter/u_axi_uart/U0'
+Parsing XDC File [Z:/Vega_cpu/Project/Vega/Vega.srcs/constrs_1/new/Pin1.xdc]
+Finished Parsing XDC File [Z:/Vega_cpu/Project/Vega/Vega.srcs/constrs_1/new/Pin1.xdc]
 INFO: [Project 1-1714] 1 XPM XDC files have been applied to the design.
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1398.727 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.039 . Memory (MB): peak = 1875.898 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-12 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+8 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 link_design completed successfully
-link_design: Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1398.727 ; gain = 722.039
+link_design: Time (s): cpu = 00:00:36 ; elapsed = 00:00:44 . Memory (MB): peak = 1875.898 ; gain = 1202.082
 Command: opt_design
-Attempting to get a license for feature 'Implementation' and/or device 'xc7a100tl'
-INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100tl'
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a200t'
 Running DRC as a precondition to command opt_design
 
 Starting DRC Task
 INFO: [DRC 23-27] Running DRC with 2 threads
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/UNCONN_OUT[0] has multiple drivers: u_cpu/u_mem_stage/u_dcache/alu_result_w1_o[15]_i_1/O, and u_cpu/u_ex_stage/alu_result_w1_o_reg[15]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/dcache_writeback_addr[10] has multiple drivers: u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[10]__0/Q, and u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[10]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/dcache_writeback_addr[11] has multiple drivers: u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[11]/Q, and u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[11]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/dcache_writeback_addr[12] has multiple drivers: u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[12]__0/Q, and u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[12]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/dcache_writeback_addr[13] has multiple drivers: u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[13]__0/Q, and u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[13]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/dcache_writeback_addr[14] has multiple drivers: u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[14]/Q, and u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[14]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/dcache_writeback_addr[15] has multiple drivers: u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[15]/Q, and u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[15]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/dcache_writeback_addr[9] has multiple drivers: u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[9]/Q, and u_cpu/u_mem_stage/u_dcache/writeback_addr_reg[9]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[0] has multiple drivers: u_cpu/u_ex_stage/alu_result_w1_o_reg[3]/Q, and u_cpu/u_mem_stage/u_dcache/mem_addr_reg[3]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[10] has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_tag[1][0][9]_i_1/O, and u_cpu/u_ex_stage/alu_result_w1_o_reg[13]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[11] has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_tag[1][0][10]_i_2/O, and u_cpu/u_ex_stage/alu_result_w1_o_reg[14]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[1] has multiple drivers: u_cpu/u_ex_stage/alu_result_w1_o_reg[4]/Q, and u_cpu/u_mem_stage/u_dcache/mem_addr_reg[9]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[2] has multiple drivers: u_cpu/u_ex_stage/alu_result_w1_o_reg[5]/Q, and u_cpu/u_mem_stage/u_dcache/mem_addr_reg[10]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[3] has multiple drivers: u_cpu/u_ex_stage/alu_result_w1_o_reg[6]/Q, and u_cpu/u_mem_stage/u_dcache/mem_addr_reg[11]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[4] has multiple drivers: u_cpu/u_ex_stage/alu_result_w1_o_reg[7]/Q, and u_cpu/u_mem_stage/u_dcache/mem_addr_reg[12]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[5] has multiple drivers: u_cpu/u_ex_stage/alu_result_w1_o_reg[8]/Q, and u_cpu/u_mem_stage/u_dcache/mem_addr_reg[13]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[6] has multiple drivers: u_cpu/u_mem_stage/u_dcache/mem_addr[14]_i_1/O, and u_cpu/u_ex_stage/alu_result_w1_o_reg[9]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[7] has multiple drivers: u_cpu/u_mem_stage/u_dcache/mem_addr[15]_i_2/O, and u_cpu/u_ex_stage/alu_result_w1_o_reg[10]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[8] has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_tag[1][0][7]_i_1/O, and u_cpu/u_ex_stage/alu_result_w1_o_reg[11]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/mem_addr[9] has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_tag[1][0][8]_i_1/O, and u_cpu/u_ex_stage/alu_result_w1_o_reg[12]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][0]_192 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][0]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][0]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][10]_202 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][10]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][10]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][11]_203 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][11]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][11]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][12]_204 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][12]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][12]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][13]_205 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][13]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][13]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][14]_206 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][14]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][14]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][15]_207 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][15]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][15]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][16]_208 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][16]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][16]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][17]_209 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][17]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][17]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][18]_210 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][18]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][18]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][19]_211 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][19]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][19]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][1]_193 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][1]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][1]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][20]_212 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][20]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][20]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][21]_213 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][21]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][21]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][22]_214 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][22]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][22]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][23]_215 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][23]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][23]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][24]_216 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][24]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][24]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][25]_217 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][25]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][25]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][26]_218 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][26]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][26]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][27]_219 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][27]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][27]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][28]_220 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][28]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][28]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][29]_221 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][29]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][29]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][2]_194 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][2]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][2]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][30]_222 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][30]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][30]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][31]_223 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][31]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][31]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][32]_224 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][32]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][32]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][33]_225 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][33]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][33]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][34]_226 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][34]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][34]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][35]_227 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][35]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][35]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][36]_228 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][36]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][36]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][37]_229 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][37]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][37]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][38]_230 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][38]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][38]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][39]_231 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][39]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][39]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][3]_195 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][3]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][3]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][40]_232 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][40]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][40]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][41]_233 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][41]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][41]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][42]_234 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][42]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][42]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][43]_235 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][43]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][43]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][44]_236 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][44]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][44]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][45]_237 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][45]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][45]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][46]_238 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][46]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][46]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][47]_239 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][47]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][47]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][48]_240 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][48]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][48]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][49]_241 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][49]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][49]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][4]_196 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][4]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][4]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][50]_242 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][50]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][50]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][51]_243 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][51]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][51]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][52]_244 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][52]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][52]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][53]_245 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][53]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][53]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][54]_246 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][54]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][54]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][55]_247 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][55]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][55]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][56]_248 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][56]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][56]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][57]_249 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][57]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][57]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][58]_250 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][58]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][58]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][59]_251 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][59]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][59]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][5]_197 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][5]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][5]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][60]_252 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][60]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][60]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][61]_253 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][61]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][61]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][62]_254 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][62]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][62]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][63]_255 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][63]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][63]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][6]_198 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][6]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][6]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][7]_199 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][7]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][7]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][8]_200 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][8]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][8]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[0][9]_201 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][9]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[0][9]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][0]_256 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][0]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][0]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][10]_266 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][10]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][10]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][11]_267 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][11]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][11]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][12]_268 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][12]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][12]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][13]_269 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][13]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][13]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][14]_270 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][14]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][14]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][15]_271 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][15]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][15]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][16]_272 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][16]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][16]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][17]_273 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][17]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][17]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][18]_274 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][18]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][18]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][19]_275 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][19]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][19]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][1]_257 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][1]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][1]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][20]_276 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][20]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][20]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][21]_277 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][21]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][21]__0/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][22]_278 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][22]__0/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][22]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_mem_stage/u_dcache/way_dirty[1][23]_279 has multiple drivers: u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][23]/Q, and u_cpu/u_mem_stage/u_dcache/way_dirty_reg[1][23]__0/Q.
-INFO: [Common 17-14] Message 'DRC MDRV-1' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Project 1-461] DRC finished with 148 Errors
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_id_stage/u_decoder_w1/UNCONN_OUT[32] has multiple drivers: imm_w1_o_reg[62]_i_2/O, u_cpu/u_id_stage/u_decoder_w1/imm_reg[33]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[32]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[35]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[36]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[37]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[34]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[42]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[41]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[45]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[46]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[39]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[40]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[44]/Q, u_cpu/u_id_stage/u_decoder_w1/imm_reg[43]/Q... and (the first 15 of 32 listed).
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_id_stage/u_decoder_w2/UNCONN_OUT[32] has multiple drivers: imm_w2_o_reg[62]_i_2/O, u_cpu/u_id_stage/u_decoder_w2/imm_reg[33]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[34]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[32]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[35]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[37]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[38]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[36]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[43]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[41]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[44]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[45]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[40]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[42]/Q, u_cpu/u_id_stage/u_decoder_w2/imm_reg[39]/Q... and (the first 15 of 32 listed).
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[0] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[0]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[0]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[10] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[10]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[10]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[11] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[11]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[11]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[12] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[12]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[12]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[13] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[13]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[13]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[14] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[14]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[14]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[15] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[15]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[15]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[16] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[16]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[16]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[17] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[17]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[17]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[18] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[18]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[18]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[19] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[19]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[19]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[1] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[1]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[1]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[20] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[20]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[20]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[21] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[21]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[21]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[22] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[22]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[22]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[23] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[23]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[23]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[24] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[24]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[24]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[25] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[25]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[25]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[26] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[26]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[26]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[27] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[27]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[27]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[28] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[28]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[28]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[29] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[29]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[29]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[2] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[2]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[2]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[30] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[30]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[30]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[31] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[31]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[31]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[32] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[63]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[63]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[3] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[3]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[3]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[4] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[4]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[4]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[5] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[5]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[5]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[6] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[6]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[6]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[7] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[7]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[7]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[8] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[8]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[8]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT[9] has multiple drivers: u_cpu/u_if_stage/imm_w1_o[9]_i_2/O, and u_cpu/u_id_stage/u_decoder_w1/imm_reg[9]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[0] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[0]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[0]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[10] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[10]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[10]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[11] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[11]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[11]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[12] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[12]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[12]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[13] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[13]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[13]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[14] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[14]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[14]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[15] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[15]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[15]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[16] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[16]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[16]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[17] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[17]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[17]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[18] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[18]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[18]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[19] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[19]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[19]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[1] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[1]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[1]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[20] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[20]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[20]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[21] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[21]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[21]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[22] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[22]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[22]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[23] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[23]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[23]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[24] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[24]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[24]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[25] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[25]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[25]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[26] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[26]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[26]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[27] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[27]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[27]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[28] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[28]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[28]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[29] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[29]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[29]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[2] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[2]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[2]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[30] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[30]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[30]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[31] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[31]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[31]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[32] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[63]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[63]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[3] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[3]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[3]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[4] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[4]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[4]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[5] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[5]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[5]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[6] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[6]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[6]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[7] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[7]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[7]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[8] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[8]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[8]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_cpu/u_if_stage/UNCONN_OUT_0[9] has multiple drivers: u_cpu/u_if_stage/imm_w2_o[9]_i_2/O, and u_cpu/u_id_stage/u_decoder_w2/imm_reg[9]/Q.
+INFO: [Project 1-461] DRC finished with 68 Errors
 INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
 ERROR: [Vivado_Tcl 4-78] Error(s) found during DRC. Opt_design not run.
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.401 . Memory (MB): peak = 1398.727 ; gain = 0.000
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1875.898 ; gain = 0.000
 INFO: [Common 17-83] Releasing license: Implementation
-18 Infos, 1 Warnings, 0 Critical Warnings and 101 Errors encountered.
+13 Infos, 0 Warnings, 0 Critical Warnings and 69 Errors encountered.
 opt_design failed
 ERROR: [Common 17-39] 'opt_design' failed due to earlier errors.
 
-INFO: [Common 17-206] Exiting Vivado at Tue Apr 14 21:17:56 2026...
+INFO: [Common 17-206] Exiting Vivado at Sat Apr 25 13:29:31 2026...

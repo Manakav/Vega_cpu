@@ -1,0 +1,60 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Apr 14 21:14:38 2026
+# Process ID         : 11764
+# Current directory  : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent4900 C:\Users\Windink\Desktop\Vega_cpu\Project\Vega\Vega.xpr
+# Log file           : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/vivado.log
+# Journal file       : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega\vivado.jou
+# Running On         : ThinkPad
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
+# CPU Frequency      : 3686 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 16
+# Host memory        : 33812 MB
+# Swap memory        : 16106 MB
+# Total Virtual      : 49918 MB
+# Available Virtual  : 27090 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.xpr
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vrk160:part0:1.0 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vrk160\1.0\board.xml as part xcvr1602-vsva2488-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vrk160:part0:1.1 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vrk160\1.1\board.xml as part xcvr1602-vsva2488-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu208ld\production\2.0\board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu216ld\production\2.0\board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu670ld\1.0\board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+INFO: [Project 1-313] Project file moved from 'C:/Users/Windi/Desktop/Vega_cpu/Project/Vega' since last save.
+Scanning sources...
+Finished scanning sources
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vrk160:part0:1.0 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vrk160\1.0\board.xml as part xcvr1602-vsva2488-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:vrk160:part0:1.1 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vrk160\1.1\board.xml as part xcvr1602-vsva2488-2mp-e-s-es1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu208ld\production\2.0\board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu216ld\production\2.0\board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at D:/FPGA/xilinx/2025.2/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu670ld\1.0\board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
+WARNING: [Project 1-5713] Board part '' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build 
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/FPGA/xilinx/2025.2/Vivado/data/ip'.
+open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:12 . Memory (MB): peak = 1829.066 ; gain = 287.762
+update_compile_order -fileset sources_1
+reset_run boot_rom_ip_synth_1
+reset_run synth_1
+INFO: [Project 1-1161] Replacing file C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.srcs/utils_1/imports/synth_1/vega_soc_top.dcp with file C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/vega_soc_top.dcp
+launch_runs synth_1 -jobs 16
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci' is already up-to-date
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'boot_rom_ip'...
+[Tue Apr 14 21:15:22 2026] Launched boot_rom_ip_synth_1...
+Run output will be captured here: C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/boot_rom_ip_synth_1/runme.log
+[Tue Apr 14 21:15:22 2026] Launched synth_1...
+Run output will be captured here: C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 16
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/data_ram_b/data_ram_b.xci' is already up-to-date
+[Tue Apr 14 21:17:19 2026] Launched impl_1...
+Run output will be captured here: C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.runs/impl_1/runme.log
+exit
+INFO: [Common 17-206] Exiting Vivado at Tue Apr 14 21:30:57 2026...

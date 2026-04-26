@@ -14,22 +14,21 @@ module dcache (
     input  wire        we,
     input  wire [2:0]  size,
     
-    output reg  [63:0] data_out,
-    output reg         hit,
-    
+    output wire [63:0] data_out,
+    output wire         hit,
+
     output reg  [63:0] mem_addr,
     output reg  [255:0] mem_wdata,
     input  wire [255:0] mem_rdata,
     output reg         mem_req,
     output reg         mem_we,
     input  wire        mem_ready,
-    
-    // 新增输出端口
-    output reg         refill_done,      // 回填完成信号
-    output reg         writeback_req,    // 写回请求
-    output reg  [63:0] writeback_addr,   // 写回地址
-    output reg  [255:0] writeback_data,  // 写回数据
-    output reg         cache_stall       // 缓存停顿信号
+
+    output wire         refill_done,      // 回填完成信号
+    output wire         writeback_req,    // 写回请求
+    output wire [63:0] writeback_addr,   // 写回地址
+    output wire [255:0] writeback_data,  // 写回数据
+    output wire         cache_stall       // 缓存停顿信号
 );
 
 localparam WAY_NUM = 2;
@@ -55,42 +54,47 @@ reg        way_dirty [0:1][0:63];
 reg [255:0] way_data [0:1][0:63];
 reg [1:0] way_lru [0:63];
 
-reg found;
-reg [1:0] match_way;
-integer ii, jj, kk;
+// 并行命中检测 - 展开回路以减少关键路径延迟
+wire way0_match = way_valid[0][index] & (way_tag[0][index] == tag);
+wire way1_match = way_valid[1][index] & (way_tag[1][index] == tag);
+wire found = way0_match | way1_match;
+wire [1:0] match_way = way1_match ? 2'd1 : (way0_match ? 2'd0 : 2'd0);
+
+integer kk;
 
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         dcache_state <= DCACHE_IDLE;
-        cache_stall <= 1'b0;
-        refill_done <= 1'b0;
+        mem_req <= 1'b0;
+        mem_we <= 1'b0;
+        mem_addr <= 64'b0;
+        mem_wdata <= 256'b0;
+        for (kk = 0; kk < SET_NUM; kk = kk + 1) begin
+            way_lru[kk] <= 2'b0;
+        end
     end else begin
         case (dcache_state)
             DCACHE_IDLE: begin
+                mem_req <= 1'b0;
                 if (req) begin
-                    // 查找命中
                     if (found) begin
                         dcache_state <= DCACHE_HIT;
-                        cache_stall <= 1'b0;
                     end else begin
                         dcache_state <= DCACHE_MISS_REQ;
-                        cache_stall <= 1'b1;
                     end
                 end
             end
-            
+
             DCACHE_HIT: begin
-                // 处理读写操作
+                mem_req <= 1'b0;
                 if (we) begin
-                    // 写操作，设置dirty位
                     way_dirty[match_way][index] <= 1'b1;
                 end
                 dcache_state <= DCACHE_IDLE;
-                cache_stall <= 1'b0;
             end
-            
+
             DCACHE_MISS_REQ: begin
-                // 检查是否需要写回dirty行
+                mem_req <= 1'b0;
                 if (way_dirty[way_lru[index]][index]) begin
                     dcache_state <= DCACHE_WB_REQ;
                 end else begin
@@ -99,61 +103,68 @@ always @(posedge clk or negedge rst_n) begin
                     mem_addr <= {tag, index, 3'b0};
                 end
             end
-            
+
             DCACHE_MISS_WAIT: begin
+                mem_req <= 1'b1;
+                mem_addr <= {tag, index, 3'b0};
                 if (mem_ready) begin
                     dcache_state <= DCACHE_REFILL;
+                    mem_req <= 1'b0;
                 end
             end
-            
+
             DCACHE_REFILL: begin
-                // 回填数据
+                mem_req <= 1'b0;
+                mem_addr <= 64'b0;
                 way_tag[way_lru[index]][index] <= tag;
                 way_valid[way_lru[index]][index] <= 1'b1;
                 way_data[way_lru[index]][index] <= mem_rdata;
                 way_dirty[way_lru[index]][index] <= 1'b0;
                 way_lru[index] <= way_lru[index] - 1;
-                refill_done <= 1'b1;
                 dcache_state <= DCACHE_HIT;
-                cache_stall <= 1'b0;
             end
-            
+
             DCACHE_WB_REQ: begin
-                // 发起写回请求
-                writeback_req <= 1'b1;
-                writeback_addr <= {way_tag[way_lru[index]][index], way_lru[index], 3'b0};
-                writeback_data <= way_data[way_lru[index]][index];
+                mem_req <= 1'b0;
+                mem_addr <= 64'b0;
                 dcache_state <= DCACHE_WB_WAIT;
             end
-            
+
             DCACHE_WB_WAIT: begin
+                mem_req <= 1'b1;
+                mem_addr <= {tag, index, 3'b0};
                 if (mem_ready) begin
-                    writeback_req <= 1'b0;
+                    way_dirty[way_lru[index]][index] <= 1'b0;
                     dcache_state <= DCACHE_MISS_WAIT;
-                    mem_req <= 1'b1;
-                    mem_addr <= {tag, index, 3'b0};
                 end
+            end
+            default: begin
+                mem_req <= 1'b0;
+                mem_addr <= 64'b0;
             end
         endcase
     end
 end
-// 写回地址和数据处理
-always @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-        writeback_req <= 1'b0;
-        writeback_addr <= 64'b0;
-        writeback_data <= 256'b0;
-    end else begin
-        if (dcache_state == DCACHE_WB_REQ) begin
-            writeback_req <= 1'b1;
-            writeback_addr <= {way_tag[way_lru[index]][index], way_lru[index], 3'b0};
-            writeback_data <= way_data[way_lru[index]][index];
-        end else if (dcache_state == DCACHE_WB_WAIT && mem_ready) begin
-            writeback_req <= 1'b0;
-            // 清除dirty位
-            way_dirty[way_lru[index]][index] <= 1'b0;
-        end
+
+assign data_out = way_data[match_way][index];
+assign hit = found;
+
+assign cache_stall = (dcache_state != DCACHE_IDLE) && (dcache_state != DCACHE_HIT) && (dcache_state != DCACHE_REFILL);
+
+assign refill_done = (dcache_state == DCACHE_REFILL);
+assign writeback_req = (dcache_state == DCACHE_WB_REQ) || (dcache_state == DCACHE_WB_WAIT);
+
+reg [63:0]  wb_addr_r;
+reg [255:0] wb_data_r;
+
+always @(posedge clk) begin
+    if (dcache_state == DCACHE_WB_REQ) begin
+        wb_addr_r <= {way_tag[way_lru[index]][index], way_lru[index], 3'b0};
+        wb_data_r <= way_data[way_lru[index]][index];
     end
 end
+
+assign writeback_addr = wb_addr_r;
+assign writeback_data = wb_data_r;
 
 endmodule

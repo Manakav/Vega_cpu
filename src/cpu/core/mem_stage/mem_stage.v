@@ -2,6 +2,7 @@
 // MEM Stage（访存阶段）- 6级流水线双发射版本
 // Way1 负责实际内存访问（II 阶段已保证 Way2 不含访存指令），
 // Way2 结果直接透传至 MEM/WB 寄存器。
+// 优化：简化MUX树 + 寄存化关键路径
 // ============================================================================
 
 module mem_stage #(
@@ -30,14 +31,6 @@ module mem_stage #(
     input  wire                  reg_write_en_w2_i,
     input  wire [1:0]            wb_sel_w2_i,
 
-    // ---- 数据存储器接口（只有 Way1 会驱动）----
-    output wire [ADDR_WIDTH-1:0] mem_addr,
-    output wire [DATA_WIDTH-1:0] mem_wdata,
-    output wire                  mem_we,
-    output wire [DATA_WIDTH/8-1:0] mem_be,
-    input  wire [DATA_WIDTH-1:0] mem_rdata,
-    input  wire                  mem_gnt,
-
     // ---- MEM/WB 寄存器 → WB —— Way1 ----
     output reg  [DATA_WIDTH-1:0] alu_result_w1_o,
     output reg  [DATA_WIDTH-1:0] mem_result_w1_o,
@@ -52,8 +45,8 @@ module mem_stage #(
     output reg                   valid_w2_o,
     output reg                   reg_write_en_w2_o,
     output reg  [1:0]            wb_sel_w2_o,
-    
-    // DCache接口
+
+    // DCache接口 (连接到外部axi_mem)
     output wire [ADDR_WIDTH-1:0] dcache_addr,
     output wire [DATA_WIDTH-1:0] dcache_wdata,
     output wire [7:0]            dcache_be,
@@ -66,60 +59,15 @@ module mem_stage #(
     input  wire                  dcache_writeback_req,
     input  wire [63:0]           dcache_writeback_addr,
     input  wire [255:0]          dcache_writeback_data,
-    input  wire                  dcache_cache_stall,
     output wire [63:0]           dcache_mem_addr,
     output wire [255:0]          dcache_mem_wdata,
     input  wire [255:0]          dcache_mem_rdata,
-    input  wire                  dcache_mem_req,
-    input  wire                  dcache_mem_we,
-    output wire                  dcache_mem_ready
+    output wire                  dcache_mem_req,
+    output wire                  dcache_mem_we,
+    input  wire                  dcache_mem_ready,
+    input  wire                  dcache_cache_stall
 );
 
-wire [2:0] size = mem_size_w1_i;
-
-assign mem_addr  = alu_result_w1_i;
-assign mem_we    = mem_write_en_w1_i;
-
-assign mem_be =
-    (size == 3'b000) ? 8'b00000001 :
-    (size == 3'b001) ? 8'b00000011 :
-    (size == 3'b010) ? 8'b00001111 :
-    (size == 3'b011) ? 8'b11111111 : 8'b0;
-
-assign mem_wdata =
-    (size == 3'b000) ? {56'b0, rs2_data_w1_i[7:0]}  :
-    (size == 3'b001) ? {48'b0, rs2_data_w1_i[15:0]} :
-    (size == 3'b010) ? {32'b0, rs2_data_w1_i[31:0]} :
-    rs2_data_w1_i;
-
-always @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-        valid_w1_o       <= 1'b0;
-        mem_result_w1_o  <= 64'b0;
-        // ... 其他复位逻辑
-    end else begin
-        // Way1
-        alu_result_w1_o   <= alu_result_w1_i;
-        rd_addr_w1_o      <= rd_addr_w1_i;
-        valid_w1_o        <= valid_w1_i && !dcache_cache_stall;
-        reg_write_en_w1_o <= reg_write_en_w1_i;
-        wb_sel_w1_o       <= wb_sel_w1_i;
-        // 处理load数据
-        if (mem_read_en_w1_i && dcache_hit) begin
-            mem_result_w1_o <= load_data;
-        end else if (dcache_refill_done) begin
-            mem_result_w1_o <= load_data;
-        end else begin
-            mem_result_w1_o <= 64'b0;
-        end
-        // Way2（透传）
-        alu_result_w2_o   <= alu_result_w2_i;
-        rd_addr_w2_o      <= rd_addr_w2_i;
-        valid_w2_o        <= valid_w2_i;
-        reg_write_en_w2_o <= reg_write_en_w2_i;
-        wb_sel_w2_o       <= wb_sel_w2_i;
-    end
-end
 // 在mem_stage.v中例化DCache
 dcache u_dcache (
     .clk(clk),
@@ -150,31 +98,67 @@ assign dcache_addr  = alu_result_w1_i;
 assign dcache_we    = mem_write_en_w1_i;
 assign dcache_size  = mem_size_w1_i;
 assign dcache_req   = (mem_read_en_w1_i || mem_write_en_w1_i) && valid_w1_i;
-// 字节使能处理
-assign dcache_be =
-    (dcache_size == 3'b000) ? 8'b00000001 :
-    (dcache_size == 3'b001) ? 8'b00000011 :
-    (dcache_size == 3'b010) ? 8'b00001111 :
-    (dcache_size == 3'b011) ? 8'b11111111 :
-    (dcache_size == 3'b100) ? 8'b00000001 :
-    (dcache_size == 3'b101) ? 8'b00000011 :
-    (dcache_size == 3'b110) ? 8'b00001111 :
-    8'b0;
-// 写数据处理
-assign dcache_wdata =
-    (dcache_size == 3'b000) ? {56'b0, rs2_data_w1_i[7:0]}  :
-    (dcache_size == 3'b001) ? {48'b0, rs2_data_w1_i[15:0]} :
-    (dcache_size == 3'b010) ? {32'b0, rs2_data_w1_i[31:0]} :
-    rs2_data_w1_i;
-// Load数据格式化
+
+// 字节使能 - 用移位+掩码替代7层三元MUX
+wire [2:0] be_bytes = (dcache_size == 3'b000) ? 3'd1 :
+                      (dcache_size == 3'b001) ? 3'd2 :
+                      (dcache_size == 3'b010) ? 3'd4 :
+                      (dcache_size == 3'b011) ? 3'd8 : 3'd0;
+assign dcache_be = (be_bytes > 0) ? ((8'b1 << be_bytes) - 1) : 8'b0;
+
+// 写数据处理 - 用掩码替代7层三元MUX
+wire [63:0] wdata_mask = (dcache_size == 3'b000) ? 64'h00000000000000FF :
+                         (dcache_size == 3'b001) ? 64'h000000000000FFFF :
+                         (dcache_size == 3'b010) ? 64'h00000000FFFFFFFF :
+                                                   64'hFFFFFFFFFFFFFFFF;
+assign dcache_wdata = rs2_data_w1_i & wdata_mask;
+
+// Load数据格式化 - 寄存化dcache_data_out和size，打破长组合路径
+reg [2:0]            load_size_r;
+reg [DATA_WIDTH-1:0] load_data_raw_r;
+
+always @(posedge clk) begin
+    load_size_r   <= dcache_size;
+    load_data_raw_r <= dcache_data_out;
+end
+
 wire [DATA_WIDTH-1:0] load_data =
-    (dcache_size == 3'b000) ? {{56{dcache_data_out[7]}},  dcache_data_out[7:0]}  :
-    (dcache_size == 3'b001) ? {{48{dcache_data_out[15]}}, dcache_data_out[15:0]} :
-    (dcache_size == 3'b010) ? {{32{dcache_data_out[31]}}, dcache_data_out[31:0]} :
-    (dcache_size == 3'b011) ? dcache_data_out :
-    (dcache_size == 3'b100) ? {56'b0, dcache_data_out[7:0]}  :
-    (dcache_size == 3'b101) ? {48'b0, dcache_data_out[15:0]} :
-    (dcache_size == 3'b110) ? {32'b0, dcache_data_out[31:0]} :
-    dcache_data_out;
+    (load_size_r == 3'b000) ? {{56{load_data_raw_r[7]}},  load_data_raw_r[7:0]}  :
+    (load_size_r == 3'b001) ? {{48{load_data_raw_r[15]}}, load_data_raw_r[15:0]} :
+    (load_size_r == 3'b010) ? {{32{load_data_raw_r[31]}}, load_data_raw_r[31:0]} :
+    (load_size_r == 3'b011) ? load_data_raw_r :
+    (load_size_r == 3'b100) ? {56'b0, load_data_raw_r[7:0]}  :
+    (load_size_r == 3'b101) ? {48'b0, load_data_raw_r[15:0]} :
+    (load_size_r == 3'b110) ? {32'b0, load_data_raw_r[31:0]} :
+    load_data_raw_r;
+
+// 流水线寄存器更新逻辑
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        alu_result_w1_o <= 64'b0;
+        mem_result_w1_o <= 64'b0;
+        rd_addr_w1_o <= 5'b0;
+        valid_w1_o <= 1'b0;
+        reg_write_en_w1_o <= 1'b0;
+        wb_sel_w1_o <= 2'b0;
+        alu_result_w2_o <= 64'b0;
+        rd_addr_w2_o <= 5'b0;
+        valid_w2_o <= 1'b0;
+        reg_write_en_w2_o <= 1'b0;
+        wb_sel_w2_o <= 2'b0;
+    end else begin
+        alu_result_w1_o <= alu_result_w1_i;
+        mem_result_w1_o <= load_data;
+        rd_addr_w1_o <= rd_addr_w1_i;
+        valid_w1_o <= valid_w1_i;
+        reg_write_en_w1_o <= reg_write_en_w1_i;
+        wb_sel_w1_o <= wb_sel_w1_i;
+        alu_result_w2_o <= alu_result_w2_i;
+        rd_addr_w2_o <= rd_addr_w2_i;
+        valid_w2_o <= valid_w2_i;
+        reg_write_en_w2_o <= reg_write_en_w2_i;
+        wb_sel_w2_o <= wb_sel_w2_i;
+    end
+end
 
 endmodule

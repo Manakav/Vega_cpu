@@ -1,0 +1,28 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "D:/xilinx/2025.2/Vivado/data/rsb/busdef" \
+"../../../../Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_sim_netlist.v" \
+"../../../../Vega.gen/sources_1/ip/data_ram_b/data_ram_b_sim_netlist.v" \
+"../../../../Vega.gen/sources_1/ip/boot_rom_ip/sim/boot_rom_ip.v" \
+"../../../../../../src/cpu/core/ex_stage/alu.v" \
+"../../../../../../src/cpu/core/if_stage/bht.v" \
+"../../../../../../src/cpu/core/if_stage/btb.v" \
+"../../../../../../src/cpu/core/mem_stage/dcache.v" \
+"../../../../../../src/cpu/core/id_stage/decoder.v" \
+"../../../../../../src/cpu/core/ex_stage/ex_stage.v" \
+"../../../../../../src/cpu/core/hazard_unit.v" \
+"../../../../../../src/cpu/core/if_stage/icache.v" \
+"../../../../../../src/cpu/core/id_stage/id_stage.v" \
+"../../../../../../src/cpu/core/if_stage/if_stage.v" \
+"../../../../../../src/cpu/core/ii_stage/ii_stage.v" \
+"../../../../../../src/cpu/core/mem_stage/mem_stage.v" \
+"../../../../../../src/cpu/core/id_stage/register_file.v" \
+"../../../../../../src/soc/reset/reset_sync.v" \
+"../../../../../../src/cpu/riscv_cpu.v" \
+"../../../../Vega.srcs/sources_1/new/uart_adapter.v" \
+"../../../../../../src/soc/vega_soc_top.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

@@ -11,12 +11,12 @@ vmap axi_lite_ipif_v3_0_4 modelsim_lib/msim/axi_lite_ipif_v3_0_4
 vmap axi_uartlite_v2_0_39 modelsim_lib/msim/axi_uartlite_v2_0_39
 vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib
 
-vlog -work xpm  -incr -mfcu  -sv "+incdir+D:/Xilinx/2025.2/Vivado/data/rsb/busdef" \
-"D:/Xilinx/2025.2/Vivado/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
-"D:/Xilinx/2025.2/Vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
+vlog -work xpm  -incr -mfcu  -sv "+incdir+D:/xilinx/2025.2/Vivado/data/rsb/busdef" \
+"D:/xilinx/2025.2/Vivado/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
+"D:/xilinx/2025.2/Vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
 
 vcom -work xpm  -93  \
-"D:/Xilinx/2025.2/Vivado/data/ip/xpm/xpm_VCOMP.vhd" \
+"D:/xilinx/2025.2/Vivado/data/ip/xpm/xpm_VCOMP.vhd" \
 
 vcom -work axi_lite_ipif_v3_0_4  -93  \
 "../../../ipstatic/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd" \

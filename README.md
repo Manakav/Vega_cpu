@@ -6,8 +6,8 @@
 
 - RTL 主线：可编译、可运行，主用双发射 testbench 已通过。
 - 指令/数据接口：采用双指令取指接口（instr_data_w1/w2）+ 单路数据访存接口。
-- Cache：ICache/DCache 子模块已实现原型并有模块级测试，尚未完成系统级集成。
-- FPGA 实现：综合可完成；上板前仍需完成 SoC 顶层封装、XDC 约束补齐和实现闭环。
+- Cache：ICache/DCache 已完成系统级集成。
+- FPGA 实现：已切换至 xc7a200t，XDC 约束已在 Vivado 中完成，bitstream 已生成。
 
 ## 架构概览
 
@@ -63,7 +63,8 @@ bash test/run_module_tbs.sh
 
 当前已知情况（工程态）：
 - synth 可完成；
-- impl 仍需先解决 I/O 收敛与约束问题，再推进 bitstream 与上板验证。
+- impl 可完成；
+- bitstream 已生成，待上板验证。
 
 ## 关键文档索引
 

@@ -3,30 +3,112 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Tue Apr 14 21:14:38 2026
-# Process ID         : 11764
-# Current directory  : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega
-# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent4900 C:\Users\Windink\Desktop\Vega_cpu\Project\Vega\Vega.xpr
-# Log file           : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/vivado.log
-# Journal file       : C:/Users/Windink/Desktop/Vega_cpu/Project/Vega\vivado.jou
-# Running On         : ThinkPad
+# Start of session at: Thu Apr 23 11:54:32 2026
+# Process ID         : 22444
+# Current directory  : Z:/Vega_cpu/Project/Vega
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent19240 Z:\Vega_cpu\Project\Vega\Vega.xpr
+# Log file           : Z:/Vega_cpu/Project/Vega/vivado.log
+# Journal file       : Z:/Vega_cpu/Project/Vega\vivado.jou
+# Running On         : Station
 # Platform           : Windows Server 2016 or Windows 10
-# Operating System   : 26300
-# Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
-# CPU Frequency      : 3686 MHz
-# CPU Physical cores : 16
-# CPU Logical cores  : 16
-# Host memory        : 33812 MB
-# Swap memory        : 16106 MB
-# Total Virtual      : 49918 MB
-# Available Virtual  : 27090 MB
+# Operating System   : 26220
+# Processor Detail   : AMD Ryzen Threadripper PRO 3945WX 12-Cores     
+# CPU Frequency      : 3993 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 68563 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 72858 MB
+# Available Virtual  : 47635 MB
 #-----------------------------------------------------------
 start_gui
-open_project C:/Users/Windink/Desktop/Vega_cpu/Project/Vega/Vega.xpr
+open_project Z:/Vega_cpu/Project/Vega/Vega.xpr
 update_compile_order -fileset sources_1
+set_property CONFIG.Coe_File {Z:/Vega_cpu/test/workbench/soft/start_inst.coe} [get_ips boot_rom_ip]
+generate_target all [get_files  Z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci]
+export_ip_user_files -of_objects [get_files Z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci] -no_script -sync -force -quiet
 reset_run boot_rom_ip_synth_1
+launch_runs boot_rom_ip_synth_1 -jobs 24
+wait_on_run boot_rom_ip_synth_1
+export_simulation -lib_map_path [list {modelsim=Z:/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=Z:/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=Z:/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=Z:/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files Z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/boot_rom_ip/boot_rom_ip.xci] -directory Z:/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir Z:/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir Z:/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+launch_simulation
+source vega_soc_top.tcl
+close_sim
+synth_design -top vega_soc_top -part xc7a200tfbg676-3 -lint 
 reset_run synth_1
-launch_runs synth_1 -jobs 16
+launch_runs synth_1 -jobs 24
 wait_on_run synth_1
-launch_runs impl_1 -jobs 16
+synth_design -top vega_soc_top -part xc7a200tfbg676-3 -lint 
+launch_runs impl_1 -jobs 24
 wait_on_run impl_1
+open_run impl_1
+report_methodology
+export_ip_user_files -of_objects  [get_files Z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci] -no_script -reset -force -quiet
+remove_files  -fileset axi_uartlite_0 Z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci
+file delete -force Z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0
+file delete -force z:/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0
+create_ip -name axi_uartlite -vendor xilinx.com -library ip -version 2.0 -module_name axi_uartlite_0
+generate_target {instantiation_template} [get_files z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci]
+generate_target all [get_files  z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci]
+catch { config_ip_cache -export [get_ips -all axi_uartlite_0] }
+export_ip_user_files -of_objects [get_files z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci]
+export_simulation -lib_map_path [list {modelsim=Z:/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/modelsim} {questa=Z:/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/questa} {riviera=Z:/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/riviera} {activehdl=Z:/Vega_cpu/Project/Vega/Vega.cache/compile_simlib/activehdl}] -of_objects [get_files z:/Vega_cpu/Project/Vega/Vega.srcs/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci] -directory Z:/Vega_cpu/Project/Vega/Vega.ip_user_files/sim_scripts -ip_user_files_dir Z:/Vega_cpu/Project/Vega/Vega.ip_user_files -ipstatic_source_dir Z:/Vega_cpu/Project/Vega/Vega.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+synth_design -top vega_soc_top -part xc7a200tfbg676-3 -lint 
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+create_clock -period 10.000 -waveform {0.000 5.000} [get_ports clk_in]
+save_constraints -force
+close_design
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+reset_run synth_1
+synth_design -top vega_soc_top -part xc7a200tfbg676-3 -lint 
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+launch_runs impl_1 -jobs 24
+wait_on_run impl_1
+open_run impl_1
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+close_design
+launch_runs impl_1 -jobs 24
+wait_on_run impl_1
+reset_run impl_1
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+set_msg_config -suppress -id {Synth 8-2716} -string {{ERROR: [Synth 8-2716] syntax error near 'inside' [Z:/Vega_cpu/src/cpu/core/mem_stage/dcache.v:136]} } 
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+launch_runs impl_1 -jobs 24
+wait_on_run impl_1
+open_run impl_1
+update_compile_order -fileset sources_1
+synth_design -top vega_soc_top -part xc7a200tfbg676-3 -lint 
+update_compile_order -fileset sources_1
+open_run synth_1 -name synth_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+synth_design -top vega_soc_top -part xc7a200tfbg676-3 -lint 
+reset_run synth_1
+launch_runs synth_1 -jobs 24
+wait_on_run synth_1
+synth_design -top vega_soc_top -part xc7a200tfbg676-3 -lint 
+close_design
+close_design
+open_run synth_1 -name synth_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1

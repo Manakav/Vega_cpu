@@ -1,4 +1,4 @@
-verilog xil_defaultlib -i "D:/Xilinx/2025.2/Vivado/data/rsb/busdef" \
+verilog xil_defaultlib -i "D:/xilinx/2025.2/Vivado/data/rsb/busdef" \
 "../../../../Vega.gen/sources_1/ip/boot_rom_ip/sim/boot_rom_ip.v" \
 
 verilog xil_defaultlib "glbl.v"

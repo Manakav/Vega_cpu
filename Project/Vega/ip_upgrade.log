@@ -1,0 +1,58 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon Apr 20 12:09:22 2026
+| Host         : Station running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7a200tfbg676-3
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'data_ram_b'
+
+1. Summary
+----------
+
+SUCCESS in the update of data_ram_b (xilinx.com:ip:blk_mem_gen:8.4 (Rev. 12)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon Apr 20 12:09:21 2026
+| Host         : Station running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7a200tfbg676-3
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'boot_rom_ip'
+
+1. Summary
+----------
+
+SUCCESS in the update of boot_rom_ip (xilinx.com:ip:blk_mem_gen:8.4 (Rev. 12)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon Apr 20 12:09:19 2026
+| Host         : Station running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7a200tfbg676-3
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'axi_uartlite_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of axi_uartlite_0 (xilinx.com:ip:axi_uartlite:2.0 (Rev. 39)) to current project options.
+

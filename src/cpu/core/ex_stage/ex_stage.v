@@ -106,84 +106,63 @@ module ex_stage #(
 );
 
 // ============================================================
-// 前递选择：优先级 EX/MEM Way1 > Way2 > MEM/WB Way1 > Way2 > 原值
+// 前递选择 - 并行独热比较，减少关键路径延迟
+// 优先级: EX/MEM Way1 > EX/MEM Way2 > MEM/WB Way1 > MEM/WB Way2 > 原值
 // ============================================================
-function [DATA_WIDTH-1:0] fwd_pick;
-    input [4:0]            rs_addr;
-    input [DATA_WIDTH-1:0] orig;
-    input [DATA_WIDTH-1:0] ex1_r; input [4:0] ex1_rd; input ex1_we;
-    input [DATA_WIDTH-1:0] ex2_r; input [4:0] ex2_rd; input ex2_we;
-    input [DATA_WIDTH-1:0] m1_r;  input [4:0] m1_rd;  input m1_we;
-    input [DATA_WIDTH-1:0] m2_r;  input [4:0] m2_rd;  input m2_we;
-    begin
-        if      (ex1_we && ex1_rd != 5'b0 && ex1_rd == rs_addr) fwd_pick = ex1_r;
-        else if (ex2_we && ex2_rd != 5'b0 && ex2_rd == rs_addr) fwd_pick = ex2_r;
-        else if (m1_we  && m1_rd  != 5'b0 && m1_rd  == rs_addr) fwd_pick = m1_r;
-        else if (m2_we  && m2_rd  != 5'b0 && m2_rd  == rs_addr) fwd_pick = m2_r;
-        else fwd_pick = orig;
-    end
-endfunction
 
-function [DATA_WIDTH-1:0] muldiv_pick;
-    input [2:0] f3;
-    input [DATA_WIDTH-1:0] a;
-    input [DATA_WIDTH-1:0] b;
-    reg signed [DATA_WIDTH-1:0] sa;
-    reg signed [DATA_WIDTH-1:0] sb;
-    reg signed [2*DATA_WIDTH-1:0] prod_ss;
-    reg signed [2*DATA_WIDTH-1:0] prod_su;
-    reg [2*DATA_WIDTH-1:0] prod_uu;
-    begin
-        sa = a;
-        sb = b;
-        prod_ss = sa * sb;
-        prod_su = sa * $signed({1'b0, b});
-        prod_uu = a * b;
-        case (f3)
-            3'b000: muldiv_pick = a * b; // MUL
-            3'b001: muldiv_pick = prod_ss[2*DATA_WIDTH-1:DATA_WIDTH]; // MULH
-            3'b010: muldiv_pick = prod_su[2*DATA_WIDTH-1:DATA_WIDTH]; // MULHSU
-            3'b011: muldiv_pick = prod_uu[2*DATA_WIDTH-1:DATA_WIDTH]; // MULHU
-            3'b100: muldiv_pick = (b != 0) ? (sa / sb) : {DATA_WIDTH{1'b1}}; // DIV
-            3'b101: muldiv_pick = (b != 0) ? (a / b)   : {DATA_WIDTH{1'b1}}; // DIVU
-            3'b110: muldiv_pick = (b != 0) ? (sa % sb) : {DATA_WIDTH{1'b1}}; // REM
-            3'b111: muldiv_pick = (b != 0) ? (a % b)   : {DATA_WIDTH{1'b1}}; // REMU
-            default: muldiv_pick = {DATA_WIDTH{1'b0}};
-        endcase
-    end
-endfunction
+// ---- Way1 rs1 前递匹配 ----
+wire w1_rs1_match_ex1 = fwd_exmem_we_w1 & (fwd_exmem_rd_w1 != 5'b0) & (fwd_exmem_rd_w1 == rs1_addr_w1_i);
+wire w1_rs1_match_ex2 = fwd_exmem_we_w2 & (fwd_exmem_rd_w2 != 5'b0) & (fwd_exmem_rd_w2 == rs1_addr_w1_i);
+wire w1_rs1_match_m1  = fwd_memwb_we_w1 & (fwd_memwb_rd_w1  != 5'b0) & (fwd_memwb_rd_w1  == rs1_addr_w1_i);
+wire w1_rs1_match_m2  = fwd_memwb_we_w2 & (fwd_memwb_rd_w2  != 5'b0) & (fwd_memwb_rd_w2  == rs1_addr_w1_i);
 
-// Way1 前递后操作数
-wire [DATA_WIDTH-1:0] rs1_w1_fwd = fwd_pick(
-    rs1_addr_w1_i, rs1_data_w1_i,
-    fwd_exmem_result_w1, fwd_exmem_rd_w1, fwd_exmem_we_w1,
-    fwd_exmem_result_w2, fwd_exmem_rd_w2, fwd_exmem_we_w2,
-    fwd_memwb_result_w1, fwd_memwb_rd_w1, fwd_memwb_we_w1,
-    fwd_memwb_result_w2, fwd_memwb_rd_w2, fwd_memwb_we_w2
-);
-wire [DATA_WIDTH-1:0] rs2_w1_fwd = fwd_pick(
-    rs2_addr_w1_i, rs2_data_w1_i,
-    fwd_exmem_result_w1, fwd_exmem_rd_w1, fwd_exmem_we_w1,
-    fwd_exmem_result_w2, fwd_exmem_rd_w2, fwd_exmem_we_w2,
-    fwd_memwb_result_w1, fwd_memwb_rd_w1, fwd_memwb_we_w1,
-    fwd_memwb_result_w2, fwd_memwb_rd_w2, fwd_memwb_we_w2
-);
+// ---- Way1 rs2 前递匹配 ----
+wire w1_rs2_match_ex1 = fwd_exmem_we_w1 & (fwd_exmem_rd_w1 != 5'b0) & (fwd_exmem_rd_w1 == rs2_addr_w1_i);
+wire w1_rs2_match_ex2 = fwd_exmem_we_w2 & (fwd_exmem_rd_w2 != 5'b0) & (fwd_exmem_rd_w2 == rs2_addr_w1_i);
+wire w1_rs2_match_m1  = fwd_memwb_we_w1 & (fwd_memwb_rd_w1  != 5'b0) & (fwd_memwb_rd_w1  == rs2_addr_w1_i);
+wire w1_rs2_match_m2  = fwd_memwb_we_w2 & (fwd_memwb_rd_w2  != 5'b0) & (fwd_memwb_rd_w2  == rs2_addr_w1_i);
 
-// Way2 前递后操作数
-wire [DATA_WIDTH-1:0] rs1_w2_fwd = fwd_pick(
-    rs1_addr_w2_i, rs1_data_w2_i,
-    fwd_exmem_result_w1, fwd_exmem_rd_w1, fwd_exmem_we_w1,
-    fwd_exmem_result_w2, fwd_exmem_rd_w2, fwd_exmem_we_w2,
-    fwd_memwb_result_w1, fwd_memwb_rd_w1, fwd_memwb_we_w1,
-    fwd_memwb_result_w2, fwd_memwb_rd_w2, fwd_memwb_we_w2
-);
-wire [DATA_WIDTH-1:0] rs2_w2_fwd = fwd_pick(
-    rs2_addr_w2_i, rs2_data_w2_i,
-    fwd_exmem_result_w1, fwd_exmem_rd_w1, fwd_exmem_we_w1,
-    fwd_exmem_result_w2, fwd_exmem_rd_w2, fwd_exmem_we_w2,
-    fwd_memwb_result_w1, fwd_memwb_rd_w1, fwd_memwb_we_w1,
-    fwd_memwb_result_w2, fwd_memwb_rd_w2, fwd_memwb_we_w2
-);
+// ---- Way2 rs1 前递匹配 ----
+wire w2_rs1_match_ex1 = fwd_exmem_we_w1 & (fwd_exmem_rd_w1 != 5'b0) & (fwd_exmem_rd_w1 == rs1_addr_w2_i);
+wire w2_rs1_match_ex2 = fwd_exmem_we_w2 & (fwd_exmem_rd_w2 != 5'b0) & (fwd_exmem_rd_w2 == rs1_addr_w2_i);
+wire w2_rs1_match_m1  = fwd_memwb_we_w1 & (fwd_memwb_rd_w1  != 5'b0) & (fwd_memwb_rd_w1  == rs1_addr_w2_i);
+wire w2_rs1_match_m2  = fwd_memwb_we_w2 & (fwd_memwb_rd_w2  != 5'b0) & (fwd_memwb_rd_w2  == rs1_addr_w2_i);
+
+// ---- Way2 rs2 前递匹配 ----
+wire w2_rs2_match_ex1 = fwd_exmem_we_w1 & (fwd_exmem_rd_w1 != 5'b0) & (fwd_exmem_rd_w1 == rs2_addr_w2_i);
+wire w2_rs2_match_ex2 = fwd_exmem_we_w2 & (fwd_exmem_rd_w2 != 5'b0) & (fwd_exmem_rd_w2 == rs2_addr_w2_i);
+wire w2_rs2_match_m1  = fwd_memwb_we_w1 & (fwd_memwb_rd_w1  != 5'b0) & (fwd_memwb_rd_w1  == rs2_addr_w2_i);
+wire w2_rs2_match_m2  = fwd_memwb_we_w2 & (fwd_memwb_rd_w2  != 5'b0) & (fwd_memwb_rd_w2  == rs2_addr_w2_i);
+
+// ---- 前递数据选择（优先级编码MUX）----
+// 优先级: EX1 > EX2 > MEM1 > MEM2 > 原值
+wire [DATA_WIDTH-1:0] rs1_w1_fwd =
+    w1_rs1_match_ex1 ? fwd_exmem_result_w1 :
+    w1_rs1_match_ex2 ? fwd_exmem_result_w2 :
+    w1_rs1_match_m1  ? fwd_memwb_result_w1 :
+    w1_rs1_match_m2  ? fwd_memwb_result_w2 :
+    rs1_data_w1_i;
+
+wire [DATA_WIDTH-1:0] rs2_w1_fwd =
+    w1_rs2_match_ex1 ? fwd_exmem_result_w1 :
+    w1_rs2_match_ex2 ? fwd_exmem_result_w2 :
+    w1_rs2_match_m1  ? fwd_memwb_result_w1 :
+    w1_rs2_match_m2  ? fwd_memwb_result_w2 :
+    rs2_data_w1_i;
+
+wire [DATA_WIDTH-1:0] rs1_w2_fwd =
+    w2_rs1_match_ex1 ? fwd_exmem_result_w1 :
+    w2_rs1_match_ex2 ? fwd_exmem_result_w2 :
+    w2_rs1_match_m1  ? fwd_memwb_result_w1 :
+    w2_rs1_match_m2  ? fwd_memwb_result_w2 :
+    rs1_data_w2_i;
+
+wire [DATA_WIDTH-1:0] rs2_w2_fwd =
+    w2_rs2_match_ex1 ? fwd_exmem_result_w1 :
+    w2_rs2_match_ex2 ? fwd_exmem_result_w2 :
+    w2_rs2_match_m1  ? fwd_memwb_result_w1 :
+    w2_rs2_match_m2  ? fwd_memwb_result_w2 :
+    rs2_data_w2_i;
 
 // ALU 操作数选择（PC 选择 or 寄存器）
 wire [DATA_WIDTH-1:0] opA_w1 = alu_src1_sel_w1_i ? pc_w1_i  : rs1_w1_fwd;
@@ -208,6 +187,36 @@ alu u_alu2 (
     .result(alu_res_w2), .zero(alu_zero_w2),
     .negative(alu_neg_w2), .overflow(alu_ovf_w2)
 );
+
+// 乘除法结果选择
+function [DATA_WIDTH-1:0] muldiv_pick;
+    input [2:0] f3;
+    input [DATA_WIDTH-1:0] a;
+    input [DATA_WIDTH-1:0] b;
+    reg signed [DATA_WIDTH-1:0] sa;
+    reg signed [DATA_WIDTH-1:0] sb;
+    reg signed [2*DATA_WIDTH-1:0] prod_ss;
+    reg signed [2*DATA_WIDTH-1:0] prod_su;
+    reg [2*DATA_WIDTH-1:0] prod_uu;
+    begin
+        sa = a;
+        sb = b;
+        prod_ss = sa * sb;
+        prod_su = sa * $signed({1'b0, b});
+        prod_uu = a * b;
+        case (f3)
+            3'b000: muldiv_pick = a * b;
+            3'b001: muldiv_pick = prod_ss[2*DATA_WIDTH-1:DATA_WIDTH];
+            3'b010: muldiv_pick = prod_su[2*DATA_WIDTH-1:DATA_WIDTH];
+            3'b011: muldiv_pick = prod_uu[2*DATA_WIDTH-1:DATA_WIDTH];
+            3'b100: muldiv_pick = (b != 0) ? (sa / sb) : {DATA_WIDTH{1'b1}};
+            3'b101: muldiv_pick = (b != 0) ? (a / b)   : {DATA_WIDTH{1'b1}};
+            3'b110: muldiv_pick = (b != 0) ? (sa % sb) : {DATA_WIDTH{1'b1}};
+            3'b111: muldiv_pick = (b != 0) ? (a % b)   : {DATA_WIDTH{1'b1}};
+            default: muldiv_pick = {DATA_WIDTH{1'b0}};
+        endcase
+    end
+endfunction
 
 wire [DATA_WIDTH-1:0] ex_res_w1 = is_muldiv_w1_i ?
                                   muldiv_pick(muldiv_funct3_w1_i, rs1_w1_fwd, rs2_w1_fwd) :
@@ -238,7 +247,6 @@ always @(*) begin
             branch_tgt_w1 = pc_w1_i + imm_w1_i;
         end else if (is_jump_w1_i) begin
             branch_taken_w1 = 1'b1;
-            // JAL: alu_op=1100 使用 PC+imm；JALR: rs1+imm
             branch_tgt_w1 = (alu_op_w1_i == 4'b1100) ?
                              (pc_w1_i + imm_w1_i) : (rs1_w1_fwd + imm_w1_i);
         end

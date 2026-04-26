@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a100tlcsg324-2L" LaunchTime="1776172639" LaunchFeatureSet="FeatureSet_Classic">
+<GenRun Id="impl_1" LaunchPart="xc7a200tfbg676-3" LaunchTime="1777094902" LaunchFeatureSet="FeatureSet_Classic">
   <File Type="ROUTE-PWR" Name="vega_soc_top_power_routed.rpt"/>
   <File Type="PA-TCL" Name="vega_soc_top.tcl"/>
   <File Type="ROUTE-PWR-SUM" Name="vega_soc_top_power_summary_routed.pb"/>
@@ -161,7 +161,21 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/ip/axi_uartlite_0/axi_uartlite_0.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/ip/data_ram_b/data_ram_b.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/ip/boot_rom_ip/boot_rom_ip.xci">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -290,31 +304,23 @@
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
       <Option Name="TopModule" Val="vega_soc_top"/>
-      <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
     <Filter Type="Constrs"/>
-    <File Path="$PPRDIR/../../constraints/vega_soc_top.template.xdc">
+    <File Path="$PSRCDIR/constrs_1/new/Pin1.xdc">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
       </FileInfo>
     </File>
     <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/Pin1.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>
   <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
     <Filter Type="Utils"/>
-    <File Path="$PSRCDIR/utils_1/imports/synth_1/vega_soc_top.dcp">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedInSteps" Val="synth_1"/>
-        <Attr Name="AutoDcp" Val="1"/>
-      </FileInfo>
-    </File>
     <Config>
       <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>
@@ -329,8 +335,8 @@
     <Step Id="phys_opt_design"/>
     <Step Id="route_design"/>
     <Step Id="post_route_phys_opt_design"/>
-    <Step Id="write_bitstream"/>
+    <Step Id="write_bitstream">
+      <Option Id="BinFile">1</Option>
+    </Step>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="boot_rom_ip"/>
-  <BlockFileSet Type="BlockSrcs" Name="axi_uartlite_0"/>
 </GenRun>
