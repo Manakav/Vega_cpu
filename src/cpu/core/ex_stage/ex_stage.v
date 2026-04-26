@@ -1,6 +1,7 @@
 // ============================================================================
-// EX Stage（执行阶段）- 6级流水线双发射版本
-// 包含：前递单元 + 异步 ALU×2 + 分支判断 + EX/MEM 流水线寄存器
+// EX Stage（执行阶段）- 内部 EX1/EX2 双寄存器流水线
+// EX1: 前递选择 + 操作数选择 → 流水线寄存器
+// EX2: ALU + 乘除法 + 分支判断 → EX/MEM 寄存器
 // ============================================================================
 
 module ex_stage #(
@@ -31,6 +32,9 @@ module ex_stage #(
     input  wire                  is_jump_w1_i,
     input  wire                  is_muldiv_w1_i,
     input  wire [2:0]            muldiv_funct3_w1_i,
+    input  wire                  is_csr_w1_i,
+    input  wire [11:0]           csr_addr_w1_i,
+    input  wire [2:0]            funct3_w1_i,
     input  wire                  valid_w1_i,
 
     // ---- 来自 IIEX —— Way2 ----
@@ -53,6 +57,9 @@ module ex_stage #(
     input  wire                  is_jump_w2_i,
     input  wire                  is_muldiv_w2_i,
     input  wire [2:0]            muldiv_funct3_w2_i,
+    input  wire                  is_csr_w2_i,
+    input  wire [11:0]           csr_addr_w2_i,
+    input  wire [2:0]            funct3_w2_i,
     input  wire                  valid_w2_i,
 
     // ---- 前递数据：来自 EX/MEM 寄存器（上一周期 EX 结果）----
@@ -102,7 +109,13 @@ module ex_stage #(
     // ---- 分支控制反馈 ----
     output reg                   branch_taken_o,
     output reg  [ADDR_WIDTH-1:0] branch_target_o,
-    output reg                   mispredict_o
+    output reg                   mispredict_o,
+
+    // ---- 乘除法停顿（用于流水线控制）----
+    output wire                  muldiv_stall,
+
+    // ---- 定时器中断（来自 CSR unit）----
+    output wire                  irq_timer
 );
 
 // ============================================================
@@ -171,59 +184,160 @@ wire [DATA_WIDTH-1:0] opB_w1 = alu_src2_sel_w1_i ? imm_w1_i : rs2_w1_fwd;
 wire [DATA_WIDTH-1:0] opA_w2 = alu_src1_sel_w2_i ? pc_w2_i  : rs1_w2_fwd;
 wire [DATA_WIDTH-1:0] opB_w2 = alu_src2_sel_w2_i ? imm_w2_i : rs2_w2_fwd;
 
+// ============================================================
+// Pipeline Register (Stage 1 → Stage 2): 注册ALU操作数，打破长组合路径
+// ============================================================
+reg [DATA_WIDTH-1:0] ex1_opA_w1, ex1_opB_w1;
+reg [DATA_WIDTH-1:0] ex1_opA_w2, ex1_opB_w2;
+reg [DATA_WIDTH-1:0] ex1_rs2_w1, ex1_rs2_w2;
+reg [ADDR_WIDTH-1:0] ex1_pc_w1, ex1_pc_w2;
+reg [DATA_WIDTH-1:0] ex1_imm_w1;
+reg [4:0] ex1_rd_w1, ex1_rd_w2;
+reg [3:0] ex1_alu_op_w1, ex1_alu_op_w2;
+reg ex1_is_muldiv_w1, ex1_is_muldiv_w2;
+reg [2:0] ex1_muldiv_f3_w1, ex1_muldiv_f3_w2;
+reg ex1_is_branch_w1, ex1_is_jump_w1;
+reg ex1_is_csr_w1, ex1_is_csr_w2;
+reg [11:0] ex1_csr_addr_w1, ex1_csr_addr_w2;
+reg [2:0] ex1_funct3_w1, ex1_funct3_w2;
+reg ex1_valid_w1, ex1_valid_w2;
+reg [2:0] ex1_mem_sz_w1, ex1_mem_sz_w2;
+reg ex1_mem_r_w1, ex1_mem_w_w1;
+reg ex1_mem_r_w2, ex1_mem_w_w2;
+reg ex1_reg_wr_w1, ex1_reg_wr_w2;
+reg [1:0] ex1_wb_sel_w1, ex1_wb_sel_w2;
+reg ex1_predict_taken;
+reg [ADDR_WIDTH-1:0] ex1_predict_target;
+
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n || flush) begin
+        ex1_opA_w1 <= 64'b0; ex1_opB_w1 <= 64'b0;
+        ex1_opA_w2 <= 64'b0; ex1_opB_w2 <= 64'b0;
+        ex1_rs2_w1 <= 64'b0; ex1_rs2_w2 <= 64'b0;
+        ex1_pc_w1 <= 64'b0; ex1_pc_w2 <= 64'b0;
+        ex1_imm_w1 <= 64'b0;
+        ex1_rd_w1 <= 5'b0; ex1_rd_w2 <= 5'b0;
+        ex1_alu_op_w1 <= 4'b0; ex1_alu_op_w2 <= 4'b0;
+        ex1_is_muldiv_w1 <= 1'b0; ex1_is_muldiv_w2 <= 1'b0;
+        ex1_muldiv_f3_w1 <= 3'b0; ex1_muldiv_f3_w2 <= 3'b0;
+        ex1_is_branch_w1 <= 1'b0; ex1_is_jump_w1 <= 1'b0;
+        ex1_is_csr_w1 <= 1'b0; ex1_is_csr_w2 <= 1'b0;
+        ex1_csr_addr_w1 <= 12'b0; ex1_csr_addr_w2 <= 12'b0;
+        ex1_funct3_w1 <= 3'b0; ex1_funct3_w2 <= 3'b0;
+        ex1_valid_w1 <= 1'b0; ex1_valid_w2 <= 1'b0;
+        ex1_mem_sz_w1 <= 3'b0; ex1_mem_sz_w2 <= 3'b0;
+        ex1_mem_r_w1 <= 1'b0; ex1_mem_w_w1 <= 1'b0;
+        ex1_mem_r_w2 <= 1'b0; ex1_mem_w_w2 <= 1'b0;
+        ex1_reg_wr_w1 <= 1'b0; ex1_reg_wr_w2 <= 1'b0;
+        ex1_wb_sel_w1 <= 2'b0; ex1_wb_sel_w2 <= 2'b0;
+        ex1_predict_taken <= 1'b0;
+        ex1_predict_target <= 64'b0;
+    end else if (!muldiv_stall) begin
+        ex1_opA_w1 <= opA_w1; ex1_opB_w1 <= opB_w1;
+        ex1_opA_w2 <= opA_w2; ex1_opB_w2 <= opB_w2;
+        ex1_rs2_w1 <= rs2_w1_fwd; ex1_rs2_w2 <= rs2_w2_fwd;
+        ex1_pc_w1 <= pc_w1_i; ex1_pc_w2 <= pc_w2_i;
+        ex1_imm_w1 <= imm_w1_i;
+        ex1_rd_w1 <= rd_addr_w1_i; ex1_rd_w2 <= rd_addr_w2_i;
+        ex1_alu_op_w1 <= alu_op_w1_i; ex1_alu_op_w2 <= alu_op_w2_i;
+        ex1_is_muldiv_w1 <= is_muldiv_w1_i; ex1_is_muldiv_w2 <= is_muldiv_w2_i;
+        ex1_muldiv_f3_w1 <= muldiv_funct3_w1_i; ex1_muldiv_f3_w2 <= muldiv_funct3_w2_i;
+        ex1_is_branch_w1 <= is_branch_w1_i; ex1_is_jump_w1 <= is_jump_w1_i;
+        ex1_is_csr_w1 <= is_csr_w1_i; ex1_csr_addr_w1 <= csr_addr_w1_i; ex1_funct3_w1 <= funct3_w1_i;
+        ex1_is_csr_w2 <= is_csr_w2_i; ex1_csr_addr_w2 <= csr_addr_w2_i; ex1_funct3_w2 <= funct3_w2_i;
+        ex1_valid_w1 <= valid_w1_i; ex1_valid_w2 <= valid_w2_i;
+        ex1_mem_sz_w1 <= mem_size_w1_i; ex1_mem_sz_w2 <= mem_size_w2_i;
+        ex1_mem_r_w1 <= mem_read_en_w1_i; ex1_mem_w_w1 <= mem_write_en_w1_i;
+        ex1_mem_r_w2 <= mem_read_en_w2_i; ex1_mem_w_w2 <= mem_write_en_w2_i;
+        ex1_reg_wr_w1 <= reg_write_en_w1_i; ex1_reg_wr_w2 <= reg_write_en_w2_i;
+        ex1_wb_sel_w1 <= wb_sel_w1_i; ex1_wb_sel_w2 <= wb_sel_w2_i;
+        ex1_predict_taken <= predict_taken_i;
+        ex1_predict_target <= predict_target_i;
+    end
+end
+
+// ============================================================
+// Stage 2: ALU + Muldiv Unit + Branch（基于已注册的操作数）
+// ============================================================
+
 // ALU1 & ALU2（组合实例化）
 wire [DATA_WIDTH-1:0] alu_res_w1, alu_res_w2;
 wire alu_zero_w1, alu_neg_w1, alu_ovf_w1;
 wire alu_zero_w2, alu_neg_w2, alu_ovf_w2;
 
 alu u_alu1 (
-    .alu_op(alu_op_w1_i), .operand_a(opA_w1), .operand_b(opB_w1),
+    .alu_op(ex1_alu_op_w1), .operand_a(ex1_opA_w1), .operand_b(ex1_opB_w1),
     .result(alu_res_w1), .zero(alu_zero_w1),
     .negative(alu_neg_w1), .overflow(alu_ovf_w1)
 );
 
 alu u_alu2 (
-    .alu_op(alu_op_w2_i), .operand_a(opA_w2), .operand_b(opB_w2),
+    .alu_op(ex1_alu_op_w2), .operand_a(ex1_opA_w2), .operand_b(ex1_opB_w2),
     .result(alu_res_w2), .zero(alu_zero_w2),
     .negative(alu_neg_w2), .overflow(alu_ovf_w2)
 );
 
-// 乘除法结果选择
-function [DATA_WIDTH-1:0] muldiv_pick;
-    input [2:0] f3;
-    input [DATA_WIDTH-1:0] a;
-    input [DATA_WIDTH-1:0] b;
-    reg signed [DATA_WIDTH-1:0] sa;
-    reg signed [DATA_WIDTH-1:0] sb;
-    reg signed [2*DATA_WIDTH-1:0] prod_ss;
-    reg signed [2*DATA_WIDTH-1:0] prod_su;
-    reg [2*DATA_WIDTH-1:0] prod_uu;
-    begin
-        sa = a;
-        sb = b;
-        prod_ss = sa * sb;
-        prod_su = sa * $signed({1'b0, b});
-        prod_uu = a * b;
-        case (f3)
-            3'b000: muldiv_pick = a * b;
-            3'b001: muldiv_pick = prod_ss[2*DATA_WIDTH-1:DATA_WIDTH];
-            3'b010: muldiv_pick = prod_su[2*DATA_WIDTH-1:DATA_WIDTH];
-            3'b011: muldiv_pick = prod_uu[2*DATA_WIDTH-1:DATA_WIDTH];
-            3'b100: muldiv_pick = (b != 0) ? (sa / sb) : {DATA_WIDTH{1'b1}};
-            3'b101: muldiv_pick = (b != 0) ? (a / b)   : {DATA_WIDTH{1'b1}};
-            3'b110: muldiv_pick = (b != 0) ? (sa % sb) : {DATA_WIDTH{1'b1}};
-            3'b111: muldiv_pick = (b != 0) ? (a % b)   : {DATA_WIDTH{1'b1}};
-            default: muldiv_pick = {DATA_WIDTH{1'b0}};
-        endcase
-    end
-endfunction
+// ---- 乘除法多周期单元 ----
+reg muldiv_active_w1, muldiv_active_w2;
+wire [DATA_WIDTH-1:0] muldiv_res_w1, muldiv_res_w2;
+wire muldiv_done_w1, muldiv_done_w2;
 
-wire [DATA_WIDTH-1:0] ex_res_w1 = is_muldiv_w1_i ?
-                                  muldiv_pick(muldiv_funct3_w1_i, rs1_w1_fwd, rs2_w1_fwd) :
-                                  alu_res_w1;
-wire [DATA_WIDTH-1:0] ex_res_w2 = is_muldiv_w2_i ?
-                                  muldiv_pick(muldiv_funct3_w2_i, rs1_w2_fwd, rs2_w2_fwd) :
-                                  alu_res_w2;
+muldiv_unit u_muldiv1 (
+    .clk(clk), .rst_n(rst_n),
+    .start(ex1_valid_w1 && ex1_is_muldiv_w1 && !muldiv_active_w1),
+    .funct3(ex1_muldiv_f3_w1), .operand_a(ex1_opA_w1), .operand_b(ex1_opB_w1),
+    .result(muldiv_res_w1), .done(muldiv_done_w1)
+);
+
+muldiv_unit u_muldiv2 (
+    .clk(clk), .rst_n(rst_n),
+    .start(ex1_valid_w2 && ex1_is_muldiv_w2 && !muldiv_active_w2),
+    .funct3(ex1_muldiv_f3_w2), .operand_a(ex1_opA_w2), .operand_b(ex1_opB_w2),
+    .result(muldiv_res_w2), .done(muldiv_done_w2)
+);
+
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n || flush) begin
+        muldiv_active_w1 <= 1'b0;
+        muldiv_active_w2 <= 1'b0;
+    end else begin
+        if (!muldiv_active_w1 && ex1_valid_w1 && ex1_is_muldiv_w1)
+            muldiv_active_w1 <= 1'b1;
+        else if (muldiv_done_w1)
+            muldiv_active_w1 <= 1'b0;
+        if (!muldiv_active_w2 && ex1_valid_w2 && ex1_is_muldiv_w2)
+            muldiv_active_w2 <= 1'b1;
+        else if (muldiv_done_w2)
+            muldiv_active_w2 <= 1'b0;
+    end
+end
+
+assign muldiv_stall = muldiv_active_w1 || muldiv_active_w2;
+assign irq_timer = irq_timer_ex;
+
+// ---- CSR 单元（含 mcycle/mtime/mtimecmp）----
+wire [DATA_WIDTH-1:0] csr_rdata_w1;
+wire irq_timer_ex;
+
+csr_unit #(
+    .DATA_WIDTH(DATA_WIDTH),
+    .ADDR_WIDTH(ADDR_WIDTH)
+) u_csr_unit (
+    .clk(clk), .rst_n(rst_n),
+    .csr_addr(ex1_csr_addr_w1),
+    .csr_wdata(ex1_opA_w1),
+    .csr_we(ex1_is_csr_w1 && ex1_funct3_w1[2] && (ex1_funct3_w1[1:0] == 2'b01 || ex1_rs2_w1 != 64'b0)),
+    .csr_re(ex1_is_csr_w1),
+    .funct3(ex1_funct3_w1),
+    .csr_rdata(csr_rdata_w1),
+    .irq_timer(irq_timer_ex),
+    .irq_external(),
+    .irq_software(),
+    .exception_valid(1'b0),
+    .exception_code(4'b0),
+    .exception_pc(64'b0),
+    .exception_value(64'b0)
+);
 
 // ---- 分支判断（仅 Way1 主路含分支；II 阶段已阻止 Way2 含分支）----
 reg branch_taken_w1;
@@ -231,24 +345,24 @@ reg [ADDR_WIDTH-1:0] branch_tgt_w1;
 
 always @(*) begin
     branch_taken_w1 = 1'b0;
-    branch_tgt_w1   = pc_w1_i + 4;
+    branch_tgt_w1   = ex1_pc_w1 + 4;
 
-    if (valid_w1_i) begin
-        if (is_branch_w1_i) begin
-            case (mem_size_w1_i)
-                3'b000: branch_taken_w1 = (rs1_w1_fwd == rs2_w1_fwd);
-                3'b001: branch_taken_w1 = (rs1_w1_fwd != rs2_w1_fwd);
-                3'b100: branch_taken_w1 = ($signed(rs1_w1_fwd) < $signed(rs2_w1_fwd));
-                3'b101: branch_taken_w1 = ($signed(rs1_w1_fwd) >= $signed(rs2_w1_fwd));
-                3'b110: branch_taken_w1 = (rs1_w1_fwd < rs2_w1_fwd);
-                3'b111: branch_taken_w1 = (rs1_w1_fwd >= rs2_w1_fwd);
+    if (ex1_valid_w1) begin
+        if (ex1_is_branch_w1) begin
+            case (ex1_mem_sz_w1)
+                3'b000: branch_taken_w1 = (ex1_opA_w1 == ex1_opB_w1);
+                3'b001: branch_taken_w1 = (ex1_opA_w1 != ex1_opB_w1);
+                3'b100: branch_taken_w1 = ($signed(ex1_opA_w1) < $signed(ex1_opB_w1));
+                3'b101: branch_taken_w1 = ($signed(ex1_opA_w1) >= $signed(ex1_opB_w1));
+                3'b110: branch_taken_w1 = (ex1_opA_w1 < ex1_opB_w1);
+                3'b111: branch_taken_w1 = (ex1_opA_w1 >= ex1_opB_w1);
                 default: branch_taken_w1 = 1'b0;
             endcase
-            branch_tgt_w1 = pc_w1_i + imm_w1_i;
-        end else if (is_jump_w1_i) begin
+            branch_tgt_w1 = ex1_pc_w1 + ex1_imm_w1;
+        end else if (ex1_is_jump_w1) begin
             branch_taken_w1 = 1'b1;
-            branch_tgt_w1 = (alu_op_w1_i == 4'b1100) ?
-                             (pc_w1_i + imm_w1_i) : (rs1_w1_fwd + imm_w1_i);
+            branch_tgt_w1 = (ex1_alu_op_w1 == 4'b1100) ?
+                             (ex1_pc_w1 + ex1_imm_w1) : (ex1_opA_w1 + ex1_imm_w1);
         end
     end
 end
@@ -267,36 +381,66 @@ always @(posedge clk or negedge rst_n) begin
         reg_write_en_w2_o <= 1'b0; wb_sel_w2_o <= 2'b0;
         branch_taken_o <= 1'b0; branch_target_o <= 64'b0; mispredict_o <= 1'b0;
     end else begin
-        // Way1
-        valid_w1_o        <= valid_w1_i;
-        pc_w1_o           <= pc_w1_i;
-        alu_result_w1_o   <= ex_res_w1;
-        rs2_data_w1_o     <= rs2_w1_fwd;
-        rd_addr_w1_o      <= rd_addr_w1_i;
-        mem_read_en_w1_o  <= mem_read_en_w1_i;
-        mem_write_en_w1_o <= mem_write_en_w1_i;
-        mem_size_w1_o     <= mem_size_w1_i;
-        reg_write_en_w1_o <= reg_write_en_w1_i;
-        wb_sel_w1_o       <= wb_sel_w1_i;
-        // Way2
-        valid_w2_o        <= valid_w2_i;
-        pc_w2_o           <= pc_w2_i;
-        alu_result_w2_o   <= ex_res_w2;
-        rs2_data_w2_o     <= rs2_w2_fwd;
-        rd_addr_w2_o      <= rd_addr_w2_i;
-        mem_read_en_w2_o  <= mem_read_en_w2_i;
-        mem_write_en_w2_o <= mem_write_en_w2_i;
-        mem_size_w2_o     <= mem_size_w2_i;
-        reg_write_en_w2_o <= reg_write_en_w2_i;
-        wb_sel_w2_o       <= wb_sel_w2_i;
-        // 分支
-        branch_taken_o  <= branch_taken_w1;
-        branch_target_o <= branch_tgt_w1;
-        if (valid_w1_i && (is_branch_w1_i || is_jump_w1_i)) begin
-            mispredict_o <= (branch_taken_w1 != predict_taken_i) ||
-                            (branch_taken_w1 && (branch_tgt_w1 != predict_target_i));
-        end else begin
-            mispredict_o <= 1'b0;
+        // 乘除法结果写回（完成时捕获）
+        if (muldiv_done_w1) begin
+            valid_w1_o        <= ex1_valid_w1;
+            pc_w1_o           <= ex1_pc_w1;
+            alu_result_w1_o   <= muldiv_res_w1;
+            rs2_data_w1_o     <= ex1_rs2_w1;
+            rd_addr_w1_o      <= ex1_rd_w1;
+            mem_read_en_w1_o  <= ex1_mem_r_w1;
+            mem_write_en_w1_o <= ex1_mem_w_w1;
+            mem_size_w1_o     <= ex1_mem_sz_w1;
+            reg_write_en_w1_o <= ex1_reg_wr_w1;
+            wb_sel_w1_o       <= ex1_wb_sel_w1;
+        end
+        if (muldiv_done_w2) begin
+            valid_w2_o        <= ex1_valid_w2;
+            pc_w2_o           <= ex1_pc_w2;
+            alu_result_w2_o   <= muldiv_res_w2;
+            rs2_data_w2_o     <= ex1_rs2_w2;
+            rd_addr_w2_o      <= ex1_rd_w2;
+            mem_read_en_w2_o  <= ex1_mem_r_w2;
+            mem_write_en_w2_o <= ex1_mem_w_w2;
+            mem_size_w2_o     <= ex1_mem_sz_w2;
+            reg_write_en_w2_o <= ex1_reg_wr_w2;
+            wb_sel_w2_o       <= ex1_wb_sel_w2;
+        end
+        // 非乘除法/CSR指令正常更新
+        if (!muldiv_active_w1 && !muldiv_active_w2 &&
+            !(ex1_valid_w1 && ex1_is_muldiv_w1) &&
+            !(ex1_valid_w2 && ex1_is_muldiv_w2)) begin
+            // Way1
+            valid_w1_o        <= ex1_valid_w1;
+            pc_w1_o           <= ex1_pc_w1;
+            alu_result_w1_o   <= ex1_is_csr_w1 ? csr_rdata_w1 : alu_res_w1;
+            rs2_data_w1_o     <= ex1_rs2_w1;
+            rd_addr_w1_o      <= ex1_rd_w1;
+            mem_read_en_w1_o  <= ex1_mem_r_w1;
+            mem_write_en_w1_o <= ex1_mem_w_w1;
+            mem_size_w1_o     <= ex1_mem_sz_w1;
+            reg_write_en_w1_o <= ex1_reg_wr_w1;
+            wb_sel_w1_o       <= ex1_wb_sel_w1;
+            // Way2
+            valid_w2_o        <= ex1_valid_w2;
+            pc_w2_o           <= ex1_pc_w2;
+            alu_result_w2_o   <= ex1_is_csr_w2 ? csr_rdata_w1 : alu_res_w2;
+            rs2_data_w2_o     <= ex1_rs2_w2;
+            rd_addr_w2_o      <= ex1_rd_w2;
+            mem_read_en_w2_o  <= ex1_mem_r_w2;
+            mem_write_en_w2_o <= ex1_mem_w_w2;
+            mem_size_w2_o     <= ex1_mem_sz_w2;
+            reg_write_en_w2_o <= ex1_reg_wr_w2;
+            wb_sel_w2_o       <= ex1_wb_sel_w2;
+            // 分支
+            branch_taken_o  <= branch_taken_w1;
+            branch_target_o <= branch_tgt_w1;
+            if (ex1_valid_w1 && (ex1_is_branch_w1 || ex1_is_jump_w1)) begin
+                mispredict_o <= (branch_taken_w1 != ex1_predict_taken) ||
+                                (branch_taken_w1 && (branch_tgt_w1 != ex1_predict_target));
+            end else begin
+                mispredict_o <= 1'b0;
+            end
         end
     end
 end

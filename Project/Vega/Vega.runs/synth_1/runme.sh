@@ -7,14 +7,10 @@
 # Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # 
 
-echo "This script was generated under a different operating system."
-echo "Please update the PATH and LD_LIBRARY_PATH variables below, before executing this script"
-exit
-
 if [ -z "$PATH" ]; then
-  PATH=D:/xilinx/2025.2/Vitis/bin;D:/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/xilinx/2025.2/Vivado/bin
+  PATH=/home/liyu/Tools/Xilinx/2025.2/Vitis/bin:/home/liyu/Tools/Xilinx/2025.2/Vivado/ids_lite/ISE/bin/lin64:/home/liyu/Tools/Xilinx/2025.2/Vivado/bin
 else
-  PATH=D:/xilinx/2025.2/Vitis/bin;D:/xilinx/2025.2/Vivado/ids_lite/ISE/bin/nt64;D:/xilinx/2025.2/Vivado/ids_lite/ISE/lib/nt64:D:/xilinx/2025.2/Vivado/bin:$PATH
+  PATH=/home/liyu/Tools/Xilinx/2025.2/Vitis/bin:/home/liyu/Tools/Xilinx/2025.2/Vivado/ids_lite/ISE/bin/lin64:/home/liyu/Tools/Xilinx/2025.2/Vivado/bin:$PATH
 fi
 export PATH
 
@@ -25,7 +21,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='Z:/Vega_cpu/Project/Vega/Vega.runs/synth_1'
+HD_PWD='/mnt/shared/Vega_cpu/Project/Vega/Vega.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

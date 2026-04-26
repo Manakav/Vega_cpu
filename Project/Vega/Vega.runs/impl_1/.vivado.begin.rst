@@ -1,10 +1,15 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Windi" Host="STATION" Pid="28024" HostCore="24" HostMemory="068563804160">
+    <Process Command="vivado" Owner="liyu" Host="debian" Pid="346003" HostCore="16" HostMemory="32870496">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="Windi" Host="STATION" Pid="20604" HostCore="24" HostMemory="068563804160">
+    <Process Command="vivado" Owner="liyu" Host="debian" Pid="346671" HostCore="16" HostMemory="32870496">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado" Owner="liyu" Host="debian" Pid="395727" HostCore="16" HostMemory="32870496">
     </Process>
 </ProcessHandle>

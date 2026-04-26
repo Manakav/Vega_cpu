@@ -1,0 +1,42 @@
+# Vivado 生成文件
+*.log
+*.jou
+*.wdf
+*.pb
+*.dcp
+*.vds
+*.vdi
+*.bin
+*.bit
+*.rpt
+*.rpx
+*.xml
+*.jou
+*.str
+*.backup.*
+
+# Vivado 目录
+**/Vega.cache/
+**/Vega.runs/
+**/Vega.sim/
+**/Vega.gen/
+*.runs/
+*.cache/
+*.sim/
+*.gen/
+
+# 临时文件
+.csm_*
+.*.swp
+.*.swo
+*~
+
+# SDK 编译产物
+SDK/*.elf
+SDK/*.bin
+SDK/*.hex
+SDK/*.o
+
+# 系统文件
+.DS_Store
+Thumbs.db

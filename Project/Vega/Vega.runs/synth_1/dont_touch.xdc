@@ -12,11 +12,11 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==data_ram_b 
 # IP: ip/boot_rom_ip/boot_rom_ip.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==boot_rom_ip || ORIG_REF_NAME==boot_rom_ip} -quiet] -quiet
 
-# XDC: z:/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_board.xdc
+# XDC: /mnt/shared/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_board.xdc
 set_property KEEP_HIERARCHY SOFT [get_cells [split [join [get_cells -hier -filter {REF_NAME==axi_uartlite_0 || ORIG_REF_NAME==axi_uartlite_0} -quiet] {/U0 } ]/U0 ] -quiet] -quiet
 
-# XDC: z:/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_ooc.xdc
+# XDC: /mnt/shared/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/axi_uartlite_0/axi_uartlite_0_ooc.xdc
 
-# XDC: z:/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/data_ram_b/data_ram_b_ooc.xdc
+# XDC: /mnt/shared/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/data_ram_b/data_ram_b_ooc.xdc
 
-# XDC: z:/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/boot_rom_ip/boot_rom_ip_ooc.xdc
+# XDC: /mnt/shared/Vega_cpu/Project/Vega/Vega.gen/sources_1/ip/boot_rom_ip/boot_rom_ip_ooc.xdc

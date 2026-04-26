@@ -53,22 +53,23 @@ module mem_stage #(
     output wire                  dcache_req,
     output wire                  dcache_we,
     output wire [2:0]            dcache_size,
-    input  wire [DATA_WIDTH-1:0] dcache_data_out,
-    input  wire                  dcache_hit,
-    input  wire                  dcache_refill_done,
-    input  wire                  dcache_writeback_req,
-    input  wire [63:0]           dcache_writeback_addr,
-    input  wire [255:0]          dcache_writeback_data,
+    output wire                  dcache_writeback_req,
+    output wire [63:0]           dcache_writeback_addr,
+    output wire [255:0]          dcache_writeback_data,
+    output wire                  dcache_cache_stall,
     output wire [63:0]           dcache_mem_addr,
     output wire [255:0]          dcache_mem_wdata,
     input  wire [255:0]          dcache_mem_rdata,
     output wire                  dcache_mem_req,
     output wire                  dcache_mem_we,
-    input  wire                  dcache_mem_ready,
-    input  wire                  dcache_cache_stall
+    input  wire                  dcache_mem_ready
 );
 
 // 在mem_stage.v中例化DCache
+wire [DATA_WIDTH-1:0] dcache_data_out;
+wire                  dcache_hit;
+wire                  dcache_refill_done;
+
 dcache u_dcache (
     .clk(clk),
     .rst_n(rst_n),
@@ -100,10 +101,10 @@ assign dcache_size  = mem_size_w1_i;
 assign dcache_req   = (mem_read_en_w1_i || mem_write_en_w1_i) && valid_w1_i;
 
 // 字节使能 - 用移位+掩码替代7层三元MUX
-wire [2:0] be_bytes = (dcache_size == 3'b000) ? 3'd1 :
-                      (dcache_size == 3'b001) ? 3'd2 :
-                      (dcache_size == 3'b010) ? 3'd4 :
-                      (dcache_size == 3'b011) ? 3'd8 : 3'd0;
+wire [3:0] be_bytes = (dcache_size == 3'b000) ? 4'd1 :
+                       (dcache_size == 3'b001) ? 4'd2 :
+                       (dcache_size == 3'b010) ? 4'd4 :
+                       (dcache_size == 3'b011) ? 4'd8 : 4'd0;
 assign dcache_be = (be_bytes > 0) ? ((8'b1 << be_bytes) - 1) : 8'b0;
 
 // 写数据处理 - 用掩码替代7层三元MUX

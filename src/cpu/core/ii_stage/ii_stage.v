@@ -28,6 +28,9 @@ module ii_stage #(
     input  wire                  is_branch_w1_i,
     input  wire                  is_jump_w1_i,
     input  wire                  is_system_w1_i,
+    input  wire                  is_csr_w1_i,
+    input  wire [11:0]           csr_addr_w1_i,
+    input  wire [2:0]            funct3_w1_i,
     input  wire                  is_mem_op_w1_i,
     input  wire                  is_muldiv_w1_i,
     input  wire [2:0]            muldiv_funct3_w1_i,
@@ -52,6 +55,9 @@ module ii_stage #(
     input  wire                  is_branch_w2_i,
     input  wire                  is_jump_w2_i,
     input  wire                  is_system_w2_i,
+    input  wire                  is_csr_w2_i,
+    input  wire [11:0]           csr_addr_w2_i,
+    input  wire [2:0]            funct3_w2_i,
     input  wire                  is_mem_op_w2_i,
     input  wire                  is_muldiv_w2_i,
     input  wire [2:0]            muldiv_funct3_w2_i,
@@ -96,6 +102,9 @@ module ii_stage #(
     output reg                   is_jump_w1_o,
     output reg                   is_muldiv_w1_o,
     output reg  [2:0]            muldiv_funct3_w1_o,
+    output reg                   is_csr_w1_o,
+    output reg  [11:0]           csr_addr_w1_o,
+    output reg  [2:0]            funct3_w1_o,
     output reg                   valid_w1_o,
 
     // ---- IIEX 寄存器输出 → EX 阶段 —— Way2 ----
@@ -118,6 +127,9 @@ module ii_stage #(
     output reg                   is_jump_w2_o,
     output reg                   is_muldiv_w2_o,
     output reg  [2:0]            muldiv_funct3_w2_o,
+    output reg                   is_csr_w2_o,
+    output reg  [11:0]           csr_addr_w2_o,
+    output reg  [2:0]            funct3_w2_o,
     output reg                   valid_w2_o,
     // 预测信息输出
     output reg                   predict_taken_o,
@@ -145,7 +157,7 @@ wire struct_hazard = valid_w1_i && valid_w2_i && is_mem_op_w1_i && is_mem_op_w2_
 
 wire ctrl_hazard   = valid_w1_i && (is_branch_w1_i || is_jump_w1_i);
 
-wire sys_hazard    = valid_w1_i && valid_w2_i && (is_system_w1_i || is_system_w2_i);
+wire sys_hazard    = valid_w1_i && valid_w2_i && (is_system_w1_i || is_system_w2_i || is_csr_w1_i || is_csr_w2_i);
 
 wire can_dual_issue = !(raw_hazard || waw_hazard || struct_hazard ||
                         ctrl_hazard || sys_hazard);
@@ -179,6 +191,9 @@ wire                  s1_is_branch  = sel_w2_as_slot1 ? is_branch_w2_i    : is_b
 wire                  s1_is_jump    = sel_w2_as_slot1 ? is_jump_w2_i      : is_jump_w1_i;
 wire                  s1_is_muldiv  = sel_w2_as_slot1 ? is_muldiv_w2_i    : is_muldiv_w1_i;
 wire [2:0]            s1_muldiv_f3  = sel_w2_as_slot1 ? muldiv_funct3_w2_i: muldiv_funct3_w1_i;
+wire                  s1_is_csr     = sel_w2_as_slot1 ? is_csr_w2_i       : is_csr_w1_i;
+wire [11:0]           s1_csr_addr   = sel_w2_as_slot1 ? csr_addr_w2_i     : csr_addr_w1_i;
+wire [2:0]            s1_funct3     = sel_w2_as_slot1 ? funct3_w2_i       : funct3_w1_i;
 wire                  s1_valid      = sel_w2_as_slot1 ? valid_w2_i        : valid_w1_i;
 
 // 副路（slot2）：仅在正常双发时有效
@@ -213,7 +228,9 @@ always @(posedge clk or negedge rst_n) begin
         is_branch_w1_o <= 1'b0; is_jump_w1_o <= 1'b0;
         is_branch_w2_o <= 1'b0; is_jump_w2_o <= 1'b0;
         is_muldiv_w1_o <= 1'b0; muldiv_funct3_w1_o <= 3'b0;
+        is_csr_w1_o <= 1'b0; csr_addr_w1_o <= 12'b0; funct3_w1_o <= 3'b0;
         is_muldiv_w2_o <= 1'b0; muldiv_funct3_w2_o <= 3'b0;
+        is_csr_w2_o <= 1'b0; csr_addr_w2_o <= 12'b0; funct3_w2_o <= 3'b0;
         predict_taken_o     <= 1'b0;
         predict_target_o    <= 64'b0;
     end else begin
@@ -238,6 +255,9 @@ always @(posedge clk or negedge rst_n) begin
         is_jump_w1_o      <= s1_is_jump;
         is_muldiv_w1_o    <= s1_is_muldiv;
         muldiv_funct3_w1_o<= s1_muldiv_f3;
+        is_csr_w1_o       <= s1_is_csr;
+        csr_addr_w1_o     <= s1_csr_addr;
+        funct3_w1_o       <= s1_funct3;
         // Slot2（副路）
         valid_w2_o        <= issue_slot2;
         pc_w2_o           <= pc_w2_i;
@@ -259,6 +279,9 @@ always @(posedge clk or negedge rst_n) begin
         is_jump_w2_o      <= is_jump_w2_i   & issue_slot2;
         is_muldiv_w2_o    <= is_muldiv_w2_i & issue_slot2;
         muldiv_funct3_w2_o<= muldiv_funct3_w2_i;
+        is_csr_w2_o       <= is_csr_w2_i & issue_slot2;
+        csr_addr_w2_o     <= csr_addr_w2_i;
+        funct3_w2_o       <= funct3_w2_i;
         predict_taken_o     <= predict_taken_i;
         predict_target_o    <= predict_target_i;
     end

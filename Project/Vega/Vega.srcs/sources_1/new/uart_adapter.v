@@ -18,7 +18,7 @@ module uart_adapter (
     wire        axi_aresetn = rst_n;
     
     // 写地址通道
-    reg  [31:0] axi_awaddr;
+    reg  [3:0]  axi_awaddr;
     reg         axi_awvalid;
     wire        axi_awready;
     
@@ -34,7 +34,7 @@ module uart_adapter (
     reg         axi_bready;
     
     // 读地址通道
-    reg  [31:0] axi_araddr;
+    reg  [3:0]  axi_araddr;
     reg         axi_arvalid;
     wire        axi_arready;
     
@@ -105,7 +105,7 @@ module uart_adapter (
             
             // 写事务开始
             if (req && we && !busy) begin
-                axi_awaddr <= addr; // 直接连接地址
+                axi_awaddr <= addr[3:0]; // 直接连接地址
                 axi_awvalid <= 1;
                 axi_wdata <= wdata;
                 axi_wstrb <= 4'b1111; // 假设全写，或者根据你的 be 信号连接
@@ -121,7 +121,7 @@ module uart_adapter (
             
             // 读事务开始
             if (req && !we && !busy) begin
-                axi_araddr <= addr;
+                axi_araddr <= addr[3:0];
                 axi_arvalid <= 1;
                 busy <= 1;
             end

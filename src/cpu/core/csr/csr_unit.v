@@ -46,6 +46,10 @@ reg [63:0] mtimecmp;
 
 wire [63:0] mtime_next = mtime + 1;
 
+wire [63:0] csr_zimm = {59'b0, csr_wdata[4:0]};
+wire [63:0] csr_wmask = funct3[2] ? csr_zimm : csr_wdata;
+wire csr_write = csr_we && csr_re && (funct3[1:0] != 2'b10 || csr_wmask != 64'b0);
+
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         mstatus <= 64'h0000000000000000;
@@ -68,17 +72,41 @@ always @(posedge clk or negedge rst_n) begin
             mip[7] <= 1'b0;
         end
         
-        if (csr_we) begin
+        if (csr_write) begin
             case (csr_addr)
-                12'h300: mstatus <= csr_wdata;
-                12'h304: mie <= csr_wdata;
-                12'h305: mtvec <= csr_wdata;
-                12'h341: mepc <= csr_wdata;
-                12'h342: mcause <= csr_wdata;
-                12'h343: mtval <= csr_wdata;
-                12'h344: mip <= csr_wdata;
-                12'hB00: mcycle <= csr_wdata;
-                12'hB02: mtimecmp <= csr_wdata;
+                12'h300: begin
+                    case (funct3[1:0])
+                        2'b01: mstatus <= csr_wmask;
+                        2'b10: mstatus <= mstatus | csr_wmask;
+                        2'b11: mstatus <= mstatus & ~csr_wmask;
+                    endcase
+                end
+                12'h304: begin
+                    case (funct3[1:0])
+                        2'b01: mie <= csr_wmask;
+                        2'b10: mie <= mie | csr_wmask;
+                        2'b11: mie <= mie & ~csr_wmask;
+                    endcase
+                end
+                12'h305: mtvec <= csr_wmask;
+                12'h341: mepc <= csr_wmask;
+                12'h342: mcause <= csr_wmask;
+                12'h343: mtval <= csr_wmask;
+                12'h344: begin
+                    case (funct3[1:0])
+                        2'b01: mip <= csr_wmask;
+                        2'b10: mip <= mip | csr_wmask;
+                        2'b11: mip <= mip & ~csr_wmask;
+                    endcase
+                end
+                12'hB00: begin
+                    case (funct3[1:0])
+                        2'b01: mcycle <= csr_wmask;
+                        2'b10: mcycle <= mcycle | csr_wmask;
+                        2'b11: mcycle <= mcycle & ~csr_wmask;
+                    endcase
+                end
+                12'hB02: mtimecmp <= csr_wmask;
             endcase
         end
         

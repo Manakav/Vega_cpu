@@ -47,6 +47,8 @@ parameter REG_COUNT  = 32;
 wire stall_if, stall_id;
 wire flush_if, flush_id, flush_ex;
 wire stall_dual;
+wire muldiv_stall;
+wire irq_timer_ex;
 wire branch_taken, mispredict;
 wire [ADDR_WIDTH-1:0] branch_target;
 // 预测信息传递 wire
@@ -86,6 +88,8 @@ icache u_icache (
     .req(icache_req),
     .data_out(icache_data_out),
     .hit(icache_hit),
+    .instr_window_out(icache_instr_window_out),
+    .window_valid(icache_window_valid),
     .mem_addr(icache_mem_addr),
     .mem_data(icache_mem_data),
     .mem_req(icache_mem_req),
@@ -100,9 +104,6 @@ wire [7:0]  dcache_be;
 wire        dcache_req;
 wire        dcache_we;
 wire [2:0]  dcache_size;
-wire [63:0] dcache_data_out;
-wire        dcache_hit;
-wire        dcache_refill_done;
 wire        dcache_writeback_req;
 wire [63:0] dcache_writeback_addr;
 wire [255:0] dcache_writeback_data;
@@ -173,6 +174,9 @@ wire        idii_isbr_w1, idii_isjmp_w1, idii_issys_w1, idii_ismem_w1;
 wire        idii_isbr_w2, idii_isjmp_w2, idii_issys_w2, idii_ismem_w2;
 wire        idii_ismul_w1, idii_ismul_w2;
 wire [2:0]  idii_mulf3_w1, idii_mulf3_w2;
+wire        idii_iscsr_w1, idii_iscsr_w2;
+wire [11:0] idii_csr_addr_w1, idii_csr_addr_w2;
+wire [2:0]  idii_funct3_w1, idii_funct3_w2;
 wire        idii_urs1_w1, idii_urs2_w1, idii_valid_w1;
 wire        idii_urs1_w2, idii_urs2_w2, idii_valid_w2;
 wire        predict_taken_idii;
@@ -202,6 +206,8 @@ id_stage #(
     .is_branch_w1_o(idii_isbr_w1), .is_jump_w1_o(idii_isjmp_w1),
     .is_branch_w2_o(idii_isbr_w2), .is_jump_w2_o(idii_isjmp_w2),
     .is_system_w1_o(idii_issys_w1), .is_system_w2_o(idii_issys_w2),
+    .is_csr_w1_o(idii_iscsr_w1), .csr_addr_w1_o(idii_csr_addr_w1), .funct3_w1_o(idii_funct3_w1),
+    .is_csr_w2_o(idii_iscsr_w2), .csr_addr_w2_o(idii_csr_addr_w2), .funct3_w2_o(idii_funct3_w2),
     .is_mem_op_w1_o(idii_ismem_w1), .is_mem_op_w2_o(idii_ismem_w2),
     .is_muldiv_w1_o(idii_ismul_w1), .muldiv_funct3_w1_o(idii_mulf3_w1),
     .is_muldiv_w2_o(idii_ismul_w2), .muldiv_funct3_w2_o(idii_mulf3_w2),
@@ -255,6 +261,9 @@ wire        iiex_isbr_w1,  iiex_isjmp_w1, iiex_valid_w1;
 wire        iiex_isbr_w2,  iiex_isjmp_w2, iiex_valid_w2;
 wire        iiex_ismul_w1, iiex_ismul_w2;
 wire [2:0]  iiex_mulf3_w1, iiex_mulf3_w2;
+wire        iiex_iscsr_w1, iiex_iscsr_w2;
+wire [11:0] iiex_csr_addr_w1, iiex_csr_addr_w2;
+wire [2:0]  iiex_funct3_w1, iiex_funct3_w2;
 wire predict_taken_iiex, predict_target_iiex;
 
 ii_stage #(
@@ -271,6 +280,7 @@ ii_stage #(
     .reg_write_en_w1_i(idii_rwe_w1), .wb_sel_w1_i(idii_wbsel_w1),
     .is_branch_w1_i(idii_isbr_w1), .is_jump_w1_i(idii_isjmp_w1),
     .is_system_w1_i(idii_issys_w1), .is_mem_op_w1_i(idii_ismem_w1),
+    .is_csr_w1_i(idii_iscsr_w1), .csr_addr_w1_i(idii_csr_addr_w1), .funct3_w1_i(idii_funct3_w1),
     .is_muldiv_w1_i(idii_ismul_w1), .muldiv_funct3_w1_i(idii_mulf3_w1),
     .uses_rs1_w1_i(idii_urs1_w1), .uses_rs2_w1_i(idii_urs2_w1), .valid_w1_i(idii_valid_w1),
     .predict_taken_i(predict_taken_idii),
@@ -284,6 +294,7 @@ ii_stage #(
     .reg_write_en_w2_i(idii_rwe_w2), .wb_sel_w2_i(idii_wbsel_w2),
     .is_branch_w2_i(idii_isbr_w2), .is_jump_w2_i(idii_isjmp_w2),
     .is_system_w2_i(idii_issys_w2), .is_mem_op_w2_i(idii_ismem_w2),
+    .is_csr_w2_i(idii_iscsr_w2), .csr_addr_w2_i(idii_csr_addr_w2), .funct3_w2_i(idii_funct3_w2),
     .is_muldiv_w2_i(idii_ismul_w2), .muldiv_funct3_w2_i(idii_mulf3_w2),
     .uses_rs1_w2_i(idii_urs1_w2), .uses_rs2_w2_i(idii_urs2_w2), .valid_w2_i(idii_valid_w2),
     // 寄存器堆
@@ -303,6 +314,7 @@ ii_stage #(
     .reg_write_en_w1_o(iiex_rwe_w1), .wb_sel_w1_o(iiex_wbsel_w1),
     .is_branch_w1_o(iiex_isbr_w1), .is_jump_w1_o(iiex_isjmp_w1), .valid_w1_o(iiex_valid_w1),
     .is_muldiv_w1_o(iiex_ismul_w1), .muldiv_funct3_w1_o(iiex_mulf3_w1),
+    .is_csr_w1_o(iiex_iscsr_w1), .csr_addr_w1_o(iiex_csr_addr_w1), .funct3_w1_o(iiex_funct3_w1),
     // IIEX Way2
     .pc_w2_o(iiex_pc_w2),
     .rs1_addr_w2_o(iiex_rs1a_w2), .rs2_addr_w2_o(iiex_rs2a_w2), .rd_addr_w2_o(iiex_rd_w2),
@@ -312,7 +324,8 @@ ii_stage #(
     .mem_read_en_w2_o(iiex_mr_w2), .mem_write_en_w2_o(iiex_mw_w2), .mem_size_w2_o(iiex_msz_w2),
     .reg_write_en_w2_o(iiex_rwe_w2), .wb_sel_w2_o(iiex_wbsel_w2),
     .is_branch_w2_o(iiex_isbr_w2), .is_jump_w2_o(iiex_isjmp_w2),
-    .is_muldiv_w2_o(iiex_ismul_w2), .muldiv_funct3_w2_o(iiex_mulf3_w2), .valid_w2_o(iiex_valid_w2),
+    .is_muldiv_w2_o(iiex_ismul_w2), .muldiv_funct3_w2_o(iiex_mulf3_w2),
+    .is_csr_w2_o(iiex_iscsr_w2), .csr_addr_w2_o(iiex_csr_addr_w2), .funct3_w2_o(iiex_funct3_w2), .valid_w2_o(iiex_valid_w2),
     .predict_taken_o(predict_taken_iiex),
     .predict_target_o(predict_target_iiex)
 );
@@ -350,7 +363,8 @@ ex_stage #(
     .mem_read_en_w1_i(iiex_mr_w1), .mem_write_en_w1_i(iiex_mw_w1), .mem_size_w1_i(iiex_msz_w1),
     .reg_write_en_w1_i(iiex_rwe_w1), .wb_sel_w1_i(iiex_wbsel_w1),
     .is_branch_w1_i(iiex_isbr_w1), .is_jump_w1_i(iiex_isjmp_w1),
-    .is_muldiv_w1_i(iiex_ismul_w1), .muldiv_funct3_w1_i(iiex_mulf3_w1), .valid_w1_i(iiex_valid_w1),
+    .is_muldiv_w1_i(iiex_ismul_w1), .muldiv_funct3_w1_i(iiex_mulf3_w1),
+    .is_csr_w1_i(iiex_iscsr_w1), .csr_addr_w1_i(iiex_csr_addr_w1), .funct3_w1_i(iiex_funct3_w1), .valid_w1_i(iiex_valid_w1),
     // IIEX Way2
     .pc_w2_i(iiex_pc_w2),
     .rs1_addr_w2_i(iiex_rs1a_w2), .rs2_addr_w2_i(iiex_rs2a_w2),
@@ -361,7 +375,8 @@ ex_stage #(
     .mem_read_en_w2_i(iiex_mr_w2), .mem_write_en_w2_i(iiex_mw_w2), .mem_size_w2_i(iiex_msz_w2),
     .reg_write_en_w2_i(iiex_rwe_w2), .wb_sel_w2_i(iiex_wbsel_w2),
     .is_branch_w2_i(iiex_isbr_w2), .is_jump_w2_i(iiex_isjmp_w2),
-    .is_muldiv_w2_i(iiex_ismul_w2), .muldiv_funct3_w2_i(iiex_mulf3_w2), .valid_w2_i(iiex_valid_w2),
+    .is_muldiv_w2_i(iiex_ismul_w2), .muldiv_funct3_w2_i(iiex_mulf3_w2),
+    .is_csr_w2_i(iiex_iscsr_w2), .csr_addr_w2_i(iiex_csr_addr_w2), .funct3_w2_i(iiex_funct3_w2), .valid_w2_i(iiex_valid_w2),
     // 前递：EX/MEM（即上一周期 EX 输出，本周期 EX 同时可用）
     .fwd_exmem_result_w1(exmem_alu_w1), .fwd_exmem_rd_w1(exmem_rd_w1), .fwd_exmem_we_w1(exmem_rwe_w1),
     .fwd_exmem_result_w2(exmem_alu_w2), .fwd_exmem_rd_w2(exmem_rd_w2), .fwd_exmem_we_w2(exmem_rwe_w2),
@@ -381,7 +396,9 @@ ex_stage #(
     .mem_read_en_w2_o(exmem_mr_w2), .mem_write_en_w2_o(exmem_mw_w2), .mem_size_w2_o(exmem_msz_w2),
     .reg_write_en_w2_o(exmem_rwe_w2), .wb_sel_w2_o(exmem_wbs_w2), .valid_w2_o(exmem_val_w2),
     // 分支
-    .branch_taken_o(branch_taken), .branch_target_o(branch_target), .mispredict_o(mispredict)
+    .branch_taken_o(branch_taken), .branch_target_o(branch_target), .mispredict_o(mispredict),
+    .muldiv_stall(muldiv_stall),
+    .irq_timer(irq_timer_ex)
 );
 // 外部存储器接口适配
 wire mem_access_req;
@@ -423,19 +440,16 @@ mem_stage #(
     .dcache_req(dcache_req),
     .dcache_we(dcache_we),
     .dcache_size(dcache_size),
-    .dcache_data_out(dcache_data_out),
-    .dcache_hit(dcache_hit),
-    .dcache_refill_done(dcache_refill_done),
     .dcache_writeback_req(dcache_writeback_req),
     .dcache_writeback_addr(dcache_writeback_addr),
     .dcache_writeback_data(dcache_writeback_data),
+    .dcache_cache_stall(dcache_cache_stall),
     .dcache_mem_addr(dcache_mem_addr),
     .dcache_mem_wdata(dcache_mem_wdata),
     .dcache_mem_rdata(dcache_mem_rdata),
     .dcache_mem_req(dcache_mem_req),
     .dcache_mem_we(dcache_mem_we),
     .dcache_mem_ready(dcache_mem_ready),
-    .dcache_cache_stall(dcache_cache_stall),
     // EX/MEM Way1
     .pc_w1_i(exmem_pc_w1), .alu_result_w1_i(exmem_alu_w1), .rs2_data_w1_i(exmem_rs2_w1),
     .rd_addr_w1_i(exmem_rd_w1), .valid_w1_i(exmem_val_w1),
@@ -479,15 +493,14 @@ hazard_unit u_hazard_unit (
     .rs1_addr_id_w2(idii_rs1_w2), .rs2_addr_id_w2(idii_rs2_w2),
     .rs1_used_id_w2(idii_urs1_w2), .rs2_used_id_w2(idii_urs2_w2),
     // IIEX 目的寄存器（EX 阶段 Load-Use 检测）
-    .rd_addr_ex_w1(iiex_rd_w1), .reg_write_en_ex_w1(iiex_rwe_w1), .mem_read_en_ex_w1(iiex_mr_w1),
-    .rd_addr_ex_w2(iiex_rd_w2), .reg_write_en_ex_w2(iiex_rwe_w2), .mem_read_en_ex_w2(iiex_mr_w2),
-    // EX/MEM 目的寄存器
-    .rd_addr_mem_w1(exmem_rd_w1), .reg_write_en_mem_w1(exmem_rwe_w1),
-    .rd_addr_mem_w2(exmem_rd_w2), .reg_write_en_mem_w2(exmem_rwe_w2),
+    .rd_addr_ex_w1(iiex_rd_w1), .mem_read_en_ex_w1(iiex_mr_w1),
+    .rd_addr_ex_w2(iiex_rd_w2), .mem_read_en_ex_w2(iiex_mr_w2),
     // 分支信号
-    .branch_taken_ex(branch_taken), .mispredict_ex(mispredict),
+    .mispredict_ex(mispredict),
     // 双发射停顿
     .stall_dual(stall_dual),
+    // 乘除法停顿
+    .muldiv_stall(muldiv_stall),
     // 流水线控制
     .stall_if(stall_if), .stall_id(stall_id),
     .flush_if(flush_if), .flush_id(flush_id), .flush_ex(flush_ex),

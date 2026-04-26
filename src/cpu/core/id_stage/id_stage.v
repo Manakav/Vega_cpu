@@ -44,6 +44,9 @@ module id_stage #(
     output reg                   is_branch_w1_o,
     output reg                   is_jump_w1_o,
     output reg                   is_system_w1_o,
+    output reg                   is_csr_w1_o,
+    output reg  [11:0]           csr_addr_w1_o,
+    output reg  [2:0]            funct3_w1_o,
     output reg                   is_mem_op_w1_o,   // load 或 store
     output reg                   is_muldiv_w1_o,
     output reg  [2:0]            muldiv_funct3_w1_o,
@@ -68,6 +71,9 @@ module id_stage #(
     output reg                   is_branch_w2_o,
     output reg                   is_jump_w2_o,
     output reg                   is_system_w2_o,
+    output reg                   is_csr_w2_o,
+    output reg  [11:0]           csr_addr_w2_o,
+    output reg  [2:0]            funct3_w2_o,
     output reg                   is_mem_op_w2_o,
     output reg                   is_muldiv_w2_o,
     output reg  [2:0]            muldiv_funct3_w2_o,
@@ -87,7 +93,8 @@ wire [6:0]  opcode_w1;
 wire [2:0]  funct3_w1;
 wire [6:0]  funct7_w1;
 wire is_branch_w1, is_jump_w1, is_load_w1, is_store_w1;
-wire is_alu_imm_w1, is_alu_rr_w1, is_lui_w1, is_auipc_w1, is_system_w1;
+wire is_alu_imm_w1, is_alu_rr_w1, is_lui_w1, is_auipc_w1, is_system_w1, is_csr_w1;
+wire [11:0] csr_addr_w1;
 wire is_muldiv_w1;
 wire [2:0] muldiv_funct3_w1;
 wire is_compressed_w1;
@@ -102,7 +109,8 @@ decoder u_decoder_w1 (
     .is_load(is_load_w1),  .is_store(is_store_w1),
     .is_alu_imm(is_alu_imm_w1), .is_alu_rr(is_alu_rr_w1),
     .is_muldiv(is_muldiv_w1), .muldiv_funct3(muldiv_funct3_w1),
-    .is_lui(is_lui_w1), .is_auipc(is_auipc_w1), .is_system(is_system_w1)
+    .is_lui(is_lui_w1), .is_auipc(is_auipc_w1), .is_system(is_system_w1),
+    .is_csr(is_csr_w1), .csr_addr(csr_addr_w1)
 );
 
 // ---------- Way2 译码器 ----------
@@ -112,7 +120,8 @@ wire [6:0]  opcode_w2;
 wire [2:0]  funct3_w2;
 wire [6:0]  funct7_w2;
 wire is_branch_w2, is_jump_w2, is_load_w2, is_store_w2;
-wire is_alu_imm_w2, is_alu_rr_w2, is_lui_w2, is_auipc_w2, is_system_w2;
+wire is_alu_imm_w2, is_alu_rr_w2, is_lui_w2, is_auipc_w2, is_system_w2, is_csr_w2;
+wire [11:0] csr_addr_w2;
 wire is_muldiv_w2;
 wire [2:0] muldiv_funct3_w2;
 wire is_compressed_w2;
@@ -127,7 +136,8 @@ decoder u_decoder_w2 (
     .is_load(is_load_w2),  .is_store(is_store_w2),
     .is_alu_imm(is_alu_imm_w2), .is_alu_rr(is_alu_rr_w2),
     .is_muldiv(is_muldiv_w2), .muldiv_funct3(muldiv_funct3_w2),
-    .is_lui(is_lui_w2), .is_auipc(is_auipc_w2), .is_system(is_system_w2)
+    .is_lui(is_lui_w2), .is_auipc(is_auipc_w2), .is_system(is_system_w2),
+    .is_csr(is_csr_w2), .csr_addr(csr_addr_w2)
 );
 
 // ---------- 控制信号生成（Way1 组合逻辑）----------
@@ -288,6 +298,9 @@ always @(posedge clk or negedge rst_n) begin
         is_branch_w1_o <= 1'b0; is_jump_w1_o <= 1'b0;
         is_branch_w2_o <= 1'b0; is_jump_w2_o <= 1'b0;
         is_system_w1_o <= 1'b0; is_system_w2_o <= 1'b0;
+        is_csr_w1_o <= 1'b0; is_csr_w2_o <= 1'b0;
+        csr_addr_w1_o <= 12'b0; csr_addr_w2_o <= 12'b0;
+        funct3_w1_o <= 3'b0; funct3_w2_o <= 3'b0;
         is_mem_op_w1_o <= 1'b0; is_mem_op_w2_o <= 1'b0;
         is_muldiv_w1_o <= 1'b0; is_muldiv_w2_o <= 1'b0;
         muldiv_funct3_w1_o <= 3'b0; muldiv_funct3_w2_o <= 3'b0;
@@ -314,6 +327,9 @@ always @(posedge clk or negedge rst_n) begin
         is_branch_w1_o     <= is_branch_w1;
         is_jump_w1_o       <= is_jump_w1;
         is_system_w1_o     <= is_system_w1;
+        is_csr_w1_o        <= is_csr_w1;
+        csr_addr_w1_o      <= csr_addr_w1;
+        funct3_w1_o        <= funct3_w1;
         is_mem_op_w1_o     <= is_load_w1 || is_store_w1;
         is_muldiv_w1_o     <= is_muldiv_w1;
         muldiv_funct3_w1_o <= muldiv_funct3_w1;
@@ -337,6 +353,9 @@ always @(posedge clk or negedge rst_n) begin
         is_branch_w2_o     <= is_branch_w2;
         is_jump_w2_o       <= is_jump_w2;
         is_system_w2_o     <= is_system_w2;
+        is_csr_w2_o        <= is_csr_w2;
+        csr_addr_w2_o      <= csr_addr_w2;
+        funct3_w2_o        <= funct3_w2;
         is_mem_op_w2_o     <= is_load_w2 || is_store_w2;
         is_muldiv_w2_o     <= is_muldiv_w2;
         muldiv_funct3_w2_o <= muldiv_funct3_w2;

@@ -4,6 +4,8 @@ verilog xil_defaultlib  --include "D:/xilinx/2025.2/Vivado/data/rsb/busdef" \
 "../../../../Vega.gen/sources_1/ip/data_ram_b/data_ram_b_sim_netlist.v" \
 "../../../../Vega.gen/sources_1/ip/boot_rom_ip/sim/boot_rom_ip.v" \
 "../../../../../../src/cpu/core/ex_stage/alu.v" \
+"../../../../../../src/cpu/core/csr/csr_unit.v" \
+"../../../../../../src/cpu/core/ex_stage/muldiv_unit.v" \
 "../../../../../../src/cpu/core/if_stage/bht.v" \
 "../../../../../../src/cpu/core/if_stage/btb.v" \
 "../../../../../../src/cpu/core/mem_stage/dcache.v" \

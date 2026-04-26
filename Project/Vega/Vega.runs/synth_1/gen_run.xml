@@ -1,56 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a200tfbg676-3" LaunchTime="1777042522" LaunchFeatureSet="FeatureSet_Classic">
-  <File Type="REPORTS-TCL" Name="vega_soc_top_reports.tcl"/>
-  <File Type="RDS-UTIL" Name="vega_soc_top_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="vega_soc_top_utilization_synth.pb"/>
-  <File Type="PA-TCL" Name="vega_soc_top.tcl"/>
-  <File Type="RDS-RDS" Name="vega_soc_top.vds"/>
+<GenRun Id="synth_1" LaunchPart="xc7a200tfbg676-3" LaunchTime="1777206132" LaunchFeatureSet="FeatureSet_Classic">
+  <File Type="VDS-TIMINGSUMMARY" Name="vega_soc_top_timing_summary_synth.rpt"/>
   <File Type="RDS-DCP" Name="vega_soc_top.dcp"/>
+  <File Type="RDS-UTIL-PB" Name="vega_soc_top_utilization_synth.pb"/>
+  <File Type="RDS-UTIL" Name="vega_soc_top_utilization_synth.rpt"/>
+  <File Type="RDS-PROPCONSTRS" Name="vega_soc_top_drc_synth.rpt"/>
+  <File Type="RDS-RDS" Name="vega_soc_top.vds"/>
+  <File Type="REPORTS-TCL" Name="vega_soc_top_reports.tcl"/>
+  <File Type="VDS-TIMING-PB" Name="vega_soc_top_timing_summary_synth.pb"/>
+  <File Type="PA-TCL" Name="vega_soc_top.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PPRDIR/../../test/workbench/soft/start_inst.coe">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PPRDIR/../../src/soc/peripherals/uart_lite.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PPRDIR/../../src/cpu/core/csr/csr_unit.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PPRDIR/../../src/cpu/core/ex_stage/mul_div.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PPRDIR/../../src/soc/memory/boot_rom.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PPRDIR/../../src/soc/memory/data_ram.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
@@ -90,6 +53,13 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../../src/cpu/core/if_stage/btb.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/csr/csr_unit.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -153,6 +123,13 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../../src/cpu/core/mem_stage/mem_stage.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../src/cpu/core/ex_stage/muldiv_unit.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>

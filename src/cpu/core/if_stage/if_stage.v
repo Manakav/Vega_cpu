@@ -105,6 +105,7 @@ wire [31:0] inst2_raw =
                               {16'b0, instr_window[63:48]};
 
 wire way2_len_valid = ~inst2_cross_unavailable;
+wire way2_fetch_valid = ~(btb_hit & btb_valid);
 wire [ADDR_WIDTH-1:0] seq_inc = (inst1_is_32 ? 64'd4 : 64'd2) +((way2_fetch_valid && way2_len_valid) ? (inst2_is_32 ? 64'd4 : 64'd2) : 64'd0);
 
 // 控制流选择：纠错重定向 > 预测跳转 > 顺序推进（按 16/32-bit 指令长度）
@@ -119,8 +120,6 @@ assign predict_pc    = btb_hit ? btb_target : (pc_reg + seq_inc);
 assign predict_target   = predict_pc;
 assign predict_fetch_pc = pc_reg;
 
-// Way2 仅在 BTB 未命中（无预测跳转）时有效；若 Way1 被预测为跳转，Way2 路径无效
-wire way2_fetch_valid = ~(btb_hit & btb_valid);
 
 //实例化Branch Target Buffer（分支目标缓冲器）
 btb u_btb (

@@ -1,4 +1,4 @@
-set_property SRC_FILE_INFO {cfile:Z:/Vega_cpu/Project/Vega/Vega.srcs/constrs_1/new/Pin1.xdc rfile:../../../Vega.srcs/constrs_1/new/Pin1.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:/mnt/shared/Vega_cpu/Project/Vega/Vega.srcs/constrs_1/new/Pin1.xdc rfile:../../../Vega.srcs/constrs_1/new/Pin1.xdc id:1} [current_design]
 set_property src_info {type:XDC file:1 line:1 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN H7 [get_ports {led_o[0]}]
 set_property src_info {type:XDC file:1 line:2 export:INPUT save:INPUT read:READ} [current_design]

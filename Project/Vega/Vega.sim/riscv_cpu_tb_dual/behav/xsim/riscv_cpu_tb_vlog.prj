@@ -1,6 +1,8 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  --include "../../../../../../../../vivado/2025.2/data/rsb/busdef" \
 "../../../../../../src/cpu/core/ex_stage/alu.v" \
+"../../../../../../src/cpu/core/csr/csr_unit.v" \
+"../../../../../../src/cpu/core/ex_stage/muldiv_unit.v" \
 "../../../../../../src/cpu/core/if_stage/bht.v" \
 "../../../../../../src/cpu/core/if_stage/btb.v" \
 "../../../../../../src/cpu/core/id_stage/decoder.v" \

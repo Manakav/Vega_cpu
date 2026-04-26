@@ -28,7 +28,9 @@ module decoder (
     output reg  [2:0]  muldiv_funct3,
     output reg         is_lui,
     output reg         is_auipc,
-    output reg         is_system
+    output reg         is_system,
+    output reg         is_csr,
+    output reg  [11:0] csr_addr
 );
 
 wire [6:0] op = instr[6:0];
@@ -54,8 +56,9 @@ localparam IMM_CLW  = 4'd12;
 localparam IMM_CSW  = 4'd13;
 localparam IMM_CADDI16SP = 4'd14;
 localparam IMM_CSLLI = 4'd15;
+localparam IMM_SYS   = 5'd16;
 
-reg [3:0] imm_type;
+reg [4:0] imm_type;
 
 // 立即数生成 - 独立组合逻辑块
 always @(*) begin
@@ -76,6 +79,7 @@ always @(*) begin
         IMM_CSW:  imm = {57'b0, instr[5], instr[12], instr[11:10], instr[6], 2'b00};
         IMM_CADDI16SP: imm = {{54{instr[12]}}, instr[12], instr[4:3], instr[5], instr[2], instr[6], 4'b0000};
         IMM_CSLLI: imm = {58'b0, instr[12], instr[6:2]};
+        IMM_SYS:   imm = {57'b0, instr[19:15]};
         default:  imm = 64'b0;
     endcase
 end
@@ -102,6 +106,8 @@ always @(*) begin
     is_lui = 1'b0;
     is_auipc = 1'b0;
     is_system = 1'b0;
+    is_csr = 1'b0;
+    csr_addr = 12'b0;
     imm_type = 4'd0;
 
     if (!valid) begin
@@ -324,19 +330,16 @@ always @(*) begin
                                 opcode = 7'b0010011;
                                 funct3 = 3'b000;
                                 rs1_addr = instr[6:2];
-                                imm = 64'b0;
                                 is_alu_imm = 1'b1;
                             end
                             2'b10: begin
                                 opcode = 7'b1100111;
                                 rd_addr = 5'b0;
-                                imm = 64'b0;
                                 is_jump = 1'b1;
                             end
                             2'b01: begin
                                 opcode = 7'b1100111;
                                 rd_addr = 5'd1;
-                                imm = 64'b0;
                                 is_jump = 1'b1;
                             end
                             default: begin
@@ -451,8 +454,14 @@ always @(*) begin
             7'b1110011: begin
                 rs1_addr = instr[19:15];
                 rd_addr = instr[11:7];
-                imm = {57'b0, instr[19:15]};
-                is_system = 1'b1;
+                imm_type = IMM_SYS;
+                if (f3 != 3'b000) begin
+                    is_csr = 1'b1;
+                    csr_addr = instr[31:20];
+                    funct3 = f3;
+                end else begin
+                    is_system = 1'b1;
+                end
             end
             default: begin
                 opcode = 7'b0;

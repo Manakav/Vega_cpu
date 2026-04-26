@@ -60,7 +60,7 @@ boot_rom_ip u_boot_rom_ip (
     .addra  (instr_addr[13:2]),
     .douta  (instr_data_w1),
     .clkb   (clk_in),
-    .addrb  (instr_addr[13:2] + 1),
+    .addrb  (instr_addr[13:2] + 12'd1),
     .doutb  (instr_data_w2)
 );
 

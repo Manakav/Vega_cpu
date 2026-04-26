@@ -1,24 +1,24 @@
 #-----------------------------------------------------------
 # Vivado v2025.2 (64-bit)
-# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Sat Apr 25 13:28:30 2026
-# Process ID         : 24572
-# Current directory  : Z:/Vega_cpu/Project/Vega/Vega.runs/impl_1
-# Command line       : vivado.exe -log vega_soc_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source vega_soc_top.tcl -notrace
-# Log file           : Z:/Vega_cpu/Project/Vega/Vega.runs/impl_1/vega_soc_top.vdi
-# Journal file       : Z:/Vega_cpu/Project/Vega/Vega.runs/impl_1\vivado.jou
-# Running On         : Station
-# Platform           : Windows Server 2016 or Windows 10
-# Operating System   : 26220
-# Processor Detail   : AMD Ryzen Threadripper PRO 3945WX 12-Cores     
-# CPU Frequency      : 3993 MHz
-# CPU Physical cores : 12
-# CPU Logical cores  : 24
-# Host memory        : 68563 MB
-# Swap memory        : 4294 MB
-# Total Virtual      : 72858 MB
-# Available Virtual  : 52699 MB
+# Start of session at: Sun Apr 26 20:36:52 2026
+# Process ID         : 395820
+# Current directory  : /mnt/shared/Vega_cpu/Project/Vega/Vega.runs/impl_1
+# Command line       : vivado -log vega_soc_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source vega_soc_top.tcl -notrace
+# Log file           : /mnt/shared/Vega_cpu/Project/Vega/Vega.runs/impl_1/vega_soc_top.vdi
+# Journal file       : /mnt/shared/Vega_cpu/Project/Vega/Vega.runs/impl_1/vivado.jou
+# Running On         : debian
+# Platform           : Debian
+# Operating System   : Debian GNU/Linux 13 (trixie)
+# Processor Detail   : AMD Ryzen Threadripper PRO 3945WX 12-Cores
+# CPU Frequency      : 3992.498 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 16
+# Host memory        : 33659 MB
+# Swap memory        : 27184 MB
+# Total Virtual      : 60843 MB
+# Available Virtual  : 55119 MB
 #-----------------------------------------------------------
 source vega_soc_top.tcl -notrace
